@@ -1,0 +1,22 @@
+{
+  "name": "excuze-backend",
+  "version": "1.0.0",
+  "description": "Excuze backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angelocarly/Excuze-backend.git"
+  },
+  "author": "Angelo Carly",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/angelocarly/Excuze-backend/issues"
+  },
+  "homepage": "https://github.com/angelocarly/Excuze-backend#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
