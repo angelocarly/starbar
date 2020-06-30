@@ -111,6 +111,16 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
 
                     // Versnaperingen
                     db.run(insert, ["Chips", 1.90, 6])
+                    db.run(insert, ["Partysnacks 32 stuks + sausje", 8.00, 6])
+                    db.run(insert, ["Bitterballen 20 stuks + sausje", 8.00, 6])
+                    db.run(insert, ["Calamares + verse huisgemaakte tartare", 10, 6])
+                    db.run(insert, ["Frikandel 2 Stuks + sausje", 5, 6])
+                    db.run(insert, ["Frikandel Speciale", 4, 6])
+                    db.run(insert, ["Spaghetti groot", 9, 6])
+                    db.run(insert, ["Spaghetti klein", 7, 6])
+                    db.run(insert, ["Pizza Hawai", 8, 6])
+                    db.run(insert, ["Pizza Bolognaise", 8, 6])
+                    db.run(insert, ["Pizza Vegetarisch", 8, 6])
                     
                     // Warme Dranken
                     db.run(insert, ["Cappuccino", 3.00, 7])
