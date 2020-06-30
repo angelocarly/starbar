@@ -7,57 +7,99 @@ let jwt = require('express-jwt');
 // let auth = jwt({ secret: process.env.BACKEND_SECRET });
 
 router.get('/', function (req, res, next) {
-    res.send('test')
+    if (req.body.category) {
+        db.all("SELECT * from Consumption WHERE category_id = ?", [req.body.category], function (err, rows) {
+            if (err) { return next(err); }
+
+            res.send(rows);
+        });
+
+    }
+    else {
+        db.all("SELECT * from Consumption", function (err, rows) {
+            if (err) { return next(err); }
+
+            res.send(rows);
+        });
+    }
 });
 
-// //GET tab by id
-// router.get('/:tab', function (req, res, next) {
-//   res.json(req.tab);
-// })
+/* POST consumption */
+router.post('/', function (req, res, next) {
 
+    if (!req.body.name || !req.body.price || !req.body.category) {
+        return res.status(400).json(
+            { message: 'Please fill out all fields (name)' });
+    }
 
-// //DELETE tab
-// router.delete('/:id', auth, function (req, res, next) {
+    var data = {
+        name: req.body.name,
+        price: req.body.price,
+        category: req.body.category,
+    }
 
-//   //Verify if id is appended
-//   if (!req.params.id) {
-//     return res.status(400).json(
-//       { message: 'Please fill in the id' });
-//   }
+    db.run("INSERT INTO Consumption(name, price, category_id) VALUES(?, ?, ?)",
+        [data.name, data.price, data.category],
+        function (err, result) {
+            if (err) { return next(err); }
 
-//   //Verify if id is a valid ObjectId
-//   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-//     return res.status(400).json({message: 'Failed to convert id to a MongoDB id'})
-//   }
+            res.json({
+                "message": "success",
+                "data": data,
+            })
+        })
 
-//   //Try to delete the tab
-//   Tab.deleteOne(
-//     //Delete a tab with the tab id and the author id
-//     { _id: req.params.id, author: req.user._id},
-//     function (err, result) {
-//       if (err) return res.status(400).send(err);
+});
 
-//       //No tabs were deleted
-//       if (result.n === 0) return res.status(400).json({ message: `Could not remove tab because it doesn't exist or is not owned by this user.` })
+/* PUT consumption */
+router.put('/', function (req, res, next) {
 
-//       //Success
-//       return res.sendStatus(200)
-//     })
-// })
+    if (!req.body.id || !req.body.name || !req.body.price || !req.body.category) {
+        return res.status(400).json(
+            { message: 'Please fill out all fields (id, name)' });
+    }
 
+    var data = {
+        id: req.body.id,
+        name: req.body.name,
+        price: req.body.price,
+        category: req.body.category,
+    }
 
-// router.param('tab', function (req, res, next, id) {
-//   let query = Tab.findById(id);
-//   query.exec(function (err, tab) {
-//     if (err) {
-//       return next(err);
-//     }
-//     if (!tab) {
-//       return next(new Error('not found ' + id));
-//     }
-//     req.tab = tab;
-//     return next();
-//   });
-// });
+    db.run("UPDATE Consumption SET name = ?, price = ?, category_id = ? WHERE consumption_id = ?",
+        [data.name, data.price, data.category, data.id],
+        function (err, result) {
+            if (err) { return next(err); }
+
+            res.json({
+                "message": "success",
+                "data": data,
+            })
+        })
+
+});
+
+/* DELETE consumption */
+router.delete('/', function (req, res, next) {
+
+    //Verify if id is appended
+    if (!req.body.id) {
+        return res.status(400).json(
+            { message: 'Please fill in the id' });
+    }
+
+    var data = {
+        id: req.body.id,
+    }
+
+    db.run("DELETE FROM Consumption WHERE consumption_id = ?", [data.id], function (err, result) {
+        if (err) { return next(err); }
+
+        res.json({
+            "message": "success",
+            "data": data,
+        })
+    })
+})
 
 module.exports = router;
