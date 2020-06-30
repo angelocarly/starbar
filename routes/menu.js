@@ -6,6 +6,7 @@ let jwt = require('express-jwt');
 // let Tab = mongoose.model('Tab');
 // let auth = jwt({ secret: process.env.BACKEND_SECRET });
 
+/* GET consumptions */
 router.get('/', function (req, res, next) {
     if (req.body.category) {
         db.all("SELECT * from Consumption WHERE category_id = ?", [req.body.category], function (err, rows) {
