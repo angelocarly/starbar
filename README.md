@@ -5,5 +5,5 @@ Backend for the Excuze site
 
 ### Development server
 ```
-nodemon app.js
+npx nodemon app.js
 ```
