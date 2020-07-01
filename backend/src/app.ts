@@ -1,24 +1,20 @@
-require('dotenv').config();
+import env from "dotenv";
 
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var passport = require('passport');
+import createError from "http-errors";
+import express from "express";
+import path from "path";
+import cookieParser from "cookie-parser";
+import logger from "morgan";
+import passport from "passport";
 
 // Load express routers
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var menuRouter = require('./routes/menu');
-var categoryRouter = require('./routes/category');
+import indexRouter from "./routes";
+import usersRouter from "./routes/users";
+import menuRouter from "./routes/menu";
+import categoryRouter from "./routes/category";
 
-
-var app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+env.config();
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -32,16 +28,18 @@ app.use('/users', usersRouter);
 app.use('/menu', menuRouter);
 app.use('/categories', categoryRouter);
 
-// database
-
-
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((
+    err: any,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -51,4 +49,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+export { app };
+export default app;

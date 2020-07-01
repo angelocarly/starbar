@@ -1,7 +1,8 @@
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var express = require('express');
-var router = express.Router();
+import passport from "passport";
+import LocalStrategy from "passport-local";
+LocalStrategy.Strategy;
+import express from "express";
+const router = express.Router();
 // let mongoose = require('mongoose');
 // let User = mongoose.model('User');
 
@@ -92,4 +93,5 @@ var router = express.Router();
 //     });
 // });
 
-module.exports = router;
+export default router;
+
