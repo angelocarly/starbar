@@ -2,19 +2,17 @@ import express from "express";
 import { Request, Response } from "express";
 import { getManager } from "typeorm";
 import { Consumption } from "../entities/consumption";
+import { ConsumptionRepository } from "../repositories/consumption.repository"
 
 const router = express.Router();
+const consumptionRepo = new ConsumptionRepository()
 
 // const jwt = require("express-jwt");
 
 /* GET consumptions */
 router.get("/", async function(req: Request, res: Response) {
 
-	const consumptionRepo = getManager().getRepository(Consumption);
-
-	const consumptions = await consumptionRepo.find({
-		relations: ["category"]
-	});
+	let consumptions = await consumptionRepo.getAllWithCategories();
 
 	res.send(consumptions);
 
