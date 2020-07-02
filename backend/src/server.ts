@@ -1,3 +1,4 @@
+import { Error } from "./models/Error.model";
 import env from "dotenv";
 
 import createError from "http-errors";
@@ -12,7 +13,7 @@ import usersRouter from "./routes/users";
 import menuRouter from "./routes/menu";
 import categoryRouter from "./routes/category";
 import { typeOrmConfig } from "./config";
-import { createConnection} from "typeorm";
+import { createConnection } from "typeorm";
 
 env.config();
 const server = express();
@@ -33,9 +34,10 @@ server.use((req, res, next) => {
 	next(createError(404));
 });
 
+
 // error handler
 server.use((
-	err: any,
+	err: Error,
 	req: express.Request,
 	res: express.Response,
 	// next: express.NextFunction

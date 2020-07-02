@@ -1,7 +1,7 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { Consumption } from "./consumption";
 
-@Entity('category')
+@Entity("category")
 export class Category {
 
     @PrimaryGeneratedColumn()
@@ -14,8 +14,8 @@ export class Category {
     public consumptions?: Consumption[];
 
     constructor(category: Category) {
-        this.id = category?.id;
-        this.name = category?.name;
-        this.consumptions = category?.consumptions;
+    	this.id = category?.id;
+    	this.name = category?.name;
+    	this.consumptions = category?.consumptions;
     }
 }
