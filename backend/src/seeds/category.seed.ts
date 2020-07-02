@@ -1,4 +1,6 @@
-export const CategorySeed = [
+import {Category} from "../entities/category";
+
+export const CategorySeed: Category[]  = [
     { id: 1, name: "Bieren" },
     { id: 2, name: "Speciale Bieren" },
     { id: 3, name: "Bieren 0%" },
