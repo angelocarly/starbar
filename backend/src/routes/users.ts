@@ -1,4 +1,3 @@
-import passport from "passport";
 import LocalStrategy from "passport-local";
 LocalStrategy.Strategy;
 import express from "express";
@@ -45,10 +44,10 @@ const router = express.Router();
 //       { message: 'Please fill out all fields' });
 //   }
 
-//   User.findOne({ username: req.body.username }, function (err, data) {
+//   User.findOne({ username: req.body.username }, function (err, database) {
 //     if (err) { return done(err); }
     
-//     if (!data) {
+//     if (!database) {
 //       let user = new User();
 //       user.username = req.body.username;
 //       user.setPassword(req.body.password)
