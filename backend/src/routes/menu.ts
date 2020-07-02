@@ -8,8 +8,7 @@ const router = express.Router();
 // const jwt = require("express-jwt");
 
 /* GET consumptions */
-router.get("/", async function(req: Request, res: Response) {
-
+router.get("/", async (req: Request, res: Response) => {
 	const consumptionRepo = getManager().getRepository(Consumption);
 
 	const consumptions = await consumptionRepo.find({
