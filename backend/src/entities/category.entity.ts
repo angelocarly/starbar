@@ -3,13 +3,19 @@ import { Consumption } from "./consumption";
 
 @Entity('category')
 export class Category {
+
     @PrimaryGeneratedColumn()
-    id!: number
+    public id: number;
 
     @Column()
-    name?: string
+    public name?: string;
 
     @OneToMany(() => Consumption, consumption => consumption.category)
-    consumptions!: Consumption[]
+    public consumptions?: Consumption[];
 
+    constructor(category: Category) {
+        this.id = category?.id;
+        this.name = category?.name;
+        this.consumptions = category?.consumptions;
+    }
 }
