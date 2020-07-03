@@ -21,7 +21,6 @@ export class MenuController {
 
 	@Post("/menu")
 	async post(@Body() consumption: Consumption) {
-		console.log(consumption.name + " " + consumption.price + " aafdsafasd");
 		return await this.consumptionService.insert(consumption);
 	}
 
