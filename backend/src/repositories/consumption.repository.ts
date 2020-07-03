@@ -1,4 +1,4 @@
-import { getRepository, InsertResult, UpdateResult } from "typeorm";
+import { getRepository, DeleteResult } from "typeorm";
 import { Consumption } from "../entities/consumption.entity";
 import { Service } from "typedi";
 import { Repository } from "./repository";
@@ -25,6 +25,10 @@ export class ConsumptionRepository implements Repository<Consumption> {
 		return this.repository.update(id, consumption).then((res) => {
 			return this.repository.findOneOrFail(id);
 		});
+	}
+
+	delete(id: number): Promise<DeleteResult> {
+		return this.repository.delete(id);
 	}
 
 }

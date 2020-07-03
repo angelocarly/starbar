@@ -2,6 +2,7 @@ import { Consumption } from "../entities/consumption.entity";
 import { Service, Container, Inject } from "typedi";
 import { ConsumptionRepository } from "../repositories/consumption.repository";
 import { GenericService } from "./service";
+import { DeleteResult } from "typeorm";
 
 @Service()
 export default class ConsumptionServiceImpl implements GenericService<Consumption> {
@@ -23,6 +24,10 @@ export default class ConsumptionServiceImpl implements GenericService<Consumptio
 
 	update(id: number, c: Consumption): Promise<Consumption> {
 		return this.repository.update(id, c);
+	}
+
+	delete(id: number): Promise<DeleteResult> {
+		return this.repository.delete(id);
 	}
 
 }

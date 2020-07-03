@@ -1,8 +1,9 @@
 import { Inject } from "typedi";
 import ConsumptionServiceImpl from "../service/consumption.service";
-import { Controller, Param, Body, Get, Post, Put, Delete } from "routing-controllers";
+import { Consumption } from "../entities/consumption.entity";
+import { JsonController, Param, Body, Get, Post, Put, Delete } from "routing-controllers";
 
-@Controller()
+@JsonController()
 export class MenuController {
 
 	@Inject()
@@ -19,21 +20,20 @@ export class MenuController {
 	}
 
 	@Post("/menu")
-	post(@Body() user: any) {
-		// TODO add post
-		return "Saving user...";
+	async post(@Body() consumption: Consumption) {
+		console.log(consumption.name + " " + consumption.price + " aafdsafasd");
+		return await this.consumptionService.insert(consumption);
 	}
 
 	@Put("/menu/:id")
-	put(@Param("id") id: number, @Body() user: any) {
-		// TODO add put
-		return "Updating a user...";
+	async put(@Param("id") id: number, @Body() consumption: Consumption) {
+		consumption.id = id;
+		return await this.consumptionService.update(id, consumption);
 	}
 
 	@Delete("/menu/:id")
-	remove(@Param("id") id: number) {
-		// TODO add delete
-		return "Removing user...";
+	async remove(@Param("id") id: number) {
+		return await this.consumptionService.delete(id);
 	}
 
 }

@@ -1,6 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { Category } from "./category.entity";
-import { ConsumptionDTO } from "../dto/consumption.dto";
 
 @Entity("consumption")
 export class Consumption {
