@@ -24,6 +24,7 @@
     "passport-local": "^1.0.0",
     "sqlite3": "^4.2.0",
     "ts-node": "^8.10.2",
+    "typedi": "^0.8.0",
     "typeorm": "^0.2.25",
     "typescript": "^3.9.6"
   },

@@ -1,10 +1,30 @@
-import { getManager } from "typeorm"
-import {Consumption} from "../entities/consumption"
+import { getRepository, InsertResult, UpdateResult } from "typeorm";
+import { Consumption } from "../entities/consumption.entity";
+import { Service } from "typedi";
+import { Repository } from "./repository";
 
-export class ConsumptionRepository {
-	
-	async getAllWithCategories():Promise<Consumption[]> {
-		return getManager().getRepository(Consumption).find({relations:["category"]})
+
+@Service()
+export class ConsumptionRepository implements Repository<Consumption> {
+
+	repository = getRepository(Consumption);
+
+	find(id: number): Promise<Consumption | undefined> {
+		return this.repository.findOne(id);
 	}
 
-} 
+	findAll(): Promise<Consumption[]> {
+		return this.repository.find({ relations:["category"] });
+	}
+
+	insert(consumption: Consumption): Promise<Consumption> {
+		return this.repository.save(consumption);
+	}
+
+	update(id: number, consumption: Consumption): Promise<Consumption> {
+		return this.repository.update(id, consumption).then((res) => {
+			return this.repository.findOneOrFail(id);
+		});
+	}
+
+}

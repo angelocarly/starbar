@@ -7,12 +7,13 @@ import logger from "morgan";
 import passport from "passport";
 
 // Load express routers
-import indexRouter from "./routes";
-import usersRouter from "./routes/users";
-import menuRouter from "./routes/menu";
-import categoryRouter from "./routes/category";
+import indexRouter from "./routes/index.routes";
+import usersRouter from "./routes/users.routes";
+import categoryRouter from "./routes/category.routes";
+import { Container } from "typedi";
+import { MenuController } from "./controller/menu.controller";
 import { typeOrmConfig } from "./config";
-import { createConnection} from "typeorm";
+import { createConnection } from "typeorm";
 
 env.config();
 const server = express();
@@ -23,10 +24,6 @@ server.use(express.urlencoded({ extended: false }));
 server.use(cookieParser());
 server.use(passport.initialize());
 
-server.use("/", indexRouter);
-server.use("/users", usersRouter);
-server.use("/menu", menuRouter);
-server.use("/categories", categoryRouter);
 
 // catch 404 and forward to error handler
 server.use((req, res, next) => {
@@ -51,6 +48,12 @@ server.use((
 
 
 createConnection(typeOrmConfig).then(async () => {
+
+	// TODO correctly link controller
+	server.use("/", indexRouter);
+	server.use("/users", usersRouter);
+	server.use("/categories", categoryRouter);
+	// server.use("/menu", Container.get(MenuController));
 
 	const PORT = process.env.PORT || 3000;
 	server.listen(PORT, () => {

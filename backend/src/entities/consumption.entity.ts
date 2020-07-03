@@ -1,7 +1,8 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from "typeorm";
-import { Category } from "./category";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Category } from "./category.entity";
+import { ConsumptionDTO } from "../dto/consumption.dto";
 
-@Entity('consumption')
+@Entity("consumption")
 export class Consumption {
 
     @PrimaryGeneratedColumn()
@@ -17,9 +18,9 @@ export class Consumption {
     public category: Category;
 
     constructor(consumption: Consumption) {
-        this.id = consumption?.id;
-        this.name = consumption?.name;
-        this.price = consumption?.price;
-        this.category = consumption?.category;
+    	this.id = consumption?.id;
+    	this.name = consumption?.name;
+    	this.price = consumption?.price;
+    	this.category = consumption?.category;
     }
 }
