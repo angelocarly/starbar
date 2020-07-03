@@ -1,26 +1,39 @@
-import { Inject, Service } from "typedi";
+import { Inject } from "typedi";
 import ConsumptionServiceImpl from "../service/consumption.service";
-import { Application, Request, Response } from "express";
+import { Controller, Param, Body, Get, Post, Put, Delete } from "routing-controllers";
 
-@Service()
+@Controller()
 export class MenuController {
 
 	@Inject()
 	private consumptionService!: ConsumptionServiceImpl;
 
-	public register(app: Application): void {
-
-		app.get("/", async (req: Request, res: Response) => {
-
-			// const consumptions = await this.consumptionService.findAll();
-			//
-			// res.send(consumptions);
-
-			res.send("test");
-
-		});
-
+	@Get("/menu")
+	async getAll() {
+		return await this.consumptionService.findAll();
 	}
 
+	@Get("/menu/:id")
+	async getOne(@Param("id") id: number) {
+		return await this.consumptionService.find(id);
+	}
+
+	@Post("/menu")
+	post(@Body() user: any) {
+		// TODO add post
+		return "Saving user...";
+	}
+
+	@Put("/menu/:id")
+	put(@Param("id") id: number, @Body() user: any) {
+		// TODO add put
+		return "Updating a user...";
+	}
+
+	@Delete("/menu/:id")
+	remove(@Param("id") id: number) {
+		// TODO add delete
+		return "Removing user...";
+	}
 
 }
