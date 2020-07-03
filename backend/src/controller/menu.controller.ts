@@ -1,5 +1,6 @@
 import { Inject } from "typedi";
 import ConsumptionService from "../service/consumption.service";
+import CategoryService from "../service/category.service";
 import { Consumption } from "../entities/consumption.entity";
 import { JsonController, Param, Body, Get, Post, Put, Delete } from "routing-controllers";
 
@@ -9,9 +10,12 @@ export class MenuController {
 	@Inject()
 	private consumptionService!: ConsumptionService;
 
+	@Inject()
+	private categoryService!: CategoryService;
+
 	@Get("/menu")
 	async getAll() {
-		return await this.consumptionService.findAll();
+		return await this.categoryService.getMenu();
 	}
 
 	@Get("/menu/:id")

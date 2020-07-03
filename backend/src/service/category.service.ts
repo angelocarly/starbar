@@ -30,4 +30,8 @@ export default class CategoryService implements GenericService<Category> {
 		return this.repository.delete(id);
 	}
 
+	getMenu(): Promise<Category[]> {
+		return this.repository.findAllJoinConsumptions();
+	}
+
 }

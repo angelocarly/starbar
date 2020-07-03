@@ -25,6 +25,11 @@ export class CategoryRepository implements GenericRepository<Category> {
 		return this.repository.update(id, category);
 	}
 
+	findAllJoinConsumptions(): Promise<Category[]> {
+		return this.repository.find( { relations: [ "consumptions" ] } );
+	}
+
+
 	delete(id: number): Promise<DeleteResult> {
 		return this.repository.delete(id);
 	}
