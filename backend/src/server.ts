@@ -12,12 +12,16 @@ import { useContainer as routingUseContainer } from "routing-controllers";
 import { useContainer as valUseContainer } from "class-validator";
 import { Container } from "typedi";
 import { MenuController } from "./controller/menu.controller";
+import { CategoryController } from "./controller/category.controller";
 import "reflect-metadata"; // Required for routing-controllers
 import { createExpressServer } from "routing-controllers";
 
 env.config();
 const server = createExpressServer({
-	controllers: [MenuController],
+	controllers: [
+		MenuController,
+		CategoryController
+	],
 	classTransformer: true,
 	validation: true
 });

@@ -1,5 +1,5 @@
 import { Inject } from "typedi";
-import ConsumptionServiceImpl from "../service/consumption.service";
+import ConsumptionService from "../service/consumption.service";
 import { Consumption } from "../entities/consumption.entity";
 import { JsonController, Param, Body, Get, Post, Put, Delete } from "routing-controllers";
 
@@ -7,7 +7,7 @@ import { JsonController, Param, Body, Get, Post, Put, Delete } from "routing-con
 export class MenuController {
 
 	@Inject()
-	private consumptionService!: ConsumptionServiceImpl;
+	private consumptionService!: ConsumptionService;
 
 	@Get("/menu")
 	async getAll() {

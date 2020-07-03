@@ -5,7 +5,7 @@ import { GenericService } from "./service";
 import { DeleteResult } from "typeorm";
 
 @Service()
-export default class ConsumptionServiceImpl implements GenericService<Consumption> {
+export default class ConsumptionService implements GenericService<Consumption> {
 
 	@Inject()
 	public repository!: ConsumptionRepository;

@@ -22,9 +22,8 @@ export class ConsumptionRepository implements Repository<Consumption> {
 	}
 
 	update(id: number, consumption: Consumption): Promise<Consumption> {
-		return this.repository.update(id, consumption).then((res) => {
-			return this.repository.findOneOrFail(id);
-		});
+		consumption.id = id;
+		return this.repository.save(consumption);
 	}
 
 	delete(id: number): Promise<DeleteResult> {
