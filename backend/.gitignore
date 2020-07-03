@@ -117,3 +117,4 @@ dist
 
 # Project files
 /.idea/
+database/excuze.sqlite
