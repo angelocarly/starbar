@@ -23,7 +23,8 @@ export default class CategoryService implements GenericService<Category> {
 	}
 
 	update(id: number, c: Category): Promise<Category> {
-		return this.repository.update(id, c);
+		c.id = id;
+		return this.repository.update(c);
 	}
 
 	delete(id: number): Promise<DeleteResult> {

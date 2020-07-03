@@ -17,13 +17,12 @@ export class CategoryRepository implements Repository<Category> {
 		return this.repository.find();
 	}
 
-	insert(consumption: Category): Promise<Category> {
-		return this.repository.save(consumption);
+	insert(category: Category): Promise<Category> {
+		return this.repository.save(category);
 	}
 
-	update(id: number, consumption: Category): Promise<Category> {
-		consumption.id = id;
-		return this.repository.save(consumption);
+	update(category: Category): Promise<Category> {
+		return this.repository.save(category);
 	}
 
 	delete(id: number): Promise<DeleteResult> {

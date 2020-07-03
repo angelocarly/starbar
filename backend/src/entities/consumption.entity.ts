@@ -17,7 +17,7 @@ export class Consumption {
     public category: Category;
 
     constructor(consumption: Consumption) {
-    	this.id = consumption?.id;
+		this.id = consumption?.id;
     	this.name = consumption?.name;
     	this.price = consumption?.price;
     	this.category = consumption?.category;

@@ -23,7 +23,8 @@ export default class ConsumptionService implements GenericService<Consumption> {
 	}
 
 	update(id: number, c: Consumption): Promise<Consumption> {
-		return this.repository.update(id, c);
+		c.id = id;
+		return this.repository.update(c);
 	}
 
 	delete(id: number): Promise<DeleteResult> {
