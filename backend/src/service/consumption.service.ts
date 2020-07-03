@@ -5,7 +5,7 @@ import { GenericService } from "./service";
 import { DeleteResult } from "typeorm";
 
 @Service()
-export default class ConsumptionServiceImpl implements GenericService<Consumption> {
+export default class ConsumptionService implements GenericService<Consumption> {
 
 	@Inject()
 	public repository!: ConsumptionRepository;
@@ -23,7 +23,8 @@ export default class ConsumptionServiceImpl implements GenericService<Consumptio
 	}
 
 	update(id: number, c: Consumption): Promise<Consumption> {
-		return this.repository.update(id, c);
+		c.id = id;
+		return this.repository.update(c);
 	}
 
 	delete(id: number): Promise<DeleteResult> {
