@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
-import { Category } from "./category";
+import { Category } from "./category.entity";
 
 @Entity("consumption")
 export class Consumption {
@@ -13,7 +13,7 @@ export class Consumption {
     @Column()
     public price: number;
 
-    @ManyToOne(() => Category, category => category.consumptions)
+    @ManyToOne(() => Category, category => category.consumptions, { onDelete: "CASCADE" })
     public category: Category;
 
     constructor(consumption: Consumption) {
