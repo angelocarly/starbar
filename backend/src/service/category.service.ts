@@ -2,7 +2,7 @@ import { Category } from "../entities/category.entity";
 import { Service, Container, Inject } from "typedi";
 import { CategoryRepository } from "../repositories/category.repository";
 import { GenericService } from "./service";
-import { DeleteResult } from "typeorm";
+import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
 
 @Service()
 export default class CategoryService implements GenericService<Category> {
@@ -18,13 +18,12 @@ export default class CategoryService implements GenericService<Category> {
 		return this.repository.findAll();
 	}
 
-	insert(c: Category): Promise<Category> {
-		return this.repository.insert(c);
+	insert(category: Category): Promise<InsertResult> {
+		return this.repository.insert(category);
 	}
 
-	update(id: number, c: Category): Promise<Category> {
-		c.id = id;
-		return this.repository.update(c);
+	update(id: number, category: Category): Promise<UpdateResult> {
+		return this.repository.update(id, category);
 	}
 
 	delete(id: number): Promise<DeleteResult> {

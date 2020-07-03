@@ -1,11 +1,11 @@
-import { getRepository, DeleteResult } from "typeorm";
+import { getRepository, DeleteResult, InsertResult, UpdateResult } from "typeorm";
 import { Category } from "../entities/category.entity";
 import { Service } from "typedi";
-import { Repository } from "./repository";
+import { GenericRepository } from "./repository";
 
 
 @Service()
-export class CategoryRepository implements Repository<Category> {
+export class CategoryRepository implements GenericRepository<Category> {
 
 	repository = getRepository(Category);
 
@@ -17,12 +17,12 @@ export class CategoryRepository implements Repository<Category> {
 		return this.repository.find();
 	}
 
-	insert(category: Category): Promise<Category> {
-		return this.repository.save(category);
+	insert(category: Category): Promise<InsertResult> {
+		return this.repository.insert(category);
 	}
 
-	update(category: Category): Promise<Category> {
-		return this.repository.save(category);
+	update(id: number, category: Category): Promise<UpdateResult> {
+		return this.repository.update(id, category);
 	}
 
 	delete(id: number): Promise<DeleteResult> {
