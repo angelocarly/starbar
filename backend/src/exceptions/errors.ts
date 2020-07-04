@@ -1,47 +1,27 @@
 import { NotFoundError } from "routing-controllers";
+import { capitalize } from "../utils/stringUtils";
 
-interface CategoryNotFound {
-    status: number,
-    categoryId: number,
-    message: string
+export class EntityNotFoundError extends NotFoundError {
+
+    public entityId: number;
+
+    constructor(entityName: string, entityId: number, message?: string) {
+        super(message || `No ${entityName} with id ${entityId} found`);
+        this.entityId = entityId;
+        this.name = `${capitalize(entityName)}${this.constructor.name}`;
+    }
 }
 
-export class CategoryNotFoundError extends NotFoundError {
-
-    public categoryId: number;
+export class CategoryNotFoundError extends EntityNotFoundError {
 
     constructor(categoryId: number, message?: string) {
-        super(message || `No category with id ${categoryId} found`);
-        this.categoryId = categoryId;
-        this.name = "CategoryNotFoundError";
+        super("category", categoryId, message);
     }
-
-    json = (): CategoryNotFound => ({
-        status: this.httpCode,
-        categoryId: this.categoryId,
-        message: this.message
-    });
 }
 
-interface ConsumptionNotFound {
-    status: number,
-    consumptionId: number,
-    message: string
-}
-
-export class ConsumptionNotFoundError extends NotFoundError {
-
-    public consumptionId: number;
+export class ConsumptionNotFoundError extends EntityNotFoundError {
 
     constructor(consumptionId: number, message?: string) {
-        super(message || `No consumption with id ${consumptionId} found`);
-        this.consumptionId = consumptionId;
-        this.name = "ConsumptionNotFoundError";
+        super("consumption", consumptionId, message);
     }
-
-    json = (): ConsumptionNotFound => ({
-        status: this.httpCode,
-        consumptionId: this.consumptionId,
-        message: this.message
-    });
 }
