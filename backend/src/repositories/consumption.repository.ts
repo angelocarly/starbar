@@ -2,6 +2,7 @@ import { getRepository, DeleteResult } from "typeorm";
 import { Consumption } from "../entities/consumption.entity";
 import { Service } from "typedi";
 import { Repository } from "./repository";
+import { ConsumptionNotFoundError } from "../exceptions/errors";
 
 
 @Service()
@@ -9,8 +10,12 @@ export class ConsumptionRepository implements Repository<Consumption> {
 
 	repository = getRepository(Consumption);
 
-	find(id: number): Promise<Consumption | undefined> {
-		return this.repository.findOne(id);
+	async find(id: number): Promise<Consumption> {
+		const consumption = await this.repository.findOne(id);
+		if (!consumption) {
+		    throw new ConsumptionNotFoundError(id);
+        }
+		return consumption;
 	}
 
 	findAll(): Promise<Consumption[]> {

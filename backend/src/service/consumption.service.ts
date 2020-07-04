@@ -10,7 +10,7 @@ export default class ConsumptionService implements GenericService<Consumption> {
 	@Inject()
 	public repository!: ConsumptionRepository;
 
-	find(id: number): Promise<Consumption | undefined> {
+	find(id: number): Promise<Consumption> {
 		return this.repository.find(id);
 	}
 

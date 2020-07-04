@@ -13,7 +13,7 @@ import { Container } from "typedi";
 import { MenuController } from "./controller/menu.controller";
 import { CategoryController } from "./controller/category.controller";
 import "reflect-metadata";
-import { handleAll } from "./exceptions/handlers";
+import { Galactus } from "./exceptions/handlers";
 
 env.config();
 const server = createExpressServer({
@@ -21,8 +21,10 @@ const server = createExpressServer({
 		MenuController,
 		CategoryController
 	],
+    middlewares: [Galactus],
 	classTransformer: true,
-	validation: true
+	validation: true,
+    defaultErrorHandler: false
 });
 
 server.use(logger("dev"));

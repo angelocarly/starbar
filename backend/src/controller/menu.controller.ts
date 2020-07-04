@@ -16,7 +16,7 @@ export class MenuController {
 	}
 
 	@Get("/menu/:id")
-	async getOne(@Param("id") id: number): Promise<Consumption | undefined> {
+	async getOne(@Param("id") id: number): Promise<Consumption> {
 		return await this.consumptionService.find(id);
 	}
 

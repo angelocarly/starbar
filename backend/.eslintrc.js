@@ -15,7 +15,7 @@ module.exports = {
 	},
 	"plugins": [ "@typescript-eslint" ],
 	"rules": {
-		"indent": [ "warn", "tab" ],
+		"indent": [ "off", 4 ],
 		"linebreak-style": [ "warn", "unix" ],
 		"quotes": [ "warn", "double" ],
 		"semi": [ "warn", "always" ],
