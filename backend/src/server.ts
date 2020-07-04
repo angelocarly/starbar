@@ -17,6 +17,7 @@ import { Galactus } from "./exceptions/handlers";
 
 env.config();
 const server = createExpressServer({
+	cors: true,
 	controllers: [
 		MenuController,
 		CategoryController
@@ -40,8 +41,8 @@ valUseContainer(Container);
 createConnection(typeOrmConfig).then(async () => {
 
 	const PORT = process.env.PORT || 3000;
+
 	server.listen(PORT, () => {
 		console.log(`Server is running on http://localhost:${PORT}`);
 	});
 });
-
