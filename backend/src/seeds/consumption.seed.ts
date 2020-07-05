@@ -97,7 +97,7 @@ export const ConsumptionSeed: Consumption[] = [
 	{ name: "Sherry", price: 4.00, category: { id: 8 } },
 	{ name: "Pinot Des Charentes", price: 4.00, category: { id: 8 } },
 	{ name: "Amaretto", price: 4.00, category: { id: 8 } },
-	{ name: "Cuarenta Y Tres \'43\'", price: 4.00, category: { id: 8 } },
+	{ name: "Cuarenta Y Tres '43'", price: 4.00, category: { id: 8 } },
 	{ name: "Baileys", price: 4.00, category: { id: 8 } },
 
 	// Sterke Dranken

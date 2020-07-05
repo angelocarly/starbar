@@ -3,6 +3,8 @@ import ConsumptionService from "../service/consumption.service";
 import CategoryService from "../service/category.service";
 import { Consumption } from "../entities/consumption.entity";
 import { JsonController, Param, Body, Get, Post, Put, Delete } from "routing-controllers";
+import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
+import { Category } from "../entities/category.entity";
 
 @JsonController()
 export class MenuController {
@@ -14,28 +16,28 @@ export class MenuController {
 	private categoryService!: CategoryService;
 
 	@Get("/menu")
-	async getAll() {
+	async getAll(): Promise<Category[]> {
 		return await this.categoryService.getMenu();
 	}
 
 	@Get("/menu/:id")
-	async getOne(@Param("id") id: number) {
+	async getOne(@Param("id") id: number): Promise<Consumption> {
 		return await this.consumptionService.find(id);
 	}
 
 	@Post("/menu")
-	async post(@Body() consumption: Consumption) {
+	async post(@Body() consumption: Consumption): Promise<InsertResult> {
 		return await this.consumptionService.insert(consumption);
 	}
 
 	@Put("/menu/:id")
-	async put(@Param("id") id: number, @Body() consumption: Consumption) {
+	async put(@Param("id") id: number, @Body() consumption: Consumption): Promise<UpdateResult> {
 		consumption.id = id;
 		return await this.consumptionService.update(id, consumption);
 	}
 
 	@Delete("/menu/:id")
-	async remove(@Param("id") id: number) {
+	async remove(@Param("id") id: number): Promise<DeleteResult> {
 		return await this.consumptionService.delete(id);
 	}
 

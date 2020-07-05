@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 module.exports = {
 	"env": {
 		"browser": true,
@@ -14,10 +15,11 @@ module.exports = {
 	},
 	"plugins": [ "@typescript-eslint" ],
 	"rules": {
-		"indent": 		   		[ "error", "tab" ],
-		"linebreak-style": 		[ "error", "unix" ],
-		"quotes": 		   		[ "error", "double" ],
-		"semi": 		   		[ "error", "always" ],
-		"object-curly-spacing": [ "error", "always" ]
+		"indent": [ "off", 4 ],
+		"linebreak-style": [ "warn", "unix" ],
+		"quotes": [ "warn", "double" ],
+		"semi": [ "warn", "always" ],
+		"object-curly-spacing": [ "warn", "always" ],
+		"no-mixed-spaces-and-tabs": [ "off", "smart-tabs" ]
 	}
 };

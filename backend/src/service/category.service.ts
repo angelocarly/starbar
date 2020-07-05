@@ -1,5 +1,5 @@
 import { Category } from "../entities/category.entity";
-import { Service, Container, Inject } from "typedi";
+import { Service, Inject } from "typedi";
 import { CategoryRepository } from "../repositories/category.repository";
 import { GenericService } from "./service";
 import { DeleteResult, InsertResult, UpdateResult } from "typeorm";

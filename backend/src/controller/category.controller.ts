@@ -1,7 +1,7 @@
 import { Inject } from "typedi";
 import CategoryService from "../service/category.service";
 import { Category } from "../entities/category.entity";
-import { JsonController, Param, Body, Get, Post, Put, Delete } from "routing-controllers";
+import { Body, Delete, Get, JsonController, Param, Post, Put } from "routing-controllers";
 
 @JsonController()
 export class CategoryController {

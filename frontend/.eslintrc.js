@@ -26,7 +26,7 @@ module.exports = {
     ],
     "rules": {
         "@typescript-eslint/no-unused-vars" : "warn",
-        "indent": [ "warn", 4, { "SwitchCase": 1 } ],
+        "indent": [ "off", 4 ],
         "linebreak-style": [ "error", "unix" ],
         "quotes": [ "warn", "double" ],
         "semi": [ "warn", "always" ],
