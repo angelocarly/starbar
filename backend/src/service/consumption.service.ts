@@ -1,6 +1,7 @@
 import { Consumption } from "../entities/consumption.entity";
-import { Service, Container, Inject } from "typedi";
+import { Inject, Service } from "typedi";
 import { ConsumptionRepository } from "../repositories/consumption.repository";
+import { CategoryRepository } from "../repositories/category.repository";
 import { GenericService } from "./service";
 import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
 
@@ -10,7 +11,7 @@ export default class ConsumptionService implements GenericService<Consumption> {
 	@Inject()
 	public repository!: ConsumptionRepository;
 
-	find(id: number): Promise<Consumption | undefined> {
+	find(id: number): Promise<Consumption> {
 		return this.repository.find(id);
 	}
 

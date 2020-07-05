@@ -7,8 +7,8 @@
     "start": "tsc && node dist/server.js",
     "dev": "nodemon -e ts  --exec \"npm start\"",
     "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
-    "lint": "eslint",
-    "lint-fix": "eslint --fix"
+    "lint": "eslint \"src/**\"",
+    "lint-fix": "eslint --fix 'src/**'"
   },
   "dependencies": {
     "class-transformer": "^0.2.3",

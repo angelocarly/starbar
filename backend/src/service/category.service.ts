@@ -1,5 +1,5 @@
 import { Category } from "../entities/category.entity";
-import { Service, Container, Inject } from "typedi";
+import { Service, Inject } from "typedi";
 import { CategoryRepository } from "../repositories/category.repository";
 import { GenericService } from "./service";
 import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
@@ -28,6 +28,10 @@ export default class CategoryService implements GenericService<Category> {
 
 	delete(id: number): Promise<DeleteResult> {
 		return this.repository.delete(id);
+	}
+
+	getMenu(): Promise<Category[]> {
+		return this.repository.findAllJoinConsumptions();
 	}
 
 }

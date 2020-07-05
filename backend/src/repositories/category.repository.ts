@@ -2,6 +2,7 @@ import { getRepository, DeleteResult, InsertResult, UpdateResult } from "typeorm
 import { Category } from "../entities/category.entity";
 import { Service } from "typedi";
 import { GenericRepository } from "./repository";
+import { CategoryNotFoundError } from "../exceptions/errors";
 
 
 @Service()
@@ -9,8 +10,12 @@ export class CategoryRepository implements GenericRepository<Category> {
 
 	repository = getRepository(Category);
 
-	find(id: number): Promise<Category | undefined> {
-		return this.repository.findOne(id);
+	async find(id: number): Promise<Category> {
+		const category = await this.repository.findOne(id);
+        if (!category) {
+            throw new CategoryNotFoundError(id);
+        }
+        return category;
 	}
 
 	findAll(): Promise<Category[]> {
@@ -23,6 +28,10 @@ export class CategoryRepository implements GenericRepository<Category> {
 
 	update(id: number, category: Category): Promise<UpdateResult> {
 		return this.repository.update(id, category);
+	}
+
+	findAllJoinConsumptions(): Promise<Category[]> {
+		return this.repository.find( { relations: [ "consumptions" ] } );
 	}
 
 	delete(id: number): Promise<DeleteResult> {
