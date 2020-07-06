@@ -7,7 +7,7 @@ import passport from "passport";
 
 import { typeOrmConfig } from "./config";
 import { createConnection, useContainer as ormUseContainer } from "typeorm";
-import { createExpressServer, useContainer as routingUseContainer } from "routing-controllers";
+import { Action, createExpressServer, useContainer as routingUseContainer, UnauthorizedError } from "routing-controllers";
 import { useContainer as valUseContainer } from "class-validator";
 import { Container } from "typedi";
 import { MenuController } from "./controller/menu.controller";
@@ -15,6 +15,7 @@ import { UserController } from "./controller/user.controller";
 import { CategoryController } from "./controller/category.controller";
 import "reflect-metadata";
 import { Galactus } from "./exceptions/handlers";
+import { decode } from "jwt-simple";
 
 env.config();
 
@@ -33,7 +34,27 @@ const server = createExpressServer({
     middlewares: [Galactus],
 	classTransformer: true,
 	validation: true,
-    defaultErrorHandler: false
+    defaultErrorHandler: false,
+	authorizationChecker: async (action: Action, roles: string[]) => {
+
+		// Middleware to verify authorization headers
+		const token = action.request.headers["authorization"].split(' ')[1];
+
+		if (!token) {
+		}
+		console.log(token)
+
+		try {
+			const result = decode(token, process.env.BACKEND_SECRET!);
+			console.log("out " + result);
+			return true;
+
+		} catch (e) {
+			console.log(e)
+			throw new UnauthorizedError("Access denied, login first");
+			return false;
+		}
+	}
 });
 
 server.use(logger("dev"));

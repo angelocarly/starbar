@@ -2,7 +2,7 @@ import { Inject } from "typedi";
 import ConsumptionService from "../service/consumption.service";
 import CategoryService from "../service/category.service";
 import { Consumption } from "../entities/consumption.entity";
-import { JsonController, Param, Body, Get, Post, Put, Delete } from "routing-controllers";
+import { JsonController, Param, Body, Get, Post, Put, Delete, Authorized } from "routing-controllers";
 import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
 import { Category } from "../entities/category.entity";
 
@@ -25,17 +25,20 @@ export class MenuController {
 		return await this.consumptionService.find(id);
 	}
 
+	@Authorized()
 	@Post("/menu")
 	async post(@Body() consumption: Consumption): Promise<InsertResult> {
 		return await this.consumptionService.insert(consumption);
 	}
 
+	@Authorized()
 	@Put("/menu/:id")
 	async put(@Param("id") id: number, @Body() consumption: Consumption): Promise<UpdateResult> {
 		consumption.id = id;
 		return await this.consumptionService.update(id, consumption);
 	}
 
+	@Authorized()
 	@Delete("/menu/:id")
 	async remove(@Param("id") id: number): Promise<DeleteResult> {
 		return await this.consumptionService.delete(id);
