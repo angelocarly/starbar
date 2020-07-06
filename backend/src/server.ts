@@ -46,11 +46,9 @@ const server = createExpressServer({
 
 		try {
 			const result = decode(token, process.env.BACKEND_SECRET!);
-			console.log("out " + result);
 			return true;
 
 		} catch (e) {
-			console.log(e)
 			throw new UnauthorizedError("Access denied, login first");
 			return false;
 		}
