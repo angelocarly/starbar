@@ -16,8 +16,8 @@ export class UserController {
 	}
 
 	@Post("/users/login")
-	async login(@Body() registerInfo: UserDto) {
-		return await this.userService.login(registerInfo.username, registerInfo.password);
+	async login(@Body() loginInfo: UserDto) {
+		return await this.userService.login(loginInfo.username, loginInfo.password);
 	}
 
 }

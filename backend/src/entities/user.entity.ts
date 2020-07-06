@@ -42,7 +42,7 @@ export class User {
 				_id: this.id,
 				username: this.name,
 				exp: exp.getTime()
-			}, "test", "HS512");
+			}, process.env.BACKEND_SECRET!, "HS512");
 
 	}
 }

@@ -17,6 +17,12 @@ import "reflect-metadata";
 import { Galactus } from "./exceptions/handlers";
 
 env.config();
+
+// Check if a backend secret is set
+if (!process.env.BACKEND_SECRET) {
+	throw new Error("No BACKEND_SECRET was provided in a '.env' file.");
+}
+
 const server = createExpressServer({
 	cors: true,
 	controllers: [
