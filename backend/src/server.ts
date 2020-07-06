@@ -11,6 +11,7 @@ import { createExpressServer, useContainer as routingUseContainer } from "routin
 import { useContainer as valUseContainer } from "class-validator";
 import { Container } from "typedi";
 import { MenuController } from "./controller/menu.controller";
+import { UserController } from "./controller/user.controller";
 import { CategoryController } from "./controller/category.controller";
 import "reflect-metadata";
 import { Galactus } from "./exceptions/handlers";
@@ -20,7 +21,8 @@ const server = createExpressServer({
 	cors: true,
 	controllers: [
 		MenuController,
-		CategoryController
+		CategoryController,
+		UserController
 	],
     middlewares: [Galactus],
 	classTransformer: true,
