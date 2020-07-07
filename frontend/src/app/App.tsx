@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Layout, PageHeader } from "antd";
 import { createBrowserHistory } from "history";
 import "antd/dist/antd.css";
-import Login from "../features/Login/Login";
+import Admin from "../features/Admin/Admin";
 
 const { Content, Footer } = Layout;
 
@@ -16,7 +16,7 @@ const App: FC = () => {
 			<Content>
 				{
 					location.pathname === "/admin" ?
-						<Login/> :
+						<Admin/> :
 						<div>categories</div>
 				}
 			</Content>
