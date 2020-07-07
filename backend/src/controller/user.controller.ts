@@ -10,7 +10,7 @@ export class UserController {
 	@Inject()
 	private userService!: UserService;
 
-	@Post("/users/login")
+	@Post("/login")
 	async login(@Body() loginInfo: LoginDto) {
 		return await this.userService.login(loginInfo.username, loginInfo.password);
 	}
