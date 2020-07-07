@@ -19,8 +19,9 @@ export class User {
     @Column()
 	public salt?: string;
 
-    constructor(name: string) {
+    constructor(name: string, password? : string) {
     	this.name = name;
+    	password && this.setPassword(password);
 	}
 
     public setPassword(password: string) {

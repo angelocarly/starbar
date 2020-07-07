@@ -3,9 +3,9 @@ import { capitalize } from "../utils/stringUtils";
 
 export class EntityNotFoundError extends NotFoundError {
 
-    public entityId: number;
+    public entityId?: number;
 
-    constructor(entityName: string, entityId: any, message?: string) {
+    constructor(entityName: string, entityId?: number , message?: string) {
         super(message || `No ${entityName} with id ${entityId} found`);
         this.entityId = entityId;
         this.name = `${capitalize(entityName)}${this.constructor.name}`;
@@ -28,8 +28,8 @@ export class ConsumptionNotFoundError extends EntityNotFoundError {
 
 export class UserNotFoundError extends EntityNotFoundError {
 
-    constructor(id: any, message?: string) {
-        super("user", id, message);
+    constructor(username?: string, id?: number, message?: string) {
+    	super("user", id, username && `No user with username ${username} found`);
     }
 }
 

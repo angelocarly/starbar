@@ -13,12 +13,12 @@ export class UserRepository implements GenericRepository<User> {
 	async find(id: number): Promise<User> {
 		const user = await this.repository.findOne(id);
 		if (!user) {
-			throw new UserNotFoundError(id);
+			throw new UserNotFoundError(undefined, id);
 		}
 		return user;
 	}
 
-	async findByName(username: String): Promise<User> {
+	async findByName(username: string): Promise<User> {
 		const user = await this.repository.findOne({ where: { name: username }});
 		if (!user) {
 			throw new UserNotFoundError(username);

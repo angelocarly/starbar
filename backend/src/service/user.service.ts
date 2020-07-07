@@ -36,8 +36,7 @@ export default class UserService implements GenericService<User> {
 			throw new UsernameTakenError(username);
 		}
 
-		const u = new User(username);
-		u.setPassword(password);
+		const u = new User(username, password);
 		await this.repository.insert(u);
 
 		return u.generateJWT();
