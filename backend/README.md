@@ -12,10 +12,13 @@ create a `.env` file in the root of the backend. This file contains the applicat
 BACKEND_SECRET=changeme
 ```
 
-
 ```
 npm run
 ```
+
+**Default login**
+- username: admin
+- password: admin123
 
 ### Development server
 ```
