@@ -30,8 +30,7 @@ export class User {
 	}
 
 	public validatePassword(password: string): boolean {
-		const hash = crypto.pbkdf2Sync(password, this.salt!, 10000, 64, 'sha512').toString('hex');
-		return this.hash === hash;
+		return this.hash === crypto.pbkdf2Sync(password, this.salt!, 10000, 64, 'sha512').toString('hex');
 	}
 
     public generateJWT() {
