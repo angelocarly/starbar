@@ -2,6 +2,7 @@ import { ConnectionOptions } from "typeorm";
 
 import { Category } from "./entities/category.entity";
 import { Consumption } from "./entities/consumption.entity";
+import { User } from "./entities/user.entity";
 import { join } from "path";
 
 const typeOrmConfig: ConnectionOptions = {
@@ -11,7 +12,8 @@ const typeOrmConfig: ConnectionOptions = {
 	logging: false,
 	entities: [
 		Category,
-		Consumption
+		Consumption,
+		User
 	],
 	migrations: [
 		join(__dirname, "./migrations/{.ts,*.js}")
