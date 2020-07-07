@@ -14,6 +14,15 @@ const Login: FC<LoginProps> = ({ setToken }: LoginProps) => {
 
 	const [password, setPassword] = useState<string>("");
 
+	const login = async () => {
+		setToken(await fetch("/login", {
+			method: "POST",
+			body: {
+
+			}
+		}));
+	};
+
 	return (
 		<div className={styles.login}>
 			<Space direction="vertical">

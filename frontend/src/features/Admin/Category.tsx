@@ -7,7 +7,10 @@ interface CategoryProps {
 
 const Category: FC<CategoryProps> = ({ category }: CategoryProps) => {
 	return (<>
-		{Object.entries((v: any) => <div>{v}</div>)}
+		{
+			Object.entries(category)
+				.map((value, index) => <p key={index}>{value}</p>)
+		}
 	</>);
 };
 

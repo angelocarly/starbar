@@ -6,13 +6,9 @@ const Admin: FC = () => {
 
 	const [token, setToken] = useState<string>("");
 
-	return (<>
-		{
-			token ?
-				<Categories/> :
-				<Login setToken={setToken}/>
-		}
-	</>);
+	return token ?
+		<Categories/> :
+		<Login setToken={setToken}/>;
 };
 
 export default Admin;
