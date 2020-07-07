@@ -43,8 +43,7 @@ export class UserRepository implements GenericRepository<User> {
 	}
 
 	async exists(username: string): Promise<boolean> {
-		const obj = await this.repository.findOne({ where: { name: username} });
-		return obj != undefined;
+		return !!await this.repository.findOne({ where: { name: username} });
 	}
 
 }

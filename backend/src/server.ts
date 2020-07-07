@@ -38,13 +38,13 @@ const server = createExpressServer({
 	authorizationChecker: async (action: Action, roles: string[]) => {
 
 		// Middleware to verify authorization headers
-		const token = action.request.headers["authorization"].split(' ')[1];
-
 		try {
+			const token = action.request.headers["authorization"].split(' ')[1];
+
 			const result = decode(token, process.env.BACKEND_SECRET!);
 			return true;
 
-		} catch (e) {
+		} catch {
 			throw new UnauthorizedError("Access denied, login first");
 			return false;
 		}

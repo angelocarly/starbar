@@ -19,7 +19,8 @@ export class User {
     @Column()
 	public salt?: string;
 
-    constructor() {
+    constructor(name: string) {
+    	this.name = name;
 	}
 
     public setPassword(password: string) {

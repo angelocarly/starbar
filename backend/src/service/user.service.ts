@@ -36,8 +36,7 @@ export default class UserService implements GenericService<User> {
 			throw new UsernameTakenError(username);
 		}
 
-		let u = new User();
-		u.name = username;
+		const u = new User(username);
 		u.setPassword(password);
 		await this.repository.insert(u);
 
@@ -49,7 +48,7 @@ export default class UserService implements GenericService<User> {
 			throw new InvalidLoginError(username);
 		}
 
-		const user: User = await this.repository.findByName(username);
+		const user = await this.repository.findByName(username);
 		if (user.validatePassword(password)) {
 			return user.generateJWT();
 		} else {
