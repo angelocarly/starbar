@@ -21,7 +21,7 @@ const App: FC = () => {
 						<div>categories</div>
 				}
 			</Content>
-			<Footer style={{ textAlign: "center" }}>Excuse 2020</Footer>
+			<Footer className={styles.footer}>Excuse 2020</Footer>
 		</Layout>
 	);
 };
