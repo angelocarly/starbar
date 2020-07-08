@@ -39,7 +39,7 @@ const server = createExpressServer({
 
 		// Middleware to verify authorization headers
 		try {
-			const token = action.request.headers["authorization"].split(' ')[1];
+			const token = action.request.headers["authorization"].split(" ")[1];
 
 			const result = decode(token, process.env.BACKEND_SECRET!);
 			return true;

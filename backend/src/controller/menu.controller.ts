@@ -5,6 +5,8 @@ import { Consumption } from "../entities/consumption.entity";
 import { JsonController, Param, Body, Get, Post, Put, Delete, Authorized } from "routing-controllers";
 import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
 import { Category } from "../entities/category.entity";
+import MenuService from "../service/menu.service";
+import { OrderDTO } from "../dto/order.dto";
 
 @JsonController()
 export class MenuController {
@@ -15,6 +17,9 @@ export class MenuController {
 	@Inject()
 	private categoryService!: CategoryService;
 
+	@Inject()
+	private menuService!: MenuService;
+
 	@Get("/menu")
 	async getAll(): Promise<Category[]> {
 		return await this.categoryService.getMenu();
@@ -23,6 +28,11 @@ export class MenuController {
 	@Get("/menu/:id")
 	async getOne(@Param("id") id: number): Promise<Consumption> {
 		return await this.consumptionService.find(id);
+	}
+
+	@Post("/order")
+	async order(@Body() order: OrderDTO): Promise<string> {
+		return await this.menuService.order(order);
 	}
 
 	@Authorized()
