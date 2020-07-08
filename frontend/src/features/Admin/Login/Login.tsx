@@ -1,8 +1,10 @@
-import React, { Dispatch, FC, SetStateAction, useState } from "react";
+import React, { Dispatch, FC, FormEvent, SetStateAction, useState } from "react";
 import { Button, Space, Typography } from "antd";
 import { UserOutlined } from "@ant-design/icons/lib";
 import Input from "../../../common/components/Input/Input";
 import styles from "./Login.module.scss";
+import { apiCall } from "../../../common/utils/fetch";
+import { handleContraintError } from "../../../common/utils/error";
 
 const { Title } = Typography;
 
@@ -14,13 +16,17 @@ const Login: FC<LoginProps> = ({ setToken }: LoginProps) => {
 
 	const [password, setPassword] = useState<string>("");
 
-	const login = async () => {
-		setToken(await fetch("/login", {
-			method: "POST",
-			body: {
-
-			}
-		}));
+	const login = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
+		event.preventDefault();
+		try {
+			const result = await apiCall<string>("/login", {
+				method: "POST",
+				body: { password }
+			});
+			setToken(result);
+		} catch (e) {
+			handleContraintError(JSON.parse(e.message));
+		}
 	};
 
 	return (
@@ -30,7 +36,7 @@ const Login: FC<LoginProps> = ({ setToken }: LoginProps) => {
 					style={{ textAlign: "center" }}
 					level={4}
 				>Vul je wachtwoord in</Title>
-				<form onSubmit={() => setToken(password)}>
+				<form onSubmit={async (event) => await login(event)}>
 					<Space>
 						<Input
 							placeholder="Wachtwoord"

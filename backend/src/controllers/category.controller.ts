@@ -1,6 +1,6 @@
 import { Inject } from "typedi";
-import CategoryService from "../service/category.service";
-import { Category } from "../entities/category.entity";
+import CategoryService from "../services/category.service";
+import { Category } from "../models/entities/category.entity";
 import {Authorized, Body, Delete, Get, JsonController, Param, Post, Put} from "routing-controllers";
 
 @JsonController()
@@ -10,7 +10,8 @@ export class CategoryController {
 	private categoryService!: CategoryService;
 
 	@Get("/categories")
-	async getAll() {
+	async getAll(): Promise<Category[]> {
+		console.log("hi");
 		return await this.categoryService.findAll();
 	}
 

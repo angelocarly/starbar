@@ -1,4 +1,4 @@
-import { Consumption } from "../entities/consumption.entity";
+import { Consumption } from "../../models/entities/consumption.entity";
 
 export const ConsumptionSeed: Consumption[] = [
 

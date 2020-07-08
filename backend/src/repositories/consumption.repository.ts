@@ -1,5 +1,5 @@
 import { getRepository, DeleteResult, UpdateResult, InsertResult } from "typeorm";
-import { Consumption } from "../entities/consumption.entity";
+import { Consumption } from "../models/entities/consumption.entity";
 import { Service } from "typedi";
 import { GenericRepository } from "./repository";
 import { ConsumptionNotFoundError } from "../exceptions/errors";

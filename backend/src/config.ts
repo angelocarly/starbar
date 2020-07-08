@@ -1,8 +1,8 @@
 import { ConnectionOptions } from "typeorm";
 
-import { Category } from "./entities/category.entity";
-import { Consumption } from "./entities/consumption.entity";
-import { User } from "./entities/user.entity";
+import { Category } from "./models/entities/category.entity";
+import { Consumption } from "./models/entities/consumption.entity";
+import { User } from "./models/entities/user.entity";
 import { join } from "path";
 
 const typeOrmConfig: ConnectionOptions = {

@@ -10,9 +10,9 @@ import { createConnection, useContainer as ormUseContainer } from "typeorm";
 import { Action, createExpressServer, useContainer as routingUseContainer, UnauthorizedError } from "routing-controllers";
 import { useContainer as valUseContainer } from "class-validator";
 import { Container } from "typedi";
-import { MenuController } from "./controller/menu.controller";
-import { UserController } from "./controller/user.controller";
-import { CategoryController } from "./controller/category.controller";
+import { MenuController } from "./controllers/menu.controller";
+import { UserController } from "./controllers/user.controller";
+import { CategoryController } from "./controllers/category.controller";
 import "reflect-metadata";
 import { Galactus } from "./exceptions/handlers";
 import { decode } from "jwt-simple";
@@ -35,18 +35,16 @@ const server = createExpressServer({
 	classTransformer: true,
 	validation: true,
     defaultErrorHandler: false,
-	authorizationChecker: async (action: Action, roles: string[]) => {
+	authorizationChecker: async (action: Action, roles: string[]): Promise<boolean> => {
 
 		// Middleware to verify authorization headers
 		try {
-			const token = action.request.headers["authorization"].split(' ')[1];
+			const token = action.request.headers["authorization"].split(" ")[1];
 
-			const result = decode(token, process.env.BACKEND_SECRET!);
+			decode(token, process.env.BACKEND_SECRET!);
 			return true;
-
 		} catch {
 			throw new UnauthorizedError("Access denied, login first");
-			return false;
 		}
 	}
 });

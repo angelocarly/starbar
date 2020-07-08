@@ -1,4 +1,4 @@
-import { Consumption } from "../entities/consumption.entity";
+import { Consumption } from "../models/entities/consumption.entity";
 import { Inject, Service } from "typedi";
 import { ConsumptionRepository } from "../repositories/consumption.repository";
 import { CategoryRepository } from "../repositories/category.repository";

@@ -7,7 +7,7 @@ const Categories: FC = () => {
 	const [categories, setCategories] = useState<CategoryModel[]>([]);
 
 	useEffect(() => {
-		fetch("https://localhost:3000/categories")
+		fetch("/categories")
 			.then(async c => setCategories(await c.json()));
 	}, []);
 
