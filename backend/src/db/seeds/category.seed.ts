@@ -1,4 +1,4 @@
-import { Category } from "../models/entities/category.entity";
+import { Category } from "../../models/entities/category.entity";
 
 export const CategorySeed: Category[]  = [
 	{ id: 1, name: "Bieren" },
