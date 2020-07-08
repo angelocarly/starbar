@@ -12,6 +12,7 @@ export class UserController {
 
 	@Post("/login")
 	async login(@Body() { password }: LoginDto): Promise<LoginResponse> {
+		console.log(password);
 		return { token: await this.userService.login("admin", password) };
 	}
 }

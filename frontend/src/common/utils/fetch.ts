@@ -13,7 +13,10 @@ export async function apiCall<T>(uri: string, options?: Partial<Options>): Promi
 
 	const result = await fetch(uri, {
 		method: options?.method,
-		body: options?.body && JSON.stringify(options.body)
+		body: options?.body && JSON.stringify(options.body),
+		headers: {
+			"Content-Type": "application/json"
+		}
 	});
 
 	if (result.ok) {

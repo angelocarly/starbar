@@ -42,7 +42,5 @@ export default class UserService implements GenericService<User> {
 		} else {
 			throw new InvalidLoginError(username);
 		}
-
 	}
-
 }

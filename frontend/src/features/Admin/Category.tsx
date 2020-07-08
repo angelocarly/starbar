@@ -6,12 +6,9 @@ interface CategoryProps {
 }
 
 const Category: FC<CategoryProps> = ({ category }: CategoryProps) => {
-	return (<>
-		{
-			Object.entries(category)
-				.map((value, index) => <p key={index}>{value}</p>)
-		}
-	</>);
+	return (
+		<p>{category.consumptions}</p>
+	);
 };
 
 export default Category;

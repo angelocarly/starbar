@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { Category as CategoryModel } from "./Admin.d";
+import { Collapse } from "antd";
 import Category from "./Category";
 
 const Categories: FC = () => {
@@ -11,12 +12,18 @@ const Categories: FC = () => {
 			.then(async c => setCategories(await c.json()));
 	}, []);
 
-	return (<>
-		{
-			categories.map((value, index) =>
-				<Category key={index} category={value}/>)
-		}
-	</>);
+	return (
+		<Collapse defaultActiveKey={1} accordion>
+			{
+				categories.map((value, index) => <Collapse.Panel
+					key={value.id || index}
+					header={value.name}
+				>
+					<Category category={value}/>
+				</Collapse.Panel>)
+			}
+		</Collapse>
+	);
 };
 
 export default Categories;
