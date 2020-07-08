@@ -16,13 +16,9 @@ import { CategoryController } from "./controller/category.controller";
 import "reflect-metadata";
 import { Galactus } from "./exceptions/handlers";
 import { decode } from "jwt-simple";
+import { PDFTicketService } from "./service/ticket.service";
 
 env.config();
-
-// Check if a backend secret is set
-if (!process.env.BACKEND_SECRET) {
-	throw new Error("No BACKEND_SECRET was provided in a '.env' file.");
-}
 
 const server = createExpressServer({
 	cors: true,
@@ -60,6 +56,25 @@ server.use(passport.initialize());
 routingUseContainer(Container);
 ormUseContainer(Container);
 valUseContainer(Container);
+
+// Check if a backend secret is set
+if (!process.env.BACKEND_SECRET) {
+	throw new Error("No BACKEND_SECRET was provided in a '.env' file.");
+}
+
+// Verify the print mode
+switch (process.env.PRINT_MODE) {
+	case "pdf":
+		Container.set("ticket.service", new PDFTicketService());
+		break;
+	case "print":
+		if ( !process.env.PRINTER_NAME ) {
+			throw new Error("Please provide PRINTER_NAME in `.env");
+		}
+		break;
+	default:
+		throw new Error("Please provide PRINT_MODE in '.env'. Possible values (pdf, print)");
+}
 
 createConnection(typeOrmConfig).then(async () => {
 

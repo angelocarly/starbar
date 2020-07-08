@@ -10,6 +10,8 @@ npm install
 create a `.env` file in the root of the backend. This file contains the application's secrets.
 ```.env
 BACKEND_SECRET=changeme
+PRINT_MODE=pdf
+PRINTER_NAME
 ```
 
 ```

@@ -1,41 +1,64 @@
 import { Inject, Service } from "typedi";
 import { ConsumptionRepository } from "../repositories/consumption.repository";
+import { Ticket, TicketEntry } from "../entities/ticket.entity";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Printer = require("printer");
 
-@Service()
-export default class TicketService {
+export interface TicketService {
+
+	print(order: Ticket): void;
+
+}
+
+@Service("ticket.service")
+export class PrinterTicketService implements TicketService {
 
 
 	@Inject()
-	public repository!: ConsumptionRepository;
+	public consumptionRepository!: ConsumptionRepository;
 
-	async print(text: string): Promise<string> {
+	async print(ticket: Ticket): Promise<void> {
+
+		let text = "";
+		text += "name: " + ticket.name + "\n";
+		text += "table: " + ticket.table + "\n";
+		text += "orders:\n";
+		ticket.orders.forEach((o) => {
+			text += `    ${o.consumption.name} x ${o.amount}\n`;
+		});
+		text += "\n\n\n";
 
 		try {
 
-			// var listPrinter = Printer.list();
-			// console.log(listPrinter);
-
-
-			// Printer.printDirect({
-			// 	printer: "Ticket_Printer",
-			// 	data:text,
-			// 	type: "TEXT",
-			// 	success: function(jobID: any){
-			// 		console.log("sent to printer with job: " + jobID);
-			// 	},
-			// 	error: function(err: any){
-			// 		console.log(err);
-			// 	}
-			// });
+			Printer.printDirect({
+				printer: process.env.PRINTER_NAME,
+				data:text,
+				type: "TEXT",
+				success: function(jobID: number){
+					console.log("ok");
+				},
+				error: function(err: string){
+					console.log(err);
+				}
+			});
 
 
 		} catch(e) {
 
 			console.log(e);
 		}
+	}
 
-		return "aaa";
+}
+
+export class PDFTicketService implements TicketService {
+
+	@Inject()
+	public repository!: ConsumptionRepository;
+
+	print(order: Ticket): void {
+
+		console.log("PRINTED ticket:\n" + order.name);
+
 	}
 }
