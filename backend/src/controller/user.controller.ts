@@ -2,7 +2,7 @@ import { Inject } from "typedi";
 import UserService from "../service/user.service";
 import { User } from "../entities/user.entity";
 import { JsonController, Param, Body, Get, Post, Put, Delete } from "routing-controllers";
-import { LoginDto } from "../dto/user.dto";
+import { LoginDTO } from "../dto/login.dto";
 
 @JsonController()
 export class UserController {
@@ -11,8 +11,8 @@ export class UserController {
 	private userService!: UserService;
 
 	@Post("/login")
-	async login(@Body() loginInfo: LoginDto) {
-		return await this.userService.login(loginInfo.username, loginInfo.password);
+	async login(@Body() loginInfo: LoginDTO) {
+		return await this.userService.login("admin", loginInfo.password);
 	}
 
 }
