@@ -20,6 +20,7 @@ module.exports = {
 		"quotes": [ "warn", "double" ],
 		"semi": [ "warn", "always" ],
 		"object-curly-spacing": [ "warn", "always" ],
-		"no-mixed-spaces-and-tabs": [ "off", "smart-tabs" ]
+		"no-mixed-spaces-and-tabs": [ "off", "smart-tabs" ],
+		"eol-last": [ "warn", "always" ],
 	}
 };
