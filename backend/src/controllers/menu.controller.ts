@@ -1,12 +1,12 @@
 import { Inject } from "typedi";
-import ConsumptionService from "../service/consumption.service";
-import CategoryService from "../service/category.service";
-import { Consumption } from "../entities/consumption.entity";
+import ConsumptionService from "../services/consumption.service";
+import CategoryService from "../services/category.service";
+import { Consumption } from "../models/entities/consumption.entity";
 import { JsonController, Param, Body, Get, Post, Put, Delete, Authorized } from "routing-controllers";
 import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
-import { Category } from "../entities/category.entity";
-import MenuService from "../service/menu.service";
-import { OrderDTO } from "../dto/order.dto";
+import { Category } from "../models/entities/category.entity";
+import MenuService from "../services/menu.service";
+import { OrderDTO } from "../models/dto/order.dto";
 
 @JsonController()
 export class MenuController {

@@ -1,4 +1,4 @@
-import { Category } from "../entities/category.entity";
+import { Category } from "../models/entities/category.entity";
 import { Service, Inject } from "typedi";
 import { CategoryRepository } from "../repositories/category.repository";
 import { DeleteResult, InsertResult, UpdateResult } from "typeorm";

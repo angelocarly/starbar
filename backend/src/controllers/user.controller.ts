@@ -1,8 +1,8 @@
 import { Inject } from "typedi";
-import UserService from "../service/user.service";
-import { User } from "../entities/user.entity";
+import UserService from "../services/user.service";
+import { User } from "../models/entities/user.entity";
 import { JsonController, Param, Body, Get, Post, Put, Delete } from "routing-controllers";
-import { LoginDto } from "../dto/user.dto";
+import { LoginDto } from "../models/dto/user.dto";
 
 @JsonController()
 export class UserController {

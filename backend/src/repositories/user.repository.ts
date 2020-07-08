@@ -1,5 +1,5 @@
 import { getRepository, DeleteResult, InsertResult, UpdateResult } from "typeorm";
-import { User } from "../entities/user.entity";
+import { User } from "../models/entities/user.entity";
 import { Service } from "typedi";
 import { GenericRepository } from "./repository";
 import { UserNotFoundError } from "../exceptions/errors";

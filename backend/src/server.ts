@@ -10,13 +10,13 @@ import { createConnection, useContainer as ormUseContainer } from "typeorm";
 import { Action, createExpressServer, useContainer as routingUseContainer, UnauthorizedError } from "routing-controllers";
 import { useContainer as valUseContainer } from "class-validator";
 import { Container } from "typedi";
-import { MenuController } from "./controller/menu.controller";
-import { UserController } from "./controller/user.controller";
-import { CategoryController } from "./controller/category.controller";
+import { MenuController } from "./controllers/menu.controller";
+import { UserController } from "./controllers/user.controller";
+import { CategoryController } from "./controllers/category.controller";
 import "reflect-metadata";
 import { Galactus } from "./exceptions/handlers";
 import { decode } from "jwt-simple";
-import { PDFTicketService } from "./service/ticket.service";
+import { PDFTicketService } from "./services/ticket.service";
 
 env.config();
 

@@ -1,4 +1,4 @@
-import { User } from "../entities/user.entity";
+import { User } from "../models/entities/user.entity";
 import { Service, Inject } from "typedi";
 import { UserRepository } from "../repositories/user.repository";
 import { DeleteResult, InsertResult, UpdateResult } from "typeorm";

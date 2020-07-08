@@ -1,6 +1,6 @@
 import { Inject, Service } from "typedi";
 import { ConsumptionRepository } from "../repositories/consumption.repository";
-import { Ticket, TicketEntry } from "../entities/ticket.entity";
+import { Ticket, TicketEntry } from "../models/entities/ticket.entity";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Printer = require("printer");
 

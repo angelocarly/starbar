@@ -1,9 +1,9 @@
 import { Inject, Service } from "typedi";
-import { OrderDTO } from "../dto/order.dto";
+import { OrderDTO } from "../models/dto/order.dto";
 import { TicketService } from "./ticket.service";
 import { ConsumptionRepository } from "../repositories/consumption.repository";
-import {Ticket, TicketEntry} from "../entities/ticket.entity";
-import {ConsumptionNotFoundError} from "../exceptions/errors";
+import { Ticket, TicketEntry } from "../models/entities/ticket.entity";
+import { ConsumptionNotFoundError } from "../exceptions/errors";
 
 @Service()
 export default class MenuService {
@@ -14,11 +14,9 @@ export default class MenuService {
 	@Inject()
 	public consumptionRepository!: ConsumptionRepository;
 
-	async order(order: OrderDTO): Promise<string> {
+	async order(order: OrderDTO): Promise<void> {
 		const ticket = await this.toTicket(order);
 		this.ticketService.print(ticket);
-		return "OK";
-
 	}
 
 	async toTicket(orderDto: OrderDTO): Promise<Ticket> {
