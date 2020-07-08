@@ -1,9 +1,8 @@
 import { getRepository, DeleteResult, InsertResult, UpdateResult } from "typeorm";
-import { Category } from "../entities/category.entity";
+import { Category } from "../models/entities/category.entity";
 import { Service } from "typedi";
 import { GenericRepository } from "./repository";
 import { CategoryNotFoundError } from "../exceptions/errors";
-
 
 @Service()
 export class CategoryRepository implements GenericRepository<Category> {

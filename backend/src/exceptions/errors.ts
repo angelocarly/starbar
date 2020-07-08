@@ -29,7 +29,8 @@ export class ConsumptionNotFoundError extends EntityNotFoundError {
 export class UserNotFoundError extends EntityNotFoundError {
 
     constructor(username?: string, id?: number, message?: string) {
-    	super("user", id, username && `No user with username ${username} found`);
+    	super("user", id, message
+            || username && `No user with username ${username} found`);
     }
 }
 

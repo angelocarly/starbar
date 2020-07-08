@@ -1,5 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Unique } from "typeorm";
-import { Consumption } from "./consumption.entity";
+import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
 import { encode } from "jwt-simple";
 import * as crypto from "crypto";
 
@@ -24,16 +23,16 @@ export class User {
     	password && this.setPassword(password);
 	}
 
-    setPassword(password: string) {
-		this.salt = crypto.randomBytes(32).toString('hex');
-		this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 64, 'sha512').toString('hex');
+    setPassword(password: string): void {
+		this.salt = crypto.randomBytes(32).toString("hex");
+		this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 64, "sha512").toString("hex");
 	}
 
 	validatePassword(password: string): boolean {
-		return this.hash === crypto.pbkdf2Sync(password, this.salt!, 10000, 64, 'sha512').toString('hex');
+		return this.hash === crypto.pbkdf2Sync(password, this.salt!, 10000, 64, "sha512").toString("hex");
 	}
 
-    generateJWT() {
+    generateJWT(): string {
 
     	const date = new Date();
     	const exp = new Date(date);

@@ -1,4 +1,4 @@
-import { Category } from "../entities/category.entity";
+import { Category } from "../models/entities/category.entity";
 import { Service, Inject } from "typedi";
 import { CategoryRepository } from "../repositories/category.repository";
 import { GenericService } from "./service";
@@ -10,7 +10,7 @@ export default class CategoryService implements GenericService<Category> {
 	@Inject()
 	public repository!: CategoryRepository;
 
-	find(id: number): Promise<Category | undefined> {
+	find(id: number): Promise<Category> {
 		return this.repository.find(id);
 	}
 
