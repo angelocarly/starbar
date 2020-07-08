@@ -24,16 +24,16 @@ export class User {
     	password && this.setPassword(password);
 	}
 
-    public setPassword(password: string) {
+    setPassword(password: string) {
 		this.salt = crypto.randomBytes(32).toString('hex');
 		this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 64, 'sha512').toString('hex');
 	}
 
-	public validatePassword(password: string): boolean {
+	validatePassword(password: string): boolean {
 		return this.hash === crypto.pbkdf2Sync(password, this.salt!, 10000, 64, 'sha512').toString('hex');
 	}
 
-    public generateJWT() {
+    generateJWT() {
 
     	const date = new Date();
     	const exp = new Date(date);
