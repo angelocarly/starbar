@@ -10,7 +10,7 @@ export default class CategoryService implements GenericService<Category> {
 	@Inject()
 	public repository!: CategoryRepository;
 
-	find(id: number): Promise<Category | undefined> {
+	find(id: number): Promise<Category> {
 		return this.repository.find(id);
 	}
 

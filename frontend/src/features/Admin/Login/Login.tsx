@@ -4,7 +4,7 @@ import { UserOutlined } from "@ant-design/icons/lib";
 import Input from "../../../common/components/Input/Input";
 import styles from "./Login.module.scss";
 import { apiCall } from "../../../common/utils/fetch";
-import { handleContraintError } from "../../../common/utils/error";
+import { handleConstraintError } from "../../../common/utils/error";
 
 const { Title } = Typography;
 
@@ -25,7 +25,7 @@ const Login: FC<LoginProps> = ({ setToken }: LoginProps) => {
 			});
 			setToken(result);
 		} catch (e) {
-			handleContraintError(JSON.parse(e.message));
+			handleConstraintError(e.message);
 		}
 	};
 

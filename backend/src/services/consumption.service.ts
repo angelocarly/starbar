@@ -1,7 +1,6 @@
 import { Consumption } from "../models/entities/consumption.entity";
 import { Inject, Service } from "typedi";
 import { ConsumptionRepository } from "../repositories/consumption.repository";
-import { CategoryRepository } from "../repositories/category.repository";
 import { GenericService } from "./service";
 import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
 

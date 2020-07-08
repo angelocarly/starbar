@@ -1,5 +1,5 @@
 export type HttpError = {
-    errors: Error[],
+    errors?: Error[],
     httpCode: number,
     message: string,
     name: string

@@ -1,9 +1,8 @@
-import { getRepository, DeleteResult, InsertResult, UpdateResult } from "typeorm";
+import { DeleteResult, getRepository, InsertResult, UpdateResult } from "typeorm";
 import { User } from "../models/entities/user.entity";
 import { Service } from "typedi";
 import { GenericRepository } from "./repository";
-import { UserNotFoundError} from "../exceptions/errors";
-
+import { UserNotFoundError } from "../exceptions/errors";
 
 @Service()
 export class UserRepository implements GenericRepository<User> {
@@ -19,7 +18,7 @@ export class UserRepository implements GenericRepository<User> {
 	}
 
 	async findByName(username: string): Promise<User> {
-		const user = await this.repository.findOne({ where: { name: username }});
+		const user = await this.repository.findOne({ where: { name: username } });
 		if (!user) {
 			throw new UserNotFoundError(username);
 		}
@@ -43,7 +42,7 @@ export class UserRepository implements GenericRepository<User> {
 	}
 
 	async exists(username: string): Promise<boolean> {
-		return !!await this.repository.findOne({ where: { name: username} });
+		return !!await this.repository.findOne({ where: { name: username } });
 	}
 
 }

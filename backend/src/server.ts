@@ -10,33 +10,24 @@ import { createConnection, useContainer as ormUseContainer } from "typeorm";
 import { Action, createExpressServer, useContainer as routingUseContainer, UnauthorizedError } from "routing-controllers";
 import { useContainer as valUseContainer } from "class-validator";
 import { Container } from "typedi";
-import { MenuController } from "./controllers/menu.controller";
-import { UserController } from "./controllers/user.controller";
-import { CategoryController } from "./controllers/category.controller";
 import "reflect-metadata";
 import { Galactus } from "./exceptions/handlers";
 import { decode } from "jwt-simple";
 
 env.config();
 
-// Check if a backend secret is set
 if (!process.env.BACKEND_SECRET) {
 	throw new Error("No BACKEND_SECRET was provided in a '.env' file.");
 }
 
 const server = createExpressServer({
 	cors: true,
-	controllers: [
-		MenuController,
-		CategoryController,
-		UserController
-	],
+	controllers: [`${__dirname}/controllers/*.controller.js`],
     middlewares: [Galactus],
 	classTransformer: true,
 	validation: true,
     defaultErrorHandler: false,
-	authorizationChecker: async (action: Action, roles: string[]): Promise<boolean> => {
-
+	authorizationChecker: async (action: Action): Promise<boolean> => {
 		// Middleware to verify authorization headers
 		try {
 			const token = action.request.headers["authorization"].split(" ")[1];
