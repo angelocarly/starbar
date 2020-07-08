@@ -26,11 +26,12 @@ module.exports = {
     ],
     "rules": {
         "@typescript-eslint/no-unused-vars" : "warn",
-        "indent": [ "off", 4 ],
+        "indent": [ "warn", "tab" ],
         "linebreak-style": [ "error", "unix" ],
         "quotes": [ "warn", "double" ],
         "semi": [ "warn", "always" ],
         "no-unused-vars": [ "warn", { "vars": "all", "caughtErrors": "all" } ],
         "object-curly-spacing": [ "warn", "always" ],
+        "eol-last": [ "warn", "always" ],
     }
 };

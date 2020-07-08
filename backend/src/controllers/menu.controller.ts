@@ -44,8 +44,7 @@ export class MenuController {
 	@Authorized()
 	@Put("/menu/:id")
 	async put(@Param("id") id: number, @Body() consumption: Consumption): Promise<UpdateResult> {
-		consumption.id = id;
-		return await this.consumptionService.update(id, consumption);
+		return await this.consumptionService.update(id, { ...consumption, id });
 	}
 
 	@Authorized()

@@ -1,8 +1,8 @@
 import { Inject } from "typedi";
 import UserService from "../services/user.service";
-import { User } from "../models/entities/user.entity";
-import { JsonController, Param, Body, Get, Post, Put, Delete } from "routing-controllers";
-import { LoginDto } from "../models/dto/user.dto";
+import { Body, JsonController, Post } from "routing-controllers";
+import { LoginDTO } from "../models/dto/login.dto";
+import { LoginResponse } from "../models/response/login.response";
 
 @JsonController()
 export class UserController {
@@ -11,8 +11,7 @@ export class UserController {
 	private userService!: UserService;
 
 	@Post("/login")
-	async login(@Body() loginInfo: LoginDto) {
-		return await this.userService.login(loginInfo.username, loginInfo.password);
+	async login(@Body() { password }: LoginDTO): Promise<LoginResponse> {
+		return { token: await this.userService.login("admin", password) };
 	}
-
 }

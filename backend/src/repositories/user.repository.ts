@@ -1,9 +1,8 @@
-import { getRepository, DeleteResult, InsertResult, UpdateResult } from "typeorm";
+import { DeleteResult, getRepository, InsertResult, UpdateResult } from "typeorm";
 import { User } from "../models/entities/user.entity";
 import { Service } from "typedi";
 import { GenericRepository } from "./repository";
 import { UserNotFoundError } from "../exceptions/errors";
-
 
 @Service()
 export class UserRepository implements GenericRepository<User> {

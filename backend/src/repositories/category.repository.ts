@@ -4,7 +4,6 @@ import { Service } from "typedi";
 import { GenericRepository } from "./repository";
 import { CategoryNotFoundError } from "../exceptions/errors";
 
-
 @Service()
 export class CategoryRepository implements GenericRepository<Category> {
 
