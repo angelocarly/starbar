@@ -4,6 +4,7 @@ import { createBrowserHistory } from "history";
 import "antd/dist/antd.css";
 import Admin from "../features/Admin/Admin";
 import styles from "./App.module.scss";
+import Menu from "../features/Menu/Menu";
 
 const { Content, Footer } = Layout;
 
@@ -16,6 +17,8 @@ const App: FC = () => {
 			<PageHeader title="Login"/>
 			<Content className={styles.content}>
 				{
+					location.pathname === "/" ?
+						<Menu/> :
 					location.pathname === "/admin" ?
 						<Admin/> :
 						<div>categories</div>
