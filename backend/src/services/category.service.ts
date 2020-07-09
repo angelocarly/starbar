@@ -1,11 +1,10 @@
 import { Category } from "../models/entities/category.entity";
 import { Service, Inject } from "typedi";
 import { CategoryRepository } from "../repositories/category.repository";
-import { GenericService } from "./service";
 import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
 
 @Service()
-export default class CategoryService implements GenericService<Category> {
+export default class CategoryService {
 
 	@Inject()
 	public repository!: CategoryRepository;

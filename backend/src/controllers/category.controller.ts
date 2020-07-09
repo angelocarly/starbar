@@ -29,7 +29,8 @@ export class CategoryController {
 	@Authorized()
 	@Put("/categories/:id")
 	async put(@Param("id") id: number, @Body() category: Category): Promise<UpdateResult> {
-		return await this.categoryService.update(id, { ...category, id });
+		category.id = id;
+		return await this.categoryService.update(id, category);
 	}
 
 	@Authorized()
@@ -37,4 +38,5 @@ export class CategoryController {
 	async remove(@Param("id") id: number): Promise<DeleteResult> {
 		return await this.categoryService.delete(id);
 	}
+
 }

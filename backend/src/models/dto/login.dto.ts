@@ -1,4 +1,4 @@
-export class LoginDto {
+export class LoginDTO {
 
 	public password: string;
 

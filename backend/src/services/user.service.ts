@@ -1,12 +1,11 @@
 import { User } from "../models/entities/user.entity";
 import { Inject, Service } from "typedi";
 import { UserRepository } from "../repositories/user.repository";
-import { GenericService } from "./service";
 import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
 import { InvalidLoginError } from "../exceptions/errors";
 
 @Service()
-export default class UserService implements GenericService<User> {
+export default class UserService {
 
 	@Inject()
 	public repository!: UserRepository;

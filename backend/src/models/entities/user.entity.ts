@@ -42,6 +42,7 @@ export class User {
 				_id: this.id,
 				username: this.name,
 				exp: exp.getTime()
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			}, process.env.BACKEND_SECRET!, "HS512");
 
 	}
