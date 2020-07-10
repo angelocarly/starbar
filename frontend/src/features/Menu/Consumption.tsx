@@ -31,7 +31,7 @@ const Consumption = ({consumption, addConsumption, order}: ConsumptionProps) => 
                         <MinusOutlined/>
                     </Button>
                     {
-                        console.log(order.orders)
+                        order.orders[consumption.id]?order.orders[consumption.id]:0
                     }
                     <Button
                         type="primary"

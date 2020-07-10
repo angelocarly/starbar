@@ -31,8 +31,9 @@ export class MenuController {
 	}
 
 	@Post("/order")
-	async order(@Body() order: OrderDTO): Promise<void> {
-		return await this.menuService.order(order);
+	async order(@Body() order: OrderDTO): Promise<string> {
+		await this.menuService.order(order);
+		return "ok";
 	}
 
 	@Authorized()
