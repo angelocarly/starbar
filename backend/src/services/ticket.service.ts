@@ -18,7 +18,7 @@ export class PrinterTicketService implements TicketService {
 	@Inject()
 	public consumptionRepository!: ConsumptionRepository;
 
-	async print(ticket: Ticket): Promise<void> {
+	print(ticket: Ticket): void  {
 
 		let text = "";
 		text += "name: " + ticket.name + "\n";

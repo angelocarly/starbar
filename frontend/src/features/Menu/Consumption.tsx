@@ -3,15 +3,18 @@ import {Button, List, Space} from "antd";
 import styles from "./Menu.module.scss";
 import {MinusOutlined, PlusOutlined} from "@ant-design/icons/lib";
 import {Consumption as ConsumptionModel} from "../../common/models/Model";
-import {Order} from "./Order";
+import {useDispatch, useSelector} from "react-redux";
+import {addConsumption, order} from './Menu.slice';
+import {AppDispatch} from "../../app/store";
 
 interface ConsumptionProps {
     consumption: ConsumptionModel;
-    addConsumption: (id: number, add: boolean) => void;
-    order: Order;
 }
 
-const Consumption = ({consumption, addConsumption, order}: ConsumptionProps) => {
+const Consumption = ({consumption}: ConsumptionProps) => {
+
+    const dispatch = useDispatch<AppDispatch>();
+
     return (
         <List.Item>
             <div className={styles.content}>
@@ -26,17 +29,18 @@ const Consumption = ({consumption, addConsumption, order}: ConsumptionProps) => 
                     <Button
                         type="primary"
                         shape="circle"
-                        onClick={() => addConsumption(consumption.id, true)}
+                        onClick={() => dispatch(addConsumption({id: consumption.id, add: true}))}
                     >
                         <MinusOutlined/>
                     </Button>
                     {
-                        order.orders[consumption.id]?order.orders[consumption.id]:0
+                        useSelector(order).orders[consumption.id] || 0
+
                     }
                     <Button
                         type="primary"
                         shape="circle"
-                        onClick={() => addConsumption(consumption.id, false)}
+                        onClick={() => dispatch(addConsumption({id: consumption.id, add: false}))}
                     >
                         <PlusOutlined/>
                     </Button>
