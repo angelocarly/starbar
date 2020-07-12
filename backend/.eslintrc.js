@@ -11,7 +11,7 @@ module.exports = {
 	"ignorePatterns": ["dist/*"],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
-		"ecmaVersion": 20,
+		"ecmaVersion": 11,
 		"sourceType": "module"
 	},
 	"plugins": [ "@typescript-eslint" ],
