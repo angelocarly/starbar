@@ -44,7 +44,17 @@ const menuSlice = createSlice({
                 delete state.order.orders[payload.id];
             }
 
-        }
+        },
+        setName: (state, {payload}: PayloadAction<{ name: string }>) => {
+
+            state.order.name = payload.name;
+
+        },
+        setTable: (state, {payload}: PayloadAction<{ table: string }>) => {
+
+            state.order.table = payload.table;
+
+        },
     },
     extraReducers: builder => {
         builder.addCase(fetchCategories.fulfilled, (state, {payload}) => {
@@ -57,5 +67,5 @@ export default menuSlice.reducer;
 
 export const order = (state: RootState) => state.menu.order;
 export const categories = (state: RootState) => state.menu.categories;
-export const {addConsumption} = menuSlice.actions;
+export const {addConsumption, setName, setTable} = menuSlice.actions;
 export {fetchCategories};

@@ -5,6 +5,7 @@ import "antd/dist/antd.css";
 import Admin from "../features/Admin/Admin";
 import styles from "./App.module.scss";
 import Menu from "../features/Menu/Menu";
+import Confirm from "../features/Menu/Confirm/Confirm";
 
 const { Content, Footer } = Layout;
 
@@ -14,13 +15,13 @@ const App: FC = () => {
 
 	return (
 		<Layout className={styles.layout}>
-			<PageHeader title="Login"/>
+			<PageHeader title="Excuze"/>
 			<Content className={styles.content}>
 				{
 					location.pathname === "/" ?
 						<Menu/> :
-					// location.pathname === "/confirm" ?
-					// 	<Confirm/> :
+					location.pathname === "/confirm" ?
+						<Confirm/> :
 					location.pathname === "/admin" ?
 						<Admin/> :
 						<div>categories</div>
