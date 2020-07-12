@@ -1,38 +1,33 @@
 import { Inject, Service } from "typedi";
 import { ConsumptionRepository } from "../repositories/consumption.repository";
-import { Ticket } from "../models/entities/ticket.entity";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const Printer = require("printer");
+import { Ticket } from "../models/entities";
+import Printer from "printer";
 
 export interface TicketService {
-
 	print(order: Ticket): void;
-
 }
 
 @Service("ticket.service")
 export class PrinterTicketService implements TicketService {
-
 
 	@Inject()
 	public consumptionRepository!: ConsumptionRepository;
 
 	async print(ticket: Ticket): Promise<void> {
 
-		let text = "";
-		text += "name: " + ticket.name + "\n";
-		text += "table: " + ticket.table + "\n";
-		text += "orders:\n";
+		let data = "";
+		data += "name: " + ticket.name + "\n";
+		data += "table: " + ticket.table + "\n";
+		data += "orders:\n";
 		ticket.orders.forEach((o) => {
-			text += `    ${o.consumption.name} x ${o.amount}\n`;
+			data += `    ${o.consumption.name} x ${o.amount}\n`;
 		});
-		text += "\n\n\n";
+		data += "\n\n\n";
 
 		try {
-
 			Printer.printDirect({
 				printer: process.env.PRINTER_NAME,
-				data:text,
+				data,
 				type: "TEXT",
 				success: function(jobID: number){
 					console.log("ok");
@@ -41,14 +36,10 @@ export class PrinterTicketService implements TicketService {
 					console.log(err);
 				}
 			});
-
-
 		} catch(e) {
-
 			console.log(e);
 		}
 	}
-
 }
 
 export class PDFTicketService implements TicketService {
@@ -57,8 +48,6 @@ export class PDFTicketService implements TicketService {
 	public repository!: ConsumptionRepository;
 
 	print(order: Ticket): void {
-
 		console.log("PRINTED ticket:\n" + order.name);
-
 	}
 }
