@@ -49,3 +49,10 @@ export class InvalidLoginError extends UnauthorizedError {
         this.name = "InvalidLoginError";
     }
 }
+
+export class PrinterError extends Error {
+    constructor(message?: string) {
+        super(message || "An error with the printer occurred");
+        this.name = "PrinterError";
+    }
+}
