@@ -7,7 +7,7 @@ const Printer = require("printer");
 
 export interface TicketService {
 
-	print(order: Ticket): void;
+    print(order: Ticket): void;
 
 }
 
@@ -15,45 +15,45 @@ export interface TicketService {
 export class PrinterTicketService implements TicketService {
 
 
-	@Inject()
-	public consumptionRepository!: ConsumptionRepository;
+    @Inject()
+    public consumptionRepository!: ConsumptionRepository;
 
-	print(ticket: Ticket): void  {
+    print(ticket: Ticket): void {
 
-		let text = "";
-		text += "name: " + ticket.name + "\n";
-		text += "table: " + ticket.table + "\n";
-		text += "orders:\n";
-		ticket.orders.forEach((o) => {
-			text += `    ${o.consumption.name} x ${o.amount}\n`;
-		});
-		text += "\n\n\n";
+        let text = "";
+        text += "name: " + ticket.name + "\n";
+        text += "table: " + ticket.table + "\n";
+        text += "orders:\n";
+        ticket.orders.forEach((o) => {
+            text += `    ${o.consumption.name} x ${o.amount}\n`;
+        });
+        text += "\n\n\n";
 
-		Printer.printDirect({
-			printer: process.env.PRINTER_NAME,
-			data: text,
-			type: "TEXT",
-			success: function (jobID: number) {
-				console.log(`Printed ticket, jobId: ${jobID}`);
-			},
-			error: function (err: string) {
-				throw new PrinterError(err);
-			}
-		});
-	}
+        Printer.printDirect({
+            printer: process.env.PRINTER_NAME,
+            data: text,
+            type: "TEXT",
+            success: (jobID: number) => {
+                console.log(`Printed ticket, jobId: ${jobID}`);
+            },
+            error: (err: string) => {
+                throw new PrinterError(err);
+            }
+        });
+    }
 
 }
 
 export class PDFTicketService implements TicketService {
 
-	@Inject()
-	public repository!: ConsumptionRepository;
+    @Inject()
+    public repository!: ConsumptionRepository;
 
-	print(ticket: Ticket): void {
+    print(ticket: Ticket): void {
 
-		console.log(">>>>>>>>> PRINTED TICKET");
-		console.log(JSON.stringify(ticket));
-		console.log("<<<<<<<<<");
+        console.log(">>>>>>>>> PRINTED TICKET");
+        console.log(JSON.stringify(ticket));
+        console.log("<<<<<<<<<");
 
-	}
+    }
 }
