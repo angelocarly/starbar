@@ -26,7 +26,7 @@
     "morgan": "~1.9.1",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "printer": "^0.4.0",
+    "printer": "git+https://github.com/tojocky/node-printer.git",
     "reflect-metadata": "^0.1.13",
     "routing-controllers": "^0.9.0-alpha.4",
     "sqlite3": "^4.2.0",
