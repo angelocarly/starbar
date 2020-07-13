@@ -1,19 +1,15 @@
-import {Inject, Service} from "typedi";
-import {ConsumptionRepository} from "../repositories/consumption.repository";
-import {Ticket} from "../models/entities/ticket.entity";
-import {PrinterError} from "../exceptions/errors";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const Printer = require("printer");
+
+import { Inject, Service } from "typedi";
+import { ConsumptionRepository } from "../repositories/consumption.repository";
+import { Ticket } from "../models/entities";
+import Printer from "printer";
 
 export interface TicketService {
-
-    print(order: Ticket): void;
-
+	print(order: Ticket): void;
 }
 
 @Service("ticket.service")
 export class PrinterTicketService implements TicketService {
-
 
     @Inject()
     public consumptionRepository!: ConsumptionRepository;
@@ -41,7 +37,6 @@ export class PrinterTicketService implements TicketService {
             }
         });
     }
-
 }
 
 export class PDFTicketService implements TicketService {

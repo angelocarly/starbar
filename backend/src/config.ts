@@ -5,7 +5,7 @@ const typeOrmConfig: ConnectionOptions = {
 	database: "database/excuze.sqlite",
 	synchronize: true,
 	logging: false,
-	entities: [`${__dirname}/models/entities/*.entity.js`],
+	entities: [`${__dirname}/models/entities/index{.ts,*.js}`],
 	migrations: [`${__dirname}/migrations/{.ts,*.js}`],
 	migrationsRun: true
 };
