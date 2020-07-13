@@ -1,4 +1,4 @@
-import { Category as CategoryModel } from "./Admin.d";
+import { Category as CategoryModel } from "../../common/models/Model";
 import React, { FC } from "react";
 
 interface CategoryProps {

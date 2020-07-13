@@ -1,6 +1,6 @@
 import { Inject } from "typedi";
 import CategoryService from "../services/category.service";
-import { Category } from "../models/entities/category.entity";
+import { Category } from "../models/entities";
 import { Authorized, Body, Delete, Get, JsonController, Param, Post, Put } from "routing-controllers";
 import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
 
@@ -38,5 +38,4 @@ export class CategoryController {
 	async remove(@Param("id") id: number): Promise<DeleteResult> {
 		return await this.categoryService.delete(id);
 	}
-
 }

@@ -1,4 +1,4 @@
-import { Consumption } from "../models/entities/consumption.entity";
+import { Consumption } from "../models/entities";
 import { Inject, Service } from "typedi";
 import { ConsumptionRepository } from "../repositories/consumption.repository";
 import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
@@ -28,5 +28,4 @@ export default class ConsumptionService {
 	delete(id: number): Promise<DeleteResult> {
 		return this.repository.delete(id);
 	}
-
 }

@@ -1,10 +1,10 @@
 import { Inject } from "typedi";
 import ConsumptionService from "../services/consumption.service";
 import CategoryService from "../services/category.service";
-import { Consumption } from "../models/entities/consumption.entity";
-import { JsonController, Param, Body, Get, Post, Put, Delete, Authorized } from "routing-controllers";
+import { Consumption } from "../models/entities";
+import { JsonController, Param, Body, Get, Post, Put, Delete, Authorized, OnUndefined } from "routing-controllers";
 import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
-import { Category } from "../models/entities/category.entity";
+import { Category } from "../models/entities";
 import MenuService from "../services/menu.service";
 import { OrderDTO } from "../models/dto/order.dto";
 
@@ -31,6 +31,7 @@ export class MenuController {
 	}
 
 	@Post("/order")
+	@OnUndefined(201)
 	async order(@Body() order: OrderDTO): Promise<void> {
 		return await this.menuService.order(order);
 	}

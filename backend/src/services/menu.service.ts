@@ -26,7 +26,9 @@ export default class MenuService {
 		// map each order id to a Consumption object
 		const entries: TicketEntry[] = orderDto.orders.map((orderDto) => {
 			const consumption = consumptions.find((c) => c.id === orderDto.id);
-			if (!consumption) throw new ConsumptionNotFoundError(orderDto.id);
+			if (!consumption) {
+				throw new ConsumptionNotFoundError(orderDto.id);
+			}
 
 			return {
 				consumption: consumption,

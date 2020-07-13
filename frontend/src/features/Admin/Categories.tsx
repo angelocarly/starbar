@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { Category as CategoryModel } from "./Admin.d";
+import { Category as CategoryModel } from "../../common/models/Model";
 import { Collapse } from "antd";
 import Category from "./Category";
 

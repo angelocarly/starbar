@@ -1,9 +1,10 @@
-import React, { FC } from "react";
-import { Layout, PageHeader } from "antd";
-import { createBrowserHistory } from "history";
+import React, {FC} from "react";
+import {Layout, PageHeader} from "antd";
+import {createBrowserHistory} from "history";
 import "antd/dist/antd.css";
 import Admin from "../features/Admin/Admin";
 import styles from "./App.module.scss";
+import Menu from "../features/Menu/Menu";
 
 const { Content, Footer } = Layout;
 
@@ -13,15 +14,17 @@ const App: FC = () => {
 
 	return (
 		<Layout className={styles.layout}>
-			<PageHeader title="Login"/>
+			<PageHeader title="Excuze"/>
 			<Content className={styles.content}>
 				{
+					location.pathname === "/" ?
+						<Menu/> :
 					location.pathname === "/admin" ?
 						<Admin/> :
 						<div>categories</div>
 				}
 			</Content>
-			<Footer className={styles.footer}>Excuse 2020</Footer>
+			<Footer className={styles.footer}>Excuze 2020</Footer>
 		</Layout>
 	);
 };
