@@ -115,10 +115,10 @@ export class PrinterTicketService implements TicketService {
 				printer: process.env.PRINTER_NAME,
 				data: a.read(),
 				type: "PDF",
-				success: function (jobID: number) {
+				success: (jobID: number) => {
 					console.log(`Printed ticket, jobId: ${jobID}`);
 				},
-				error: function (err: string) {
+				error: (err: string) => {
 					throw new PrinterError(err);
 				}
 			});
