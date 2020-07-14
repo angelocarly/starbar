@@ -4,16 +4,18 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import passport from "passport";
-
-import {typeOrmConfig} from "./config";
-import {createConnection, useContainer as ormUseContainer} from "typeorm";
-import {Action, createExpressServer, UnauthorizedError, useContainer as routingUseContainer} from "routing-controllers";
-import {useContainer as valUseContainer} from "class-validator";
-import {Container} from "typedi";
+import { useContainer as ormUseContainer } from "typeorm";
+import {
+    Action,
+    createExpressServer,
+    UnauthorizedError,
+    useContainer as routingUseContainer
+} from "routing-controllers";
+import { useContainer as valUseContainer } from "class-validator";
+import { Container } from "typedi";
 import "reflect-metadata";
-import {Galactus} from "./exceptions/handlers";
-import {decode} from "jwt-simple";
-import {PDFTicketService} from "./services/ticket.service";
+import { Galactus } from "./exceptions/handlers";
+import { decode } from "jwt-simple";
 import path from "path";
 
 env.config();
@@ -22,11 +24,15 @@ if (!process.env.BACKEND_SECRET) {
     throw new Error("No BACKEND_SECRET was provided in a '.env' file.");
 }
 
+routingUseContainer(Container);
+ormUseContainer(Container);
+valUseContainer(Container);
+
 const server = createExpressServer({
     cors: true,
-    controllers: [`${__dirname}/controllers/*.controller.js`],
-    middlewares: [Galactus],
+    controllers: [`${__dirname}/controllers/index{.ts,*.js}`],
     classTransformer: true,
+    middlewares: [Galactus],
     validation: true,
     defaultErrorHandler: false,
     authorizationChecker: async (action: Action): Promise<boolean> => {
@@ -42,12 +48,7 @@ const server = createExpressServer({
     }
 });
 
-server.use(logger("dev"));
-server.use(express.json());
-server.use(express.urlencoded({extended: false}));
-server.use(cookieParser());
-server.use(passport.initialize());
-
+// Provide frontend in production
 if ( process.env.ENV === "prod" ) {
     server.use(express.static(path.join(__dirname, '../../frontend/build')));
     server.get('/', (req: any, res: any) => {
@@ -55,34 +56,12 @@ if ( process.env.ENV === "prod" ) {
     });
 }
 
-routingUseContainer(Container);
-ormUseContainer(Container);
-valUseContainer(Container);
 
-// Check if a backend secret is set
-if (!process.env.BACKEND_SECRET) {
-    throw new Error("No BACKEND_SECRET was provided in a '.env' file.");
-}
+server.use(logger("dev"));
+server.use(express.json());
+server.use(express.urlencoded({ extended: false }));
+server.use(cookieParser());
+server.use(passport.initialize());
 
-// Verify the print mode
-switch (process.env.PRINT_MODE) {
-    case "pdf":
-        Container.set("ticket.service", new PDFTicketService());
-        break;
-    case "print":
-        if (!process.env.PRINTER_NAME) {
-            throw new Error("Please provide PRINTER_NAME in `.env");
-        }
-        break;
-    default:
-        throw new Error("Please provide PRINT_MODE in '.env'. Possible values (pdf, print)");
-}
+export default server;
 
-createConnection(typeOrmConfig).then(async () => {
-
-    const PORT = process.env.PORT || 3000;
-
-    server.listen(PORT, () => {
-        console.log(`Server is running on http://localhost:${PORT}`);
-    });
-});
