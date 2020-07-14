@@ -5,6 +5,10 @@ This provisioning script can be used to install Excuze on a Debian OS.
 Ansible is required. You can find it in your packet manager.
 
 ## Configuration
+
+### IMPORTANT
+You are required to set a custom BACKEND_SECRET in `roles/Excuze/files/env` for security purposes!
+
 Set the ip of your server in `inventory/inventory.yml` under `[raspberry]`
 
 Set your username and other variables under `[raspberry:vars]`
