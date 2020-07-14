@@ -1,0 +1,27 @@
+---
+- name: Installing neovim
+  become: true
+  apt:
+    name: neovim
+
+- name: Stowing vimrc (root)
+  shell:
+    chdir: /root/dotfiles
+    cmd: stow neovim
+
+- name: Installing neovim plugins (root)
+  shell:
+    cmd: nvim +PlugInstall +qall
+
+- name: Stowing vimrc (user)
+  become: true
+  become_user: "{{ username }}"
+  shell:
+    chdir: ~/dotfiles
+    cmd: stow neovim
+
+- name: Installing neovim plugins (user)
+  become: true
+  become_user: "{{ username }}"
+  shell:
+    cmd: nvim +PlugInstall +qall
