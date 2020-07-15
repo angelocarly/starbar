@@ -16,12 +16,19 @@ module.exports = {
 	},
 	"plugins": [ "@typescript-eslint" ],
 	"rules": {
-		"indent": [ "off", 4 ],
+		"indent": [ "warn", "tab" ],
 		"linebreak-style": [ "warn", "unix" ],
 		"quotes": [ "warn", "double" ],
 		"semi": [ "warn", "always" ],
 		"object-curly-spacing": [ "warn", "always" ],
 		"no-mixed-spaces-and-tabs": [ "off", "smart-tabs" ],
 		"eol-last": [ "warn", "always" ],
+		"@typescript-eslint/no-unused-vars" : "warn",
+		"no-unused-vars": [ "warn", { "vars": "all", "caughtErrors": "all" } ],
+		"operator-linebreak": ["warn", "before"],
+		"multiline-ternary": ["warn", "always-multiline"],
+		"dot-notation": ["warn"],
+		"dot-location": ["warn", "property"],
+		"eqeqeq": ["warn", "smart"],
 	}
 };
