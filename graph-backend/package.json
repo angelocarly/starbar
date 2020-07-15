@@ -1,0 +1,41 @@
+{
+  "name": "express-gen-ts",
+  "version": "0.0.0",
+  "scripts": {
+    "build": "node build.js",
+    "lint": "eslint --project \"tsconfig.json\"",
+    "start": "node -r module-alias/register ./dist --env=production",
+    "dev": "nodemon"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "ts",
+    "ignore": [
+      "src/public"
+    ],
+    "exec": "ts-node -r tsconfig-paths/register ./src"
+  },
+  "_moduleAliases": {
+    "@server": "dist/server"
+  },
+  "dependencies": {
+    "command-line-args": "^5.1.1",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "express-graphql": "^0.11.0",
+    "helmet": "^3.23.3",
+    "http-status-codes": "^1.4.0",
+    "module-alias": "^2.2.2",
+    "morgan": "^1.10.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.7",
+    "@types/morgan": "^1.9.1",
+    "@types/node": "^14.0.23"
+  }
+}
