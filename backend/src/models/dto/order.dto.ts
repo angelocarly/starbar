@@ -1,4 +1,4 @@
-import {IsDefined} from "class-validator";
+import { IsDefined } from "class-validator";
 
 type OrderEntry = {
 	id: number;

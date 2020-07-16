@@ -1,10 +1,11 @@
 import React, { Dispatch, FC, FormEvent, SetStateAction, useState } from "react";
-import { Button, Space, Typography } from "antd";
 import { UserOutlined } from "@ant-design/icons/lib";
-import Input from "../../../common/components/Input/Input";
+import Input from "../../../common/components/Input";
 import styles from "./Login.module.scss";
 import { apiCall } from "../../../common/utils/fetch";
 import { handleConstraintError } from "../../../common/utils/error";
+import { Space, Typography } from "antd";
+import Button from "../../../common/components/Button";
 
 const { Title } = Typography;
 
@@ -41,10 +42,8 @@ const Login: FC<LoginProps> = ({ setToken }: LoginProps) => {
 						<Input
 							placeholder="Wachtwoord"
 							prefix={<UserOutlined/>}
-							value={password}
-							onChange={value => setPassword(value)}
 						/>
-						<Button type="primary" htmlType="submit">Log in</Button>
+						<Button type="submit">Log in</Button>
 					</Space>
 				</form>
 			</Space>

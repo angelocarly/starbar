@@ -14,7 +14,7 @@ export const handleError = (
 	try {
 		error = JSON.parse(jsonError);
 		const { message, description } = { ...(converter && converter(error)) };
-		notification["error"]({
+		notification.error({
 			message: message || error.name,
 			description: description || error.message,
 		});
