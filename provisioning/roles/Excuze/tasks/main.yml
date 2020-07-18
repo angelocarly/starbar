@@ -1,0 +1,73 @@
+---
+
+- name: Installing git
+  apt: pkg=git state=latest
+  register: installation
+  become: true
+
+- name: Cloning repo
+  git:
+    repo: https://github.com/angelocarly/Excuze.git
+    version: development
+    dest: "Excuze"
+    accept_hostkey: yes
+    force: yes
+  become: false
+  
+- name: Installing npm
+  apt: pkg=npm state=latest
+  register: installation
+  become: true
+
+- name: Installing frontend dependencies
+  become: false
+  shell:
+    cmd: npm install
+    chdir: Excuze/frontend/
+
+- name: Building frontend
+  shell:
+    cmd: npm run build
+    chdir: Excuze/frontend/
+
+- name: Installing backend dependencies
+  become: false
+  shell:
+    cmd: npm install
+    chdir: Excuze/backend
+
+- name: Building backend
+  shell:
+    cmd: npx tsc
+    chdir: Excuze/backend/
+
+- name: Creating .env file
+  copy: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+      - { src: 'env', dest: 'Excuze/backend/.env' }
+
+- name: Installing libcap2
+  apt:
+    name: "libcap2-bin"
+    state: present
+
+- name: Allow node to use port 80
+  become: true
+  shell:
+    cmd: setcap cap_net_bind_service=+ep /usr/bin/node
+
+- name: Installing pm2
+  become: true
+  shell:
+    cmd: npm install pm2 -g
+
+- name: Starting application
+  become: false
+  shell:
+    cmd: pm2 start dist/bin/www.js -i 0 --name "Excuze" -f
+    chdir: Excuze/backend/
+
+- name: Enable pm2 autostart
+  become: true
+  shell:
+    cmd: env PATH=$PATH:/usr/bin /usr/local/lib/node_modules/pm2/bin/pm2 startup systemd -u {{ username }} --hp /home/{{ username }}
