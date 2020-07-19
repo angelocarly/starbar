@@ -82,3 +82,8 @@
   become: true
   shell:
     cmd: env PATH=$PATH:/usr/bin /usr/local/lib/node_modules/pm2/bin/pm2 startup systemd -u {{ username }} --hp /home/{{ username }}
+
+- name: Saving applications
+  become: false
+  shell:
+    cmd: pm2 save

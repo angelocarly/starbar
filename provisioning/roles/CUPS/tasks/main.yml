@@ -33,7 +33,7 @@
 - name: Add STAR network printer to CUPS
   become: true
   shell:
-    cmd: lpadmin -p "{{ printer_name }}" -E -v "{{ printer_address }}" -m tsp143.ppd
+    cmd: lpadmin -p "{{ printer_name }}" -E -v "{{ printer_address }}" -m tsp143.ppd -o PageSize=A4
 
 - name: Enable printer
   become: true

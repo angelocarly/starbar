@@ -48,15 +48,6 @@ const server = createExpressServer({
     }
 });
 
-// Provide frontend in production
-if ( process.env.ENV === "prod" ) {
-    server.use(express.static(path.join(__dirname, '../../frontend/build')));
-    server.get('/', (req: any, res: any) => {
-        res.sendFile(path.join(__dirname, '../../frontend/build', 'index.html'));
-    });
-}
-
-
 server.use(logger("dev"));
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
