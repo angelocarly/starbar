@@ -19,7 +19,7 @@ const fetchCategories = createAsyncThunk<Category[]>(
     "menu/fetchcategories",
     async () => {
         try {
-            return await apiCall<Category[]>("/menu");
+            return await apiCall<Category[]>("/api/menu");
         } catch ({message}) {
             handleConstraintError(message);
             return [];

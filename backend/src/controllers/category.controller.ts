@@ -4,7 +4,7 @@ import { Category } from "../models/entities";
 import { Authorized, Body, Delete, Get, JsonController, Param, Post, Put } from "routing-controllers";
 import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
 
-@JsonController()
+@JsonController("/api")
 export class CategoryController {
 
 	@Inject()

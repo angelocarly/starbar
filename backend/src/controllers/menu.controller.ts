@@ -8,7 +8,7 @@ import { Category } from "../models/entities";
 import MenuService from "../services/menu.service";
 import { OrderDTO } from "../models/dto/order.dto";
 
-@JsonController()
+@JsonController("/api")
 export class MenuController {
 
 	@Inject()

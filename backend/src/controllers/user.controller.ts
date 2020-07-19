@@ -4,7 +4,7 @@ import { Body, JsonController, Post } from "routing-controllers";
 import { LoginDTO } from "../models/dto/login.dto";
 import { LoginResponse } from "../models/response/login.response";
 
-@JsonController()
+@JsonController("/api")
 export class UserController {
 
 	@Inject()
