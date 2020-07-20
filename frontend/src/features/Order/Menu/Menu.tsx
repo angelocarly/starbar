@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from "react";
-import { Button, Collapse } from "antd";
+import { BackTop, Button, Collapse } from "antd";
 import Consumptions from "./Consumptions/Consumptions";
 import styles from "./Menu.module.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,12 +9,11 @@ import { AppDispatch } from "../../../app/store";
 const Menu: FC = () => {
 
 	const dispatch = useDispatch<AppDispatch>();
-
 	const categories = useSelector(categoriesState);
 
 	useEffect(() => {
 		dispatch(fetchCategories());
-	}, []);
+	}, [dispatch]);
 
 	return <>
 		<Collapse defaultActiveKey={1} accordion>
@@ -27,6 +26,7 @@ const Menu: FC = () => {
 				</Collapse.Panel>)
 			}
 		</Collapse>
+		<BackTop/>
 		<Button
 			type="primary"
 			className={styles.content}

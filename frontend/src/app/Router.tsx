@@ -7,7 +7,11 @@ interface RouterProps {
 
 const Router: FC<RouterProps> = ({ routes }: RouterProps) => {
 
-	const { location } = createBrowserHistory();
+	const { location, push } = createBrowserHistory();
+
+	const navigate = (path: string): void => {
+		push(path);
+	};
 
 	return <>{
 		routes[location.pathname]

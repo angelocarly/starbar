@@ -31,7 +31,7 @@ export class MenuController {
 	}
 
 	@Post("/order")
-	@OnUndefined(201)
+	@OnUndefined(204)
 	async order(@Body() order: OrderDTO): Promise<void> {
 		return await this.menuService.order(order);
 	}

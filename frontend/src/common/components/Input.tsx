@@ -1,13 +1,14 @@
 import React, { FC, ReactNode } from "react";
-import { Input as AntInput } from "antd";
-import { Control, Controller } from "react-hook-form";
+import { Input as AntInput, Form } from "antd";
+import { Control, Controller, FieldError } from "react-hook-form";
 
 interface InputProps {
     placeholder?: string,
 	prefix?: ReactNode,
 	type?: "password" | "number" | "text",
 	control?: Control<Record<string, any>>,
-	name?: string
+	name?: string,
+	error?: FieldError
 }
 
 const Input: FC<InputProps> = ({
@@ -15,19 +16,25 @@ const Input: FC<InputProps> = ({
 	prefix,
 	type = "text",
 	control,
-	name
+	name,
+	error
 }: InputProps) => {
 	return (
 		<Controller
 			control={control}
 			name={name || ""}
 			render={props => (
-				<AntInput
-					{...props}
-					type={type}
-					placeholder={placeholder}
-					prefix={prefix}
-				/>
+				<Form.Item
+					validateStatus={error && "error"}
+					help={error?.message}
+				>
+					<AntInput
+						{...props}
+						type={type}
+						placeholder={placeholder}
+						prefix={prefix}
+					/>
+				</Form.Item>
 			)}
 		/>
 	);

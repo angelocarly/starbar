@@ -11,13 +11,23 @@ import { useForm } from "react-hook-form";
 import Input from "../../../common/components/Input";
 import { Table } from "antd";
 import Button from "../../../common/components/Button";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers";
+
+const schema = yup.object().shape({
+	name : yup.string().required("Geef een naam in"),
+	table : yup.string().required("Geef een tafelnummer in"),
+}).defined();
+
+type ConfirmSchema = yup.InferType<typeof schema>;
 
 const Confirm: FC = () => {
 
 	const dispatch = useDispatch<AppDispatch>();
 	const name = useSelector(nameState);
 	const table = useSelector(tableState);
-	const { control, handleSubmit } = useForm({
+	const { control, handleSubmit, errors } = useForm<ConfirmSchema>({
+		resolver: yupResolver(schema),
 		defaultValues: { name, table }
 	});
 
@@ -30,12 +40,14 @@ const Confirm: FC = () => {
 				placeholder="Naam"
 				control={control}
 				name="name"
+				error={errors.name}
 			/>
 			<Input
 				type="text"
 				placeholder="Tafelnummer"
 				control={control}
 				name="table"
+				error={errors.table}
 			/>
 			<Table<OrderEntry>
 				columns={[

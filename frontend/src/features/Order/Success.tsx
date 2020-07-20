@@ -12,12 +12,10 @@ const Success: FC = () => {
 	return <Result
 		status="success"
 		title="Uw bestelling werd opgenomen!"
-		subTitle="Wordt zo dadelijk gebracht"
-		extra={
-			<Button
-				onClick={() => dispatch(orderAgain())}
-			>Opnieuw bestellen</Button>
-		}
+		subTitle="Deze wordt zo dadelijk gebracht"
+		extra={<Button
+			onClick={() => dispatch(orderAgain())}
+		>Opnieuw bestellen</Button>}
 	/>;
 };
 

@@ -18,8 +18,8 @@ export const handleError = (
 			message: message || error.name,
 			description: description || error.message,
 		});
-	} catch {
-		console.error("Could not parse error");
+	} catch (e) {
+		console.error(e);
 	}
 };
 
