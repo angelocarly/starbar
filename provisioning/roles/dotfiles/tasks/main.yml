@@ -1,0 +1,26 @@
+---
+
+- name: Installing git
+  apt: pkg=git state=latest
+  register: installation
+  become: true
+
+- name: Cloning dotfiles (root)
+  git:
+    repo: https://github.com/angelocarly/dotfiles.git
+    version: vm
+    accept_hostkey: yes
+    dest: ~/dotfiles
+
+- name: Cloning dotfiles (user)
+  become: true
+  become_user: "{{ username }}"
+  git:
+    repo: https://github.com/angelocarly/dotfiles.git
+    version: vm
+    accept_hostkey: yes
+    dest: ~/dotfiles
+
+- name: Installing stow
+  apt:
+    name: stow
