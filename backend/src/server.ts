@@ -4,19 +4,13 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import passport from "passport";
-import { useContainer as ormUseContainer } from "typeorm";
-import {
-    Action,
-    createExpressServer,
-    UnauthorizedError,
-    useContainer as routingUseContainer
-} from "routing-controllers";
-import { useContainer as valUseContainer } from "class-validator";
-import { Container } from "typedi";
+import {useContainer as ormUseContainer} from "typeorm";
+import {Action, createExpressServer, UnauthorizedError, useContainer as routingUseContainer} from "routing-controllers";
+import {useContainer as valUseContainer} from "class-validator";
+import {Container} from "typedi";
 import "reflect-metadata";
-import { Galactus } from "./exceptions/handlers";
-import { decode } from "jwt-simple";
-import path from "path";
+import {Galactus} from "./exceptions/handlers";
+import {decode} from "jwt-simple";
 
 env.config();
 
@@ -45,7 +39,8 @@ const server = createExpressServer({
         } catch {
             throw new UnauthorizedError("Access denied, login first");
         }
-    }
+    },
+    routePrefix: "api"
 });
 
 server.use(logger("dev"));
