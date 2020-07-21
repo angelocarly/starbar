@@ -6,6 +6,7 @@
     - CUPS
     - dns
     - Excuze
+    - nginx
       # - dotfiles
       # - zsh
       # - neovim

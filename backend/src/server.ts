@@ -40,12 +40,13 @@ const server = createExpressServer({
 		try {
 			const token = action.request.headers.authorization.split(" ")[1];
 
-			decode(token, process.env.BACKEND_SECRET!);
-			return true;
-		} catch {
-			throw new UnauthorizedError("Access denied, login first");
-		}
-	}
+            decode(token, process.env.BACKEND_SECRET!);
+            return true;
+        } catch {
+            throw new UnauthorizedError("Access denied, login first");
+        }
+    },
+    routePrefix: "api"
 });
 
 server.use(logger("dev"));

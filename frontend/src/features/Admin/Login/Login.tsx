@@ -33,6 +33,8 @@ const Login: FC = () => {
 							name="password"
 							placeholder="Wachtwoord"
 							prefix={<UserOutlined/>}
+							value={password}
+							onChange={value => setPassword(value)}
 						/>
 						<Button type="submit">Log in</Button>
 					</Space>

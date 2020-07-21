@@ -19,16 +19,27 @@
   register: installation
   become: true
 
-- name: Installing frontend dependencies
-  become: false
-  shell:
-    cmd: npm install
-    chdir: Excuze/frontend/
+- name: Installing sqlite3
+  apt: pkg=sqlite3 state=latest
+  register: installation
+  become: true
 
-- name: Building frontend
-  shell:
-    cmd: npm run build
-    chdir: Excuze/frontend/
+  #- name: Installing frontend dependencies
+  #become: false
+  #shell:
+  #cmd: npm install
+  #chdir: Excuze/frontend/
+
+  #- name: Building frontend
+  #become: false
+  #shell:
+  #cmd: npm run build
+  #chdir: Excuze/frontend/
+
+- name: Copying frontend
+  copy:
+    src: "../../../../frontend/build"
+    dest: Excuze/frontend/
 
 - name: Installing backend dependencies
   become: false
@@ -71,3 +82,8 @@
   become: true
   shell:
     cmd: env PATH=$PATH:/usr/bin /usr/local/lib/node_modules/pm2/bin/pm2 startup systemd -u {{ username }} --hp /home/{{ username }}
+
+- name: Saving applications
+  become: false
+  shell:
+    cmd: pm2 save
