@@ -13,6 +13,7 @@ const Categories: FC = () => {
 	}, []);
 
 	return (
+
 		<Collapse defaultActiveKey={1} accordion>
 			{
 				categories.map((value, index) => <Collapse.Panel
