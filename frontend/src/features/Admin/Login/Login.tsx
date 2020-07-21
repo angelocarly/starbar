@@ -19,7 +19,7 @@ const Login: FC<LoginProps> = ({ setToken }: LoginProps) => {
 	const login = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
 		event.preventDefault();
 		try {
-			const result = await apiCall<string>("/login", {
+			const result = await apiCall<string>("/api/login", {
 				method: "POST",
 				body: { password }
 			});

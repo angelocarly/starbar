@@ -8,4 +8,4 @@
 username=magnias
 ansible_python_interpreter=/usr/bin/python3
 printer_name = Ticket_Printer
-printer_address = lpd://192.168.2.50/tickets
+printer_address = lpd://192.168.2.11/tickets
