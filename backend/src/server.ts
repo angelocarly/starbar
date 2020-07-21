@@ -4,19 +4,13 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import passport from "passport";
-import { useContainer as ormUseContainer } from "typeorm";
-import {
-    Action,
-    createExpressServer,
-    UnauthorizedError,
-    useContainer as routingUseContainer
-} from "routing-controllers";
-import { useContainer as valUseContainer } from "class-validator";
-import { Container } from "typedi";
+import {useContainer as ormUseContainer} from "typeorm";
+import {Action, createExpressServer, UnauthorizedError, useContainer as routingUseContainer} from "routing-controllers";
+import {useContainer as valUseContainer} from "class-validator";
+import {Container} from "typedi";
 import "reflect-metadata";
-import { Galactus } from "./exceptions/handlers";
-import { decode } from "jwt-simple";
-import path from "path";
+import {Galactus} from "./exceptions/handlers";
+import {decode} from "jwt-simple";
 
 env.config();
 
@@ -45,17 +39,9 @@ const server = createExpressServer({
         } catch {
             throw new UnauthorizedError("Access denied, login first");
         }
-    }
+    },
+    routePrefix: "api"
 });
-
-// Provide frontend in production
-if ( process.env.ENV === "prod" ) {
-    server.use(express.static(path.join(__dirname, '../../frontend/build')));
-    server.get('/', (req: any, res: any) => {
-        res.sendFile(path.join(__dirname, '../../frontend/build', 'index.html'));
-    });
-}
-
 
 server.use(logger("dev"));
 server.use(express.json());

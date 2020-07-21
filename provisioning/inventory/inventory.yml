@@ -1,0 +1,11 @@
+[local]
+127.0.0.1
+
+[raspberry]
+192.168.2.10
+
+[raspberry:vars]
+username=magnias
+ansible_python_interpreter=/usr/bin/python3
+printer_name = Ticket_Printer
+printer_address = lpd://192.168.2.11/tickets

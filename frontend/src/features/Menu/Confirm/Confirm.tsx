@@ -26,7 +26,7 @@ const Confirm: FC = () => {
                     amount: value
                 }
             })
-            await apiCall<string>("/order", {
+            await apiCall<string>("/api/order", {
                 method: "POST",
                 body: orderRequest
             });
