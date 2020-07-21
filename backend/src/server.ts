@@ -45,8 +45,7 @@ const server = createExpressServer({
         } catch {
             throw new UnauthorizedError("Access denied, login first");
         }
-    },
-    routePrefix: "api"
+    }
 });
 
 server.use(logger("dev"));
