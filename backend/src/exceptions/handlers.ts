@@ -9,8 +9,8 @@ export class Galactus implements ExpressErrorMiddlewareInterface {
 		request: express.Request,
 		response: express.Response,
 	): void {
-        error.message = error.message || "Something went wrong";
-        response.status(error.httpCode || 500);
-        response.json(error);
-    }
+		error.message = error.message || "Something went wrong";
+		response.status(error.httpCode || 500);
+		response.json(error);
+	}
 }

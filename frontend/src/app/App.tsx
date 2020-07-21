@@ -1,28 +1,22 @@
-import React, {FC} from "react";
-import {Layout, PageHeader} from "antd";
-import {createBrowserHistory} from "history";
+import React, { FC } from "react";
+import { Layout, PageHeader } from "antd";
 import "antd/dist/antd.css";
 import Admin from "../features/Admin/Admin";
 import styles from "./App.module.scss";
-import Menu from "../features/Menu/Menu";
+import Order from "../features/Order/Order";
+import Router from "./Router";
 
 const { Content, Footer } = Layout;
 
 const App: FC = () => {
-
-	const { location } = createBrowserHistory();
-
 	return (
 		<Layout className={styles.layout}>
 			<PageHeader title="Excuze"/>
 			<Content className={styles.content}>
-				{
-					location.pathname === "/" ?
-						<Menu/> :
-					location.pathname === "/admin" ?
-						<Admin/> :
-						<div>categories</div>
-				}
+				<Router routes={{
+					"/": <Order/>,
+					"/admin": <Admin/>
+				}}/>
 			</Content>
 			<Footer className={styles.footer}>Excuze 2020</Footer>
 		</Layout>

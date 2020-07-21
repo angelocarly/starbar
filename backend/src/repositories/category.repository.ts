@@ -1,5 +1,5 @@
 import { getRepository, DeleteResult, InsertResult, UpdateResult } from "typeorm";
-import { Category } from "../models/entities/category.entity";
+import { Category } from "../models/entities";
 import { Service } from "typedi";
 import { GenericRepository } from "./repository";
 import { CategoryNotFoundError } from "../exceptions/errors";
@@ -11,10 +11,10 @@ export class CategoryRepository implements GenericRepository<Category> {
 
 	async find(id: number): Promise<Category> {
 		const category = await this.repository.findOne(id);
-        if (!category) {
-            throw new CategoryNotFoundError(id);
-        }
-        return category;
+		if (!category) {
+			throw new CategoryNotFoundError(id);
+		}
+		return category;
 	}
 
 	findAll(): Promise<Category[]> {

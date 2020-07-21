@@ -1,6 +1,4 @@
 export type Order = {
-    name: string,
-    table: string,
     orders: Record<number, number>
 };
 
@@ -10,3 +8,8 @@ export type OrderRequest = {
     orders: { id: number, amount: number }[],
 };
 
+export type OrderEntry = {
+    name: string,
+    amount: number,
+    totalPrice: number
+};

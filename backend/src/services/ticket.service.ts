@@ -1,12 +1,11 @@
 import { Inject, Service } from "typedi";
 import { ConsumptionRepository } from "../repositories/consumption.repository";
-import { Ticket } from "../models/entities/ticket.entity";
+import { Ticket } from "../models/entities";
 import doc from "pdfkit";
 import { PrinterError } from "../exceptions/errors";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const voilab = require("voilab-pdf-table");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const Printer = require("printer");
+import Printer from "printer";
 
 export interface TicketService {
 
@@ -26,13 +25,13 @@ export class PrinterTicketService implements TicketService {
 		try {
 
 			const a = new doc({
-					margins: {
-						top: 5,
-						bottom: 0,
-						left: 0,
-						right: 10
-					}
+				margins: {
+					top: 5,
+					bottom: 0,
+					left: 0,
+					right: 10
 				}
+			}
 			);
 
 			a.image("logo/logo.jpg", 0, 15, { height: 320 });
