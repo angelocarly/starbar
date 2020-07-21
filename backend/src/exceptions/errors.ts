@@ -6,53 +6,53 @@ export class EntityNotFoundError extends NotFoundError {
     public entityId?: number;
 
     constructor(entityName: string, entityId?: number , message?: string) {
-        super(message || `No ${entityName} with id ${entityId} found`);
-        this.entityId = entityId;
-        this.name = `${capitalize(entityName)}${this.constructor.name}`;
+    	super(message || `No ${entityName} with id ${entityId} found`);
+    	this.entityId = entityId;
+    	this.name = `${capitalize(entityName)}${this.constructor.name}`;
     }
 }
 
 export class CategoryNotFoundError extends EntityNotFoundError {
 
-    constructor(categoryId: number, message?: string) {
-        super("category", categoryId, message);
-    }
+	constructor(categoryId: number, message?: string) {
+		super("category", categoryId, message);
+	}
 }
 
 export class ConsumptionNotFoundError extends EntityNotFoundError {
 
-    constructor(consumptionId: number, message?: string) {
-        super("consumption", consumptionId, message);
-    }
+	constructor(consumptionId: number, message?: string) {
+		super("consumption", consumptionId, message);
+	}
 }
 
 export class UserNotFoundError extends EntityNotFoundError {
 
-    constructor(username?: string, id?: number, message?: string) {
+	constructor(username?: string, id?: number, message?: string) {
     	super("user", id, message
             || username && `No user with username ${username} found`);
-    }
+	}
 }
 
 export class UsernameTakenError extends UnauthorizedError {
 
-    constructor(username: string, message?: string) {
-        super(message || `Username ${username} already taken`);
-        this.name = "UsernameTakenError";
-    }
+	constructor(username: string, message?: string) {
+		super(message || `Username ${username} already taken`);
+		this.name = "UsernameTakenError";
+	}
 }
 
 export class InvalidLoginError extends UnauthorizedError {
 
-    constructor(username: string, message?: string) {
-        super(message || `Authentication for user ${username} is not valid`);
-        this.name = "InvalidLoginError";
-    }
+	constructor(username: string, message?: string) {
+		super(message || `Authentication for user ${username} is not valid`);
+		this.name = "InvalidLoginError";
+	}
 }
 
 export class PrinterError extends Error {
-    constructor(message?: string) {
-        super(message || "An error with the printer occurred");
-        this.name = "PrinterError";
-    }
+	constructor(message?: string) {
+		super(message || "An error with the printer occurred");
+		this.name = "PrinterError";
+	}
 }

@@ -1,5 +1,5 @@
 import { getRepository, DeleteResult, UpdateResult, InsertResult } from "typeorm";
-import { Consumption } from "../models/entities/consumption.entity";
+import { Consumption } from "../models/entities";
 import { Service } from "typedi";
 import { GenericRepository } from "./repository";
 import { ConsumptionNotFoundError } from "../exceptions/errors";
@@ -14,7 +14,7 @@ export class ConsumptionRepository implements GenericRepository<Consumption> {
 		const consumption = await this.repository.findOne(id);
 		if (!consumption) {
 		    throw new ConsumptionNotFoundError(id);
-        }
+		}
 		return consumption;
 	}
 

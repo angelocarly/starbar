@@ -1,33 +1,20 @@
-import React, { Dispatch, FC, FormEvent, SetStateAction, useState } from "react";
-import { Button, Space, Typography } from "antd";
+import React, { FC } from "react";
 import { UserOutlined } from "@ant-design/icons/lib";
-import Input from "../../../common/components/Input/Input";
+import Input from "../../../common/components/Input";
 import styles from "./Login.module.scss";
-import { apiCall } from "../../../common/utils/fetch";
-import { handleConstraintError } from "../../../common/utils/error";
+import { Space, Typography } from "antd";
+import Button from "../../../common/components/Button";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../app/store";
+import { login } from "../Admin.slice";
 
 const { Title } = Typography;
 
-interface LoginProps {
-	setToken: Dispatch<SetStateAction<string>>;
-}
+const Login: FC = () => {
 
-const Login: FC<LoginProps> = ({ setToken }: LoginProps) => {
-
-	const [password, setPassword] = useState<string>("");
-
-	const login = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
-		event.preventDefault();
-		try {
-			const result = await apiCall<string>("/api/login", {
-				method: "POST",
-				body: { password }
-			});
-			setToken(result);
-		} catch (e) {
-			handleConstraintError(e.message);
-		}
-	};
+	const { control, handleSubmit } = useForm({ defaultValues: { password: "" } });
+	const dispatch = useDispatch<AppDispatch>();
 
 	return (
 		<div className={styles.login}>
@@ -36,15 +23,18 @@ const Login: FC<LoginProps> = ({ setToken }: LoginProps) => {
 					style={{ textAlign: "center" }}
 					level={4}
 				>Vul je wachtwoord in</Title>
-				<form onSubmit={async (event) => await login(event)}>
+				<form onSubmit={handleSubmit(({ password }) => {
+					dispatch(login(password));
+				})}>
 					<Space>
 						<Input
+							control={control}
+							type="password"
+							name="password"
 							placeholder="Wachtwoord"
 							prefix={<UserOutlined/>}
-							value={password}
-							onChange={value => setPassword(value)}
 						/>
-						<Button type="primary" htmlType="submit">Log in</Button>
+						<Button type="submit">Log in</Button>
 					</Space>
 				</form>
 			</Space>
