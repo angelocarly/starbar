@@ -1,8 +1,8 @@
-import { User } from "../models/entities";
-import { Inject, Service } from "typedi";
-import { UserRepository } from "../repositories/user.repository";
-import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
-import { InvalidLoginError } from "../exceptions/errors";
+import {User} from "../models/entities";
+import {Inject, Service} from "typedi";
+import {UserRepository} from "../repositories/user.repository";
+import {DeleteResult, InsertResult} from "typeorm";
+import {InvalidLoginError} from "../exceptions/errors";
 
 @Service()
 export default class UserService {
@@ -22,7 +22,7 @@ export default class UserService {
 		return this.repository.insert(user);
 	}
 
-	update(id: number, user: User): Promise<UpdateResult> {
+	update(id: number, user: User): Promise<User> {
 		return this.repository.update(id, user);
 	}
 

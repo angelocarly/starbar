@@ -7,7 +7,7 @@ interface CategoryProps {
 
 const Category: FC<CategoryProps> = ({ category }: CategoryProps) => {
 	return (
-		<p>{category.consumptions}</p>
+		<p>{category.name}</p>
 	);
 };
 

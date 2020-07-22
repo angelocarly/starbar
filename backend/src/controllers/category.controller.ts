@@ -1,8 +1,8 @@
-import { Inject } from "typedi";
+import {Inject} from "typedi";
 import CategoryService from "../services/category.service";
-import { Category } from "../models/entities";
-import { Authorized, Body, Delete, Get, JsonController, Param, Post, Put } from "routing-controllers";
-import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
+import {Category} from "../models/entities";
+import {Authorized, Body, Delete, Get, JsonController, Param, Post, Put} from "routing-controllers";
+import {DeleteResult, InsertResult} from "typeorm";
 
 @JsonController()
 export class CategoryController {
@@ -28,7 +28,7 @@ export class CategoryController {
 
 	@Authorized()
 	@Put("/categories/:id")
-	async put(@Param("id") id: number, @Body() category: Category): Promise<UpdateResult> {
+	async put(@Param("id") id: number, @Body() category: Category): Promise<Category> {
 		category.id = id;
 		return await this.categoryService.update(id, category);
 	}

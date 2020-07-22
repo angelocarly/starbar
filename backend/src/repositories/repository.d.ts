@@ -1,10 +1,10 @@
-import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
+import {DeleteResult, InsertResult} from "typeorm";
 
 export interface GenericRepository<T> {
 	findAll(): Promise<T[]>;
 	insert(t: T): Promise<InsertResult>;
 	find(id: number): Promise<T>;
-	update(id: number, t: T): Promise<UpdateResult>;
+	update(id: number, t: T): Promise<T>;
 	delete(id: number): Promise<DeleteResult>;
 }
 

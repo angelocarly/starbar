@@ -10,7 +10,9 @@ export class Category {
     @Column()
     public name?: string;
 
-    @OneToMany(() => Consumption, consumption => consumption.category)
+    @OneToMany(() => Consumption, consumption => consumption.category, {
+        onUpdate: "CASCADE"
+    })
     public consumptions?: Consumption[];
 
     constructor(category: Category) {

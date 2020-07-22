@@ -1,8 +1,8 @@
-import { DeleteResult, getRepository, InsertResult, UpdateResult } from "typeorm";
-import { User } from "../models/entities/user.entity";
-import { Service } from "typedi";
-import { GenericRepository } from "./repository";
-import { UserNotFoundError } from "../exceptions/errors";
+import {DeleteResult, getRepository, InsertResult} from "typeorm";
+import {User} from "../models/entities";
+import {Service} from "typedi";
+import {GenericRepository} from "./repository";
+import {UserNotFoundError} from "../exceptions/errors";
 
 @Service()
 export class UserRepository implements GenericRepository<User> {
@@ -33,8 +33,9 @@ export class UserRepository implements GenericRepository<User> {
 		return this.repository.insert(user);
 	}
 
-	update(id: number, user: User): Promise<UpdateResult> {
-		return this.repository.update(id, user);
+	update(id: number, user: User): Promise<User> {
+		user.id = id;
+		return this.repository.save(user);
 	}
 
 	delete(id: number): Promise<DeleteResult> {

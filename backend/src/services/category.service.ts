@@ -1,7 +1,7 @@
-import { Category } from "../models/entities";
-import { Service, Inject } from "typedi";
-import { CategoryRepository } from "../repositories/category.repository";
-import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
+import {Category} from "../models/entities";
+import {Inject, Service} from "typedi";
+import {CategoryRepository} from "../repositories/category.repository";
+import {DeleteResult, InsertResult} from "typeorm";
 
 @Service()
 export default class CategoryService {
@@ -21,8 +21,8 @@ export default class CategoryService {
 		return this.repository.insert(category);
 	}
 
-	update(id: number, category: Category): Promise<UpdateResult> {
-		return this.repository.update(id, category);
+	async update(id: number, category: Category): Promise<Category> {
+		return await this.repository.update(id, category);
 	}
 
 	delete(id: number): Promise<DeleteResult> {

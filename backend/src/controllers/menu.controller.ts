@@ -1,12 +1,11 @@
-import { Inject } from "typedi";
+import {Inject} from "typedi";
 import ConsumptionService from "../services/consumption.service";
 import CategoryService from "../services/category.service";
-import { Consumption } from "../models/entities";
-import { JsonController, Param, Body, Get, Post, Put, Delete, Authorized, OnUndefined } from "routing-controllers";
-import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
-import { Category } from "../models/entities";
+import {Category, Consumption} from "../models/entities";
+import {Authorized, Body, Delete, Get, JsonController, OnUndefined, Param, Post, Put} from "routing-controllers";
+import {DeleteResult, InsertResult} from "typeorm";
 import MenuService from "../services/menu.service";
-import { OrderDTO } from "../models/dto/order.dto";
+import {OrderDTO} from "../models/dto/order.dto";
 
 @JsonController()
 export class MenuController {
@@ -44,7 +43,7 @@ export class MenuController {
 
 	@Authorized()
 	@Put("/menu/:id")
-	async put(@Param("id") id: number, @Body() consumption: Consumption): Promise<UpdateResult> {
+	async put(@Param("id") id: number, @Body() consumption: Consumption): Promise<Consumption> {
 		return await this.consumptionService.update(id, { ...consumption, id });
 	}
 

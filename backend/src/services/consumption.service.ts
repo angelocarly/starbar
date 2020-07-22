@@ -1,7 +1,7 @@
-import { Consumption } from "../models/entities";
-import { Inject, Service } from "typedi";
-import { ConsumptionRepository } from "../repositories/consumption.repository";
-import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
+import {Consumption} from "../models/entities";
+import {Inject, Service} from "typedi";
+import {ConsumptionRepository} from "../repositories/consumption.repository";
+import {DeleteResult, InsertResult} from "typeorm";
 
 @Service()
 export default class ConsumptionService {
@@ -21,7 +21,7 @@ export default class ConsumptionService {
 		return this.repository.insert(consumption);
 	}
 
-	update(id: number, consumption: Consumption): Promise<UpdateResult> {
+	update(id: number, consumption: Consumption): Promise<Consumption> {
 		return this.repository.update(id, consumption);
 	}
 

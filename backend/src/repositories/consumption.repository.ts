@@ -1,8 +1,8 @@
-import { getRepository, DeleteResult, UpdateResult, InsertResult } from "typeorm";
-import { Consumption } from "../models/entities";
-import { Service } from "typedi";
-import { GenericRepository } from "./repository";
-import { ConsumptionNotFoundError } from "../exceptions/errors";
+import {DeleteResult, getRepository, InsertResult} from "typeorm";
+import {Consumption} from "../models/entities";
+import {Service} from "typedi";
+import {GenericRepository} from "./repository";
+import {ConsumptionNotFoundError} from "../exceptions/errors";
 
 
 @Service()
@@ -26,8 +26,9 @@ export class ConsumptionRepository implements GenericRepository<Consumption> {
 		return this.repository.insert(consumption);
 	}
 
-	update(id: number, consumption: Consumption): Promise<UpdateResult> {
-		return this.repository.update(id, consumption);
+	update(id: number, consumption: Consumption): Promise<Consumption> {
+		consumption.id = id;
+		return this.repository.save(consumption);
 	}
 
 	delete(id: number): Promise<DeleteResult> {

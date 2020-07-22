@@ -1,8 +1,8 @@
-import { getRepository, DeleteResult, InsertResult, UpdateResult } from "typeorm";
-import { Category } from "../models/entities";
-import { Service } from "typedi";
-import { GenericRepository } from "./repository";
-import { CategoryNotFoundError } from "../exceptions/errors";
+import {DeleteResult, getRepository, InsertResult} from "typeorm";
+import {Category} from "../models/entities";
+import {Service} from "typedi";
+import {GenericRepository} from "./repository";
+import {CategoryNotFoundError} from "../exceptions/errors";
 
 @Service()
 export class CategoryRepository implements GenericRepository<Category> {
@@ -25,8 +25,9 @@ export class CategoryRepository implements GenericRepository<Category> {
 		return this.repository.insert(category);
 	}
 
-	update(id: number, category: Category): Promise<UpdateResult> {
-		return this.repository.update(id, category);
+	update(id: number, category: Category): Promise<Category> {
+		category.id = id;
+		return this.repository.save(category);
 	}
 
 	findAllJoinConsumptions(): Promise<Category[]> {
