@@ -1,10 +1,10 @@
-import React, { FC, useEffect } from "react";
-import { BackTop, Button, Collapse } from "antd";
+import React, {FC, useEffect} from "react";
+import {BackTop, Button, Collapse} from "antd";
 import Consumptions from "./Consumptions/Consumptions";
 import styles from "./Menu.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { categories as categoriesState, fetchCategories, openConfirm } from "../Order.slice";
-import { AppDispatch } from "../../../app/store";
+import {useDispatch, useSelector} from "react-redux";
+import {categories as categoriesState, fetchCategories, openConfirm} from "../Order.slice";
+import {AppDispatch} from "../../../app/store";
 
 const Menu: FC = () => {
 
@@ -14,6 +14,7 @@ const Menu: FC = () => {
 	useEffect(() => {
 		dispatch(fetchCategories());
 	}, [dispatch]);
+
 
 	return <>
 		<Collapse defaultActiveKey={1} accordion>

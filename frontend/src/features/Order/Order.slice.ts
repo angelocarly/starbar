@@ -118,4 +118,4 @@ export const orders       = createSelector<RootState, Order, Consumption[], Orde
 	})
 );
 
-export const { addConsumption, openConfirm, orderAgain } = orderSlice.actions;
+export const { addConsumption, openConfirm, orderAgain, setTable } = orderSlice.actions;
