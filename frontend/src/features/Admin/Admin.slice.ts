@@ -1,20 +1,24 @@
-import {createAsyncThunk, createSlice, SliceCaseReducers} from "@reduxjs/toolkit";
-import {apiCall} from "../../common/utils/fetch";
-import {handleConstraintError} from "../../common/utils/error";
-import {RootState} from "../../app/rootReducer";
-import {Category} from "../../common/models/Model";
-import {putCategory} from "./Admin.service";
+import { CaseReducer, createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { apiCall } from "../../common/utils/fetch";
+import { handleConstraintError } from "../../common/utils/error";
+import { RootState } from "../../app/rootReducer";
+import { Category } from "../../common/models/Model";
+import { putCategory } from "./Admin.service";
+import { CategoryRequest } from "./Admin.models";
 
 type AdminSlice = {
-	token: string,
-	categories:   Category[],
-	selectedCategory: number
+	categories: Category[],
+	selectedCategoryId?: number
 };
 
 const initialState: AdminSlice = {
-	token: "",
 	categories: [],
-	selectedCategory: 1
+};
+
+type Reducers = {
+	selectCategory: CaseReducer<AdminSlice, PayloadAction<number>>,
+	cancelEdit:     CaseReducer<AdminSlice, PayloadAction>,
+	startEdit:      CaseReducer<AdminSlice, PayloadAction<number>>,
 };
 
 export const fetchCategories = createAsyncThunk<Category[]>(
@@ -29,16 +33,15 @@ export const fetchCategories = createAsyncThunk<Category[]>(
 	}
 );
 
-export const login = createAsyncThunk<string, string>(
+export const login = createAsyncThunk<void, string>(
 	"admin/login",
-	async (password) => {
+	async password => {
 		try {
-			const result = (await apiCall<{token: string}>("/login", {
+			const result = (await apiCall<{ token: string }>("/login", {
 				method: "POST",
 				body: { password }
 			}))!;
-			localStorage.setItem('access_token', result.token);
-			return result.token;
+			localStorage.setItem("access_token", result.token);
 		} catch (e) {
 			handleConstraintError(e.message);
 			throw Error(e);
@@ -46,12 +49,15 @@ export const login = createAsyncThunk<string, string>(
 	}
 );
 
-export const updateCategory = createAsyncThunk<Category, Category, { state: RootState }>(
+export const updateCategory = createAsyncThunk<CategoryRequest, string, { state: RootState }>(
 	"admin/updatecategory",
-	async (category, { }) => {
+	async (name, { getState }) => {
 		try {
-			await putCategory({id: category.id, name: category.name} );
-			return category;
+			const oldCategory = selectedCategory(getState());
+			if (!oldCategory) {
+				throw new Error("Category is undefined");
+			}
+			return await putCategory({ id: oldCategory?.id, name });
 		} catch ({ message }) {
 			handleConstraintError(message);
 			throw Error(message);
@@ -59,33 +65,33 @@ export const updateCategory = createAsyncThunk<Category, Category, { state: Root
 	}
 );
 
-const adminSlice = createSlice<AdminSlice, SliceCaseReducers<AdminSlice>>({
+const adminSlice = createSlice<AdminSlice, Reducers>({
 	name: "admin",
 	initialState,
 	reducers: {
-		selectCategory: (state, { payload }) => {
-			state.selectedCategory = payload;
-		},
+		selectCategory: (state, { payload }) => { state.selectedCategoryId = payload; },
+		cancelEdit:     state => { state.selectedCategoryId = undefined; },
+		startEdit:      (state, { payload }) => { state.selectedCategoryId = payload; },
 	},
 	extraReducers: builder => {
 		builder.addCase(fetchCategories.fulfilled, (state, { payload }) => {
 			state.categories = payload;
 		});
-		builder.addCase(login.fulfilled, (state, { payload }) => {
-			state.token = payload;
-		});
 		builder.addCase(updateCategory.fulfilled, (state, { payload }) => {
-			let cat = state.categories.find(value => value.id === payload.id);
-			if(cat) {
-			    cat.name = payload.name;
+			const index = state.categories.findIndex(value => value.id === payload.id);
+			if (index !== -1) {
+				state.categories[index].name = payload.name;
 			}
+			state.selectedCategoryId = undefined;
 		});
 	}
 });
 
 export default adminSlice.reducer;
-export const token = (state: RootState): string => state.admin.token;
-export const categories   = (state: RootState): Category[] => state.admin.categories;
-export const selectedCategory = (state: RootState): number => state.admin.selectedCategory;
 
-export const { selectCategory } = adminSlice.actions;
+export const categories = (state: RootState): Category[] => state.admin.categories;
+export const selectedCategoryId = (state: RootState): number | undefined => state.admin.selectedCategoryId;
+export const selectedCategory = (state: RootState): Category | undefined => state.admin.categories
+	.find(c => c.id === state.admin.selectedCategoryId);
+
+export const { cancelEdit, startEdit } = adminSlice.actions;

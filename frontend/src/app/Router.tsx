@@ -13,9 +13,7 @@ const Router: FC<RouterProps> = ({ routes }: RouterProps) => {
 		push(path);
 	};
 
-	return <>{
-		routes[location.pathname]
-	}</>;
+	return <>{routes[location.pathname]}</>;
 };
 
 export default Router;

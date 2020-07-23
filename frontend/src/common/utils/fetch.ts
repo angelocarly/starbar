@@ -1,8 +1,8 @@
 type HttpMethod =
-    | "GET"
-    | "POST"
-    | "PUT"
-    | "DELETE";
+	| "GET"
+	| "POST"
+	| "PUT"
+	| "DELETE";
 
 interface Options {
 	method: HttpMethod,

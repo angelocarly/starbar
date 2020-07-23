@@ -26,7 +26,7 @@ const Login: FC = () => {
 				<form onSubmit={handleSubmit(({ password }) => {
 					dispatch(login(password));
 				})}>
-					<Space>
+					<Space align="baseline">
 						<Input
 							control={control}
 							type="password"

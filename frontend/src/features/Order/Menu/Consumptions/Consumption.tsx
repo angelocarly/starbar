@@ -8,7 +8,7 @@ import { addConsumption, order } from "../../Order.slice";
 import { AppDispatch } from "../../../../app/store";
 
 interface ConsumptionProps {
-    consumption: ConsumptionModel;
+	consumption: ConsumptionModel;
 }
 
 const Consumption = ({ consumption }: ConsumptionProps) => {

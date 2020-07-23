@@ -1,4 +1,4 @@
 export type CategoryRequest = {
-    id: number,
-    name: string,
+	id: number,
+	name: string,
 };
