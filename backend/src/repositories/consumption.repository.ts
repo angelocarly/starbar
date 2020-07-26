@@ -23,7 +23,6 @@ export class ConsumptionRepository implements GenericRepository<Consumption> {
 
 	async insert(consumption: Consumption): Promise<number> {
 		const result = await this.repository.insert(consumption);
-		console.log(result);
 		return result.raw;
 	}
 
