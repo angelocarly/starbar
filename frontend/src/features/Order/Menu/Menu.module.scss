@@ -6,10 +6,12 @@
 
 .price {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  margin: auto 4em auto auto;
+  text-align: center;
 }
 
 .amount {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }

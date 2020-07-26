@@ -26,18 +26,20 @@ module.exports = {
 		"@typescript-eslint",
 	],
 	"rules": {
-		"@typescript-eslint/no-unused-vars" : "warn",
-		"indent": [ "warn", "tab" ],
-		"linebreak-style": [ "warn", "unix" ],
-		"quotes": [ "warn", "double" ],
-		"semi": [ "warn", "always" ],
-		"no-unused-vars": [ "warn", { "vars": "all", "caughtErrors": "all" } ],
-		"object-curly-spacing": [ "warn", "always" ],
-		"eol-last": [ "warn", "always" ],
+		"@typescript-eslint/no-unused-vars": "warn",
+		"indent": ["warn", "tab"],
+		"linebreak-style": ["warn", "unix"],
+		"quotes": ["warn", "double"],
+		"semi": ["warn", "always"],
+		"no-unused-vars": ["warn", {"vars": "all", "caughtErrors": "all"}],
+		"object-curly-spacing": ["warn", "always"],
+		"eol-last": ["warn", "always"],
 		"operator-linebreak": ["warn", "before"],
 		"multiline-ternary": ["warn", "always-multiline"],
 		"dot-notation": ["warn"],
 		"dot-location": ["warn", "property"],
 		"eqeqeq": ["warn", "smart"],
+		"react/display-name": "off",
+		"react/prop-types": "off"
 	}
 };

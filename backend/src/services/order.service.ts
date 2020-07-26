@@ -6,7 +6,7 @@ import { Ticket, TicketEntry } from "../models/entities/ticket.entity";
 import { ConsumptionNotFoundError } from "../exceptions/errors";
 
 @Service()
-export default class MenuService {
+export default class OrderService {
 
 	@Inject("ticket.service")
 	public ticketService!: TicketService;

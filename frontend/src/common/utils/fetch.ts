@@ -1,8 +1,8 @@
 type HttpMethod =
-    | "GET"
-    | "POST"
-    | "PUT"
-    | "DELETE";
+	| "GET"
+	| "POST"
+	| "PUT"
+	| "DELETE";
 
 interface Options {
 	method: HttpMethod,
@@ -14,7 +14,10 @@ export async function apiCall<T = void>(uri: string, options?: Partial<Options>)
 	const result = await fetch(uri, {
 		method: options?.method,
 		body: options?.body && JSON.stringify(options.body),
-		headers: { "Content-Type": "application/json" }
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": `Bearer ${localStorage.getItem("access_token")}`
+		}
 	});
 
 	if (result.ok) {

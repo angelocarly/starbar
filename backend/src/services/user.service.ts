@@ -1,7 +1,7 @@
-import { User } from "../models/entities/user.entity";
+import { User } from "../models/entities";
 import { Inject, Service } from "typedi";
 import { UserRepository } from "../repositories/user.repository";
-import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
+import { DeleteResult } from "typeorm";
 import { InvalidLoginError } from "../exceptions/errors";
 
 @Service()
@@ -18,11 +18,11 @@ export default class UserService {
 		return this.repository.findAll();
 	}
 
-	insert(user: User): Promise<InsertResult> {
+	insert(user: User): Promise<number> {
 		return this.repository.insert(user);
 	}
 
-	update(id: number, user: User): Promise<UpdateResult> {
+	update(id: number, user: User): Promise<User> {
 		return this.repository.update(id, user);
 	}
 
@@ -41,5 +41,19 @@ export default class UserService {
 		} else {
 			throw new InvalidLoginError(username);
 		}
+	}
+
+	async changePassword(username: string, password: string): Promise<string> {
+	    // Verify that the user exists
+		if (!await this.repository.exists(username)) {
+			throw new InvalidLoginError(username);
+		}
+
+		// Update the user's password
+		const user = await this.repository.findByName(username);
+		user.setPassword(password);
+		await this.repository.update(user.id!, user);
+
+		return user.generateJWT();
 	}
 }

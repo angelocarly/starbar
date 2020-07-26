@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { orders,
+import {
+	orders,
 	postOrder,
 	name as nameState,
 	table as tableState
@@ -15,8 +16,8 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers";
 
 const schema = yup.object().shape({
-	name : yup.string().required("Geef een naam in"),
-	table : yup.string().required("Geef een tafelnummer in"),
+	name: yup.string().required("Geef een naam in"),
+	table: yup.string().required("Geef een tafelnummer in"),
 }).defined();
 
 type ConfirmSchema = yup.InferType<typeof schema>;
@@ -54,9 +55,9 @@ const Confirm: FC = () => {
 					{ title: "Naam", dataIndex: "name" },
 					{ title: "Aantal", dataIndex: "amount" },
 					{ title: "Prijs", dataIndex: "totalPrice" },
-				]} 
+				]}
 				dataSource={useSelector(orders)}/>
-			<Button type="submit">Bevestigen</Button>
+			<Button htmlType="submit">Bevestigen</Button>
 		</form>
 	);
 };

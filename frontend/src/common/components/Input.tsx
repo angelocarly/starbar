@@ -3,22 +3,22 @@ import { Input as AntInput, Form } from "antd";
 import { Control, Controller, FieldError } from "react-hook-form";
 
 interface InputProps {
-    placeholder?: string,
-	prefix?: ReactNode,
-	type?: "password" | "number" | "text",
-	control?: Control<Record<string, any>>,
-	name?: string,
-	error?: FieldError
+	placeholder: string,
+	prefix: ReactNode,
+	type: "password" | "number" | "text",
+	control: Control<Record<string, any>>,
+	name: string,
+	error: FieldError
 }
 
-const Input: FC<InputProps> = ({
+const Input: FC<Partial<InputProps>> = ({
 	placeholder,
 	prefix,
 	type = "text",
 	control,
 	name,
 	error
-}: InputProps) => {
+}: Partial<InputProps>) => {
 	return (
 		<Controller
 			control={control}
