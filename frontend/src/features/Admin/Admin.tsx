@@ -1,20 +1,19 @@
 import React, { FC, useEffect } from "react";
-import Categories from "./Categories/Categories";
+import Categories from "./Categories/Categories/Categories";
 import Login from "./Login/Login";
-import { useDispatch } from "react-redux";
-import { fetchCategories } from "./Admin.slice";
+import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../app/store";
+import { setToken, token } from "./Admin.slice";
 
-// Hier menu object/state bijhouden en doorgeven aan views
 const Admin: FC = () => {
 
 	const dispatch = useDispatch<AppDispatch>();
 
 	useEffect(() => {
-		dispatch(fetchCategories());
+		dispatch(setToken(localStorage.getItem("access_token") || ""));
 	}, [dispatch]);
 
-	return localStorage.getItem("access_token")
+	return useSelector(token)
 		? <Categories/>
 		: <Login/>;
 };

@@ -1,79 +1,67 @@
-import { CaseReducer, createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { apiCall } from "../../common/utils/fetch";
-import { handleConstraintError } from "../../common/utils/error";
+import { CaseReducer, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/rootReducer";
-import { Category } from "../../common/models/Model";
-import { putCategory } from "./Admin.service";
-import { CategoryRequest } from "./Admin.models";
+import { Category, Consumption } from "../../common/models/Model";
+import {
+	createCategory,
+	createConsumption,
+	deleteCategory, deleteConsumption,
+	fetchCategories, login,
+	updateCategory,
+	updateConsumption
+} from "./Admin.thunks";
 
 type AdminSlice = {
+	token: string,
 	categories: Category[],
-	selectedCategoryId?: number
+	selectedCategoryId?:          number
+	selectedConsumptionId?:       number,
+	createConsumptionOpen:        boolean,
+	createCategoryOpen:           boolean,
+	createConsumptionCategoryId?: number,
 };
 
 const initialState: AdminSlice = {
+	token: "",
 	categories: [],
+	createConsumptionOpen: false,
+	createCategoryOpen: false,
 };
 
 type Reducers = {
-	selectCategory: CaseReducer<AdminSlice, PayloadAction<number>>,
-	cancelEdit:     CaseReducer<AdminSlice, PayloadAction>,
-	startEdit:      CaseReducer<AdminSlice, PayloadAction<number>>,
+	cancelEdit:             CaseReducer<AdminSlice, PayloadAction>,
+	startEdit:              CaseReducer<AdminSlice, PayloadAction<number>>,
+	cancelConsumptionEdit:  CaseReducer<AdminSlice, PayloadAction>,
+	startConsumptionEdit:   CaseReducer<AdminSlice, PayloadAction<number>>,
+	openCreateConsumption:  CaseReducer<AdminSlice, PayloadAction<number>>,
+	closeCreateConsumption: CaseReducer<AdminSlice, PayloadAction>,
+	openCreateCategory:     CaseReducer<AdminSlice, PayloadAction>,
+	closeCreateCategory:    CaseReducer<AdminSlice, PayloadAction>,
+	logout:                 CaseReducer<AdminSlice, PayloadAction>
+	setToken:               CaseReducer<AdminSlice, PayloadAction<string>>
 };
-
-export const fetchCategories = createAsyncThunk<Category[]>(
-	"admin/fetchcategories",
-	async () => {
-		try {
-			return (await apiCall<Category[]>("/menu"))!;
-		} catch ({ message }) {
-			handleConstraintError(message);
-			throw Error(message);
-		}
-	}
-);
-
-export const login = createAsyncThunk<void, string>(
-	"admin/login",
-	async password => {
-		try {
-			const result = (await apiCall<{ token: string }>("/login", {
-				method: "POST",
-				body: { password }
-			}))!;
-			localStorage.setItem("access_token", result.token);
-		} catch (e) {
-			handleConstraintError(e.message);
-			throw Error(e);
-		}
-	}
-);
-
-export const updateCategory = createAsyncThunk<CategoryRequest, string, { state: RootState }>(
-	"admin/updatecategory",
-	async (name, { getState }) => {
-		try {
-			const oldCategory = selectedCategory(getState());
-			if (!oldCategory) {
-				throw new Error("Category is undefined");
-			}
-			return await putCategory({ id: oldCategory?.id, name });
-		} catch ({ message }) {
-			handleConstraintError(message);
-			throw Error(message);
-		}
-	}
-);
 
 const adminSlice = createSlice<AdminSlice, Reducers>({
 	name: "admin",
 	initialState,
 	reducers: {
-		selectCategory: (state, { payload }) => { state.selectedCategoryId = payload; },
-		cancelEdit:     state => { state.selectedCategoryId = undefined; },
-		startEdit:      (state, { payload }) => { state.selectedCategoryId = payload; },
+		cancelEdit:             state => { state.selectedCategoryId = undefined; },
+		startEdit:              (state, { payload }) => { state.selectedCategoryId = payload; },
+		cancelConsumptionEdit:  state => { state.selectedConsumptionId = undefined; },
+		startConsumptionEdit:   (state, { payload }) => { state.selectedConsumptionId = payload; },
+		openCreateConsumption:  (state, { payload }) => {
+			state.createConsumptionCategoryId = payload;
+			state.createConsumptionOpen = true;
+		},
+		closeCreateConsumption: state => { state.createConsumptionOpen = false; },
+		closeCreateCategory:    state => { state.createCategoryOpen = false; },
+		openCreateCategory:     state => { state.createCategoryOpen = true; },
+		logout:                 state => { state.token = ""; },
+		setToken:               (state, { payload }) => { state.token = payload; }
 	},
 	extraReducers: builder => {
+		builder.addCase(login.fulfilled, (state, { payload }) => {
+			state.token = payload;
+		});
 		builder.addCase(fetchCategories.fulfilled, (state, { payload }) => {
 			state.categories = payload;
 		});
@@ -84,14 +72,78 @@ const adminSlice = createSlice<AdminSlice, Reducers>({
 			}
 			state.selectedCategoryId = undefined;
 		});
+		builder.addCase(updateConsumption.fulfilled, (state, { payload }) => {
+			// Find index of category, then find index of consumption in category
+			const categoryIndex    = state.categories
+				.findIndex(value => !!value.consumptions.find(cons => cons.id === payload.id));
+			const consumptionIndex = state.categories[categoryIndex].consumptions
+				.findIndex(value => value.id === payload.id);
+
+			if (categoryIndex !== -1 && consumptionIndex !== -1) {
+				const oldConsumption = state.categories[categoryIndex].consumptions[consumptionIndex];
+
+				state.categories[categoryIndex].consumptions[consumptionIndex] = {
+					...oldConsumption,
+					name: payload.name,
+					price: payload.price
+				};
+			}
+			state.selectedConsumptionId = undefined;
+		});
+		builder.addCase(createCategory.fulfilled, (state, { payload }) => {
+			state.createCategoryOpen = false;
+			state.categories.push(payload);
+		});
+		builder.addCase(createConsumption.fulfilled, (state, { payload }) => {
+			const categoryIndex = state.categories.findIndex(c => c.id === payload.categoryId);
+			state.categories[categoryIndex].consumptions.push(payload.consumption);
+			state.createConsumptionCategoryId = undefined;
+			state.createConsumptionOpen = false;
+		});
+		builder.addCase(deleteCategory.fulfilled, (state, { payload }) => {
+			if (state.selectedCategoryId === payload) {
+				state.selectedCategoryId = undefined;
+			}
+			const categoryIndex = state.categories.findIndex(c => c.id === payload);
+			state.categories.splice(categoryIndex, 1);
+		});
+		builder.addCase(deleteConsumption.fulfilled, (state, { payload }) => {
+			if (state.selectedConsumptionId === payload) {
+				state.selectedConsumptionId = undefined;
+			}
+			const categoryIndex = state.categories
+				.findIndex(value => !!value.consumptions.find(cons => cons.id === payload));
+			const consumptionIndex = state.categories[categoryIndex].consumptions
+				.findIndex(value => value.id === payload);
+			state.categories[categoryIndex].consumptions.splice(consumptionIndex, 1);
+		});
 	}
 });
 
 export default adminSlice.reducer;
 
-export const categories = (state: RootState): Category[] => state.admin.categories;
-export const selectedCategoryId = (state: RootState): number | undefined => state.admin.selectedCategoryId;
-export const selectedCategory = (state: RootState): Category | undefined => state.admin.categories
+export const token                       = (state: RootState): string => state.admin.token;
+export const categories                  = (state: RootState): Category[] => state.admin.categories;
+export const selectedCategoryId          = (state: RootState): number | undefined => state.admin.selectedCategoryId;
+export const selectedConsumptionId       = (state: RootState): number | undefined => state.admin.selectedConsumptionId;
+export const createConsumptionOpen       = (state: RootState): boolean => state.admin.createConsumptionOpen;
+export const createCategoryOpen          = (state: RootState): boolean => state.admin.createCategoryOpen;
+export const createConsumptionCategoryId = (state: RootState): number | undefined => state.admin.createConsumptionCategoryId;
+export const selectedCategory            = (state: RootState): Category | undefined => state.admin.categories
 	.find(c => c.id === state.admin.selectedCategoryId);
+export const selectedConsumption         = (state: RootState): Consumption | undefined => state.admin.categories
+	.reduce<Consumption[]>((cons, cat) => cons.concat(cat.consumptions), [])
+	.find(c => c.id === state.admin.selectedConsumptionId);
 
-export const { cancelEdit, startEdit } = adminSlice.actions;
+export const {
+	cancelEdit,
+	startEdit,
+	cancelConsumptionEdit,
+	startConsumptionEdit,
+	closeCreateConsumption,
+	openCreateConsumption,
+	closeCreateCategory,
+	openCreateCategory,
+	logout,
+	setToken
+} = adminSlice.actions;

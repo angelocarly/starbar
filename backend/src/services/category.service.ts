@@ -1,7 +1,7 @@
-import {Category} from "../models/entities";
-import {Inject, Service} from "typedi";
-import {CategoryRepository} from "../repositories/category.repository";
-import {DeleteResult, InsertResult} from "typeorm";
+import { Category } from "../models/entities";
+import { Inject, Service } from "typedi";
+import { CategoryRepository } from "../repositories/category.repository";
+import { DeleteResult } from "typeorm";
 
 @Service()
 export default class CategoryService {
@@ -17,7 +17,7 @@ export default class CategoryService {
 		return this.repository.findAll();
 	}
 
-	insert(category: Category): Promise<InsertResult> {
+	insert(category: Category): Promise<number> {
 		return this.repository.insert(category);
 	}
 

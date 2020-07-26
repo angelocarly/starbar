@@ -1,7 +1,7 @@
-import {Consumption} from "../models/entities";
-import {Inject, Service} from "typedi";
-import {ConsumptionRepository} from "../repositories/consumption.repository";
-import {DeleteResult, InsertResult} from "typeorm";
+import { Consumption } from "../models/entities";
+import { Inject, Service } from "typedi";
+import { ConsumptionRepository } from "../repositories/consumption.repository";
+import { DeleteResult } from "typeorm";
 
 @Service()
 export default class ConsumptionService {
@@ -17,7 +17,7 @@ export default class ConsumptionService {
 		return this.repository.findAll();
 	}
 
-	insert(consumption: Consumption): Promise<InsertResult> {
+	insert(consumption: Consumption): Promise<number> {
 		return this.repository.insert(consumption);
 	}
 

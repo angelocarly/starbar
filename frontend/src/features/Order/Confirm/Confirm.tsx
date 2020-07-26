@@ -57,7 +57,7 @@ const Confirm: FC = () => {
 					{ title: "Prijs", dataIndex: "totalPrice" },
 				]}
 				dataSource={useSelector(orders)}/>
-			<Button type="submit">Bevestigen</Button>
+			<Button htmlType="submit">Bevestigen</Button>
 		</form>
 	);
 };

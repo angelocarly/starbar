@@ -39,5 +39,7 @@ module.exports = {
 		"dot-notation": ["warn"],
 		"dot-location": ["warn", "property"],
 		"eqeqeq": ["warn", "smart"],
+		"react/display-name": "off",
+		"react/prop-types": "off"
 	}
 };

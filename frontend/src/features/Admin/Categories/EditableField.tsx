@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Input, InputNumber } from "antd";
 
-interface EditableCategoryProps extends React.HTMLAttributes<HTMLElement> {
+interface EditableFieldProps extends React.HTMLAttributes<HTMLElement> {
 	editing: boolean;
 	dataIndex: string;
 	title: any;
@@ -10,14 +10,14 @@ interface EditableCategoryProps extends React.HTMLAttributes<HTMLElement> {
 	children: React.ReactNode;
 }
 
-const EditableCategory: React.FC<EditableCategoryProps> = ({
+const EditableField: React.FC<EditableFieldProps> = ({
 	editing,
 	dataIndex,
 	title,
 	inputType,
 	children,
 	...restProps
-}: EditableCategoryProps) => {
+}: EditableFieldProps) => {
 
 	const inputNode = inputType === "number" ? <InputNumber/> : <Input/>;
 
@@ -29,7 +29,15 @@ const EditableCategory: React.FC<EditableCategoryProps> = ({
 						name={dataIndex}
 						style={{ margin: 0 }}
 						rules={[
-							{ required: true, message: `Please Input ${title}!` },
+							{
+								type: inputType === "number" ? "number" : "string",
+								min: inputType === "number" ? 0 : undefined,
+								message: "Ongeldige waarde"
+							},
+							{
+								required: true,
+								message: `Vul een ${title.toLowerCase()} in aub.!`
+							},
 						]}
 					>{inputNode}</Form.Item>
 					: children
@@ -38,4 +46,4 @@ const EditableCategory: React.FC<EditableCategoryProps> = ({
 	);
 };
 
-export default EditableCategory;
+export default EditableField;

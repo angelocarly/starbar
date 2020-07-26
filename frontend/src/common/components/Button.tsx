@@ -1,22 +1,33 @@
-import React, { FC, ReactNode } from "react";
+import React, { CSSProperties, FC, ReactNode } from "react";
 import { Button as AntButton } from "antd";
 import { ButtonHTMLType } from "antd/es/button/button";
 
 interface ButtonProps {
 	children: ReactNode,
-	type?: ButtonHTMLType,
-	onClick?: () => void,
+	htmlType: ButtonHTMLType,
+	onClick: () => void,
+	shape: "circle",
+	icon: ReactNode,
+	type: "primary",
+	style: CSSProperties
 }
 
-const Button: FC<ButtonProps> = ({
-	type,
+const Button: FC<Partial<ButtonProps>> = ({
+	type = "primary",
+	htmlType,
 	children,
 	onClick,
-}: ButtonProps) => {
+	shape,
+	icon,
+	style
+}: Partial<ButtonProps>) => {
 	return <AntButton
-		type="primary"
-		htmlType={type}
+		style={style}
+		type={type}
+		shape={shape}
+		htmlType={htmlType}
 		onClick={onClick}
+		icon={icon}
 	>
 		{children}
 	</AntButton>;

@@ -1,4 +1,4 @@
-import {IsDefined, Matches} from "class-validator";
+import { IsDefined, Matches } from "class-validator";
 
 export class PasswordDto {
 
@@ -6,7 +6,7 @@ export class PasswordDto {
 	public password: string;
 
 	@IsDefined()
-    @Matches('password')
+    @Matches("password")
 	public passwordConfirm: string;
 
 	constructor(password?: string, passwordConfirm?: string) {

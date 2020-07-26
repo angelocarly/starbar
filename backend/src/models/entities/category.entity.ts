@@ -5,13 +5,13 @@ import { Consumption } from "./consumption.entity";
 export class Category {
 
     @PrimaryGeneratedColumn()
-    public id: number;
+    public id?: number;
 
     @Column()
     public name?: string;
 
     @OneToMany(() => Consumption, consumption => consumption.category, {
-        onUpdate: "CASCADE"
+    	onUpdate: "CASCADE"
     })
     public consumptions?: Consumption[];
 
