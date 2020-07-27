@@ -8,7 +8,8 @@ interface InputProps {
 	type?: "password" | "number" | "text",
 	control?: Control<Record<string, any>>,
 	name?: string,
-	error?: FieldError
+	error?: FieldError,
+	disabled?: boolean
 }
 
 const Input: FC<InputProps> = ({
@@ -17,7 +18,8 @@ const Input: FC<InputProps> = ({
 	type = "text",
 	control,
 	name,
-	error
+	error,
+	disabled
 }: InputProps) => {
 	return (
 		<Controller
@@ -33,6 +35,7 @@ const Input: FC<InputProps> = ({
 						type={type}
 						placeholder={placeholder}
 						prefix={prefix}
+						disabled={disabled}
 					/>
 				</Form.Item>
 			)}

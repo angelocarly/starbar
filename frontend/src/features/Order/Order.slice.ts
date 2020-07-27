@@ -15,11 +15,13 @@ type OrderSlice = {
 	table:        string,
 	confirmOpen:  boolean,
 	successOpen:  boolean,
+	viaQR:		  boolean,
 }
 
 type Reducers = {
 	addConsumption: CaseReducer<OrderSlice, PayloadAction<{ id: number, add: boolean }>>,
 	setTable:       CaseReducer<OrderSlice, PayloadAction<string>>
+	setViaQR:       CaseReducer<OrderSlice, PayloadAction<boolean>>
 	openConfirm:    CaseReducer<OrderSlice, PayloadAction>,
 	orderAgain:     CaseReducer<OrderSlice, PayloadAction>,
 }
@@ -32,6 +34,7 @@ const initialState: OrderSlice = {
 	table: "",
 	confirmOpen:  false,
 	successOpen:  false,
+	viaQR: false,
 };
 
 export const fetchCategories = createAsyncThunk<Category[]>(
@@ -80,6 +83,7 @@ const orderSlice = createSlice<OrderSlice, Reducers>({
 			}
 		},
 		setTable:    (state, { payload }) => { state.table = payload; },
+		setViaQR:    (state, { payload }) => { state.viaQR = payload; },
 		openConfirm: state => { state.confirmOpen = true; },
 		orderAgain:  state => { state.successOpen = false; },
 	},
@@ -105,6 +109,7 @@ export const categories   = (state: RootState): Category[] => state.order.catego
 export const consumptions = (state: RootState): Consumption[] => state.order.consumptions;
 export const confirmOpen  = (state: RootState): boolean => state.order.confirmOpen;
 export const successOpen  = (state: RootState): boolean => state.order.successOpen;
+export const viaQR		  = (state: RootState): boolean => state.order.viaQR;
 export const orders       = createSelector<RootState, Order, Consumption[], OrderEntry[]>(
 	[order, consumptions],
 	(order, consumptions): OrderEntry[] => Object.keys(order.orders).map(key => {
@@ -118,4 +123,4 @@ export const orders       = createSelector<RootState, Order, Consumption[], Orde
 	})
 );
 
-export const { addConsumption, openConfirm, orderAgain, setTable } = orderSlice.actions;
+export const { addConsumption, openConfirm, orderAgain, setTable, setViaQR } = orderSlice.actions;
