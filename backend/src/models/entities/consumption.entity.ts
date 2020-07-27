@@ -14,7 +14,7 @@ export class Consumption {
     public price: number;
 
     @ManyToOne(() => Category, category => category.consumptions, { onDelete: "CASCADE" })
-    public category: Category;
+    public category?: Category;
 
     constructor(consumption: Consumption) {
     	this.id = consumption?.id;

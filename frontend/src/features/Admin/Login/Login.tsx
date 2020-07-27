@@ -7,7 +7,7 @@ import Button from "../../../common/components/Button";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../app/store";
-import { login } from "../Admin.slice";
+import { login } from "../Admin.thunks";
 
 const { Title } = Typography;
 
@@ -26,7 +26,7 @@ const Login: FC = () => {
 				<form onSubmit={handleSubmit(({ password }) => {
 					dispatch(login(password));
 				})}>
-					<Space>
+					<Space align="baseline">
 						<Input
 							control={control}
 							type="password"
@@ -34,7 +34,7 @@ const Login: FC = () => {
 							placeholder="Wachtwoord"
 							prefix={<UserOutlined/>}
 						/>
-						<Button type="submit">Log in</Button>
+						<Button htmlType="submit">Log in</Button>
 					</Space>
 				</form>
 			</Space>

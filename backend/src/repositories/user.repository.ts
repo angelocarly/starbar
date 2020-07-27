@@ -1,5 +1,5 @@
-import { DeleteResult, getRepository, InsertResult, UpdateResult } from "typeorm";
-import { User } from "../models/entities/user.entity";
+import { DeleteResult, getRepository } from "typeorm";
+import { User } from "../models/entities";
 import { Service } from "typedi";
 import { GenericRepository } from "./repository";
 import { UserNotFoundError } from "../exceptions/errors";
@@ -29,12 +29,12 @@ export class UserRepository implements GenericRepository<User> {
 		return this.repository.find();
 	}
 
-	insert(user: User): Promise<InsertResult> {
-		return this.repository.insert(user);
+	async insert(user: User): Promise<number> {
+		return (await this.repository.insert(user)).raw;
 	}
 
-	update(id: number, user: User): Promise<UpdateResult> {
-		return this.repository.update(id, user);
+	update(id: number, user: User): Promise<User> {
+		return this.repository.save({ ...user, id });
 	}
 
 	delete(id: number): Promise<DeleteResult> {

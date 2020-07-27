@@ -2,7 +2,9 @@ import { Inject } from "typedi";
 import CategoryService from "../services/category.service";
 import { Category } from "../models/entities";
 import { Authorized, Body, Delete, Get, JsonController, Param, Post, Put } from "routing-controllers";
-import { DeleteResult, InsertResult, UpdateResult } from "typeorm";
+import { DeleteResult } from "typeorm";
+import { CategoryResponse } from "../models/response/category.response";
+import { CreateCategoryRequest } from "../models/requests/create-category.request";
 
 @JsonController()
 export class CategoryController {
@@ -11,31 +13,33 @@ export class CategoryController {
 	private categoryService!: CategoryService;
 
 	@Get("/categories")
-	async getAll(): Promise<Category[]> {
-		return await this.categoryService.findAll();
+	getAll(): Promise<Category[]> {
+		return this.categoryService.findAll();
 	}
 
 	@Get("/categories/:id")
-	async getOne(@Param("id") id: number): Promise<Category> {
-		return await this.categoryService.find(id);
+	getOne(@Param("id") id: number): Promise<Category> {
+		return this.categoryService.find(id);
 	}
 
 	@Authorized()
 	@Post("/categories")
-	async post(@Body() category: Category): Promise<InsertResult> {
-		return await this.categoryService.insert(category);
+	async post(@Body() category: CreateCategoryRequest): Promise<CategoryResponse> {
+		return {
+			id: await this.categoryService.insert({ name: category.name }),
+			name: category.name,
+		};
 	}
 
 	@Authorized()
 	@Put("/categories/:id")
-	async put(@Param("id") id: number, @Body() category: Category): Promise<UpdateResult> {
-		category.id = id;
-		return await this.categoryService.update(id, category);
+	put(@Param("id") id: number, @Body() category: Category): Promise<Category> {
+		return this.categoryService.update(id, category);
 	}
 
 	@Authorized()
 	@Delete("/categories/:id")
-	async remove(@Param("id") id: number): Promise<DeleteResult> {
-		return await this.categoryService.delete(id);
+	remove(@Param("id") id: number): Promise<DeleteResult> {
+		return this.categoryService.delete(id);
 	}
 }

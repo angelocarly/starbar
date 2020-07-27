@@ -4,7 +4,7 @@ import { Consumption as ConsumptionModel } from "../../../../common/models/Model
 import Consumption from "./Consumption";
 
 interface ConsumptionsProps {
-    consumptions: ConsumptionModel[];
+	consumptions: ConsumptionModel[];
 }
 
 const Consumptions = ({ consumptions }: ConsumptionsProps) => {
