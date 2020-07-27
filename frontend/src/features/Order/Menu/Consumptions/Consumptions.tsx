@@ -11,7 +11,7 @@ const Consumptions = ({ consumptions }: ConsumptionsProps) => {
 	return (
 		<List
 			dataSource={consumptions}
-			renderItem={item => <Consumption consumption={item}/>}
+			renderItem={item => <Consumption key={item.id} consumption={item}/>}
 		/>
 	);
 };

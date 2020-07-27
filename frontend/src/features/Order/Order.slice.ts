@@ -19,9 +19,10 @@ type OrderSlice = {
 
 type Reducers = {
 	addConsumption: CaseReducer<OrderSlice, PayloadAction<{ id: number, add: boolean }>>,
-	setTable: CaseReducer<OrderSlice, PayloadAction<string>>
-	openConfirm: CaseReducer<OrderSlice, PayloadAction>,
-	orderAgain: CaseReducer<OrderSlice, PayloadAction>,
+	setTable:       CaseReducer<OrderSlice, PayloadAction<string>>
+	openConfirm:    CaseReducer<OrderSlice, PayloadAction>,
+	back:           CaseReducer<OrderSlice, PayloadAction>,
+	orderAgain:     CaseReducer<OrderSlice, PayloadAction>,
 }
 
 const initialState: OrderSlice = {
@@ -79,21 +80,21 @@ const orderSlice = createSlice<OrderSlice, Reducers>({
 				delete state.order.orders[payload.id];
 			}
 		},
-		setTable: (state, { payload }) => {
-			state.table = payload;
-		},
-		openConfirm: state => {
-			state.confirmOpen = true;
-		},
-		orderAgain: state => {
+		setTable:    (state, { payload }) => { state.table = payload; },
+		openConfirm: state => { state.confirmOpen = true; },
+		orderAgain:  state => {
+			state.order = { orders: [] };
 			state.successOpen = false;
 		},
+		back:        state => { state.confirmOpen = false; },
 	},
 	extraReducers: builder => {
 		builder.addCase(fetchCategories.fulfilled, (state, { payload }) => {
 			state.categories = payload;
 			state.consumptions = payload
-				.reduce<Consumption[]>((result, c) => result.concat(c.consumptions), []);
+				.reduce<Consumption[]>((result, c) => result
+					.concat(c.consumptions
+						.map(cons => ({ ...cons, categoryId: c.id }))), []);
 		});
 		builder.addCase(postOrder.fulfilled, state => {
 			state.confirmOpen = false;
@@ -104,13 +105,25 @@ const orderSlice = createSlice<OrderSlice, Reducers>({
 
 export default orderSlice.reducer;
 
-export const order = (state: RootState): Order => state.order.order;
-export const name = (state: RootState): string => state.order.name;
-export const table = (state: RootState): string => state.order.table;
-export const categories = (state: RootState): Category[] => state.order.categories;
-export const consumptions = (state: RootState): Consumption[] => state.order.consumptions;
-export const confirmOpen = (state: RootState): boolean => state.order.confirmOpen;
-export const successOpen = (state: RootState): boolean => state.order.successOpen;
+export const order            = (state: RootState): Order => state.order.order;
+export const name             = (state: RootState): string => state.order.name;
+export const table            = (state: RootState): string => state.order.table;
+export const categories       = (state: RootState): Category[] => state.order.categories;
+export const consumptions     = (state: RootState): Consumption[] => state.order.consumptions;
+export const confirmOpen      = (state: RootState): boolean => state.order.confirmOpen;
+export const successOpen      = (state: RootState): boolean => state.order.successOpen;
+export const totalOrderCounts = createSelector<RootState, Order, Consumption[], Record<number, number>>(
+	[order, consumptions],
+	(order, consumptions) => {
+		return consumptions.reduce((counts, c) => {
+			const amount = order.orders[c.id];
+			if (c.categoryId && amount) {
+				counts[c.categoryId] = (counts[c.categoryId] || 0) + amount;
+			}
+			return counts;
+		}, {} as Record<number, number>);
+	}
+);
 export const orders = createSelector<RootState, Order, Consumption[], OrderEntry[]>(
 	[order, consumptions],
 	(order, consumptions): OrderEntry[] => Object.keys(order.orders).map(key => {
@@ -124,4 +137,4 @@ export const orders = createSelector<RootState, Order, Consumption[], OrderEntry
 	})
 );
 
-export const { addConsumption, openConfirm, orderAgain } = orderSlice.actions;
+export const { addConsumption, openConfirm, orderAgain, back } = orderSlice.actions;
