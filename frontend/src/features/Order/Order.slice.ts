@@ -47,7 +47,7 @@ export const fetchCategories = createAsyncThunk<Category[]>(
 	}
 );
 
-export const postOrder = createAsyncThunk<void, { name: string, table: string }, { state: RootState }>(
+export const postOrder = createAsyncThunk<{ name: string, table: string }, { name: string, table: string }, { state: RootState }>(
 	"order/postOrder",
 	async ({ name, table }, { getState }) => {
 		try {
@@ -57,6 +57,7 @@ export const postOrder = createAsyncThunk<void, { name: string, table: string },
 				orders: Object.entries(newOrder.orders)
 					.map(([key, value]) => ({ id: parseInt(key), amount: value }))
 			});
+			return { name, table };
 		} catch ({ message }) {
 			handleConstraintError(message);
 			throw Error(message);
@@ -96,7 +97,9 @@ const orderSlice = createSlice<OrderSlice, Reducers>({
 					.concat(c.consumptions
 						.map(cons => ({ ...cons, categoryId: c.id }))), []);
 		});
-		builder.addCase(postOrder.fulfilled, state => {
+		builder.addCase(postOrder.fulfilled, (state, { payload }) => {
+			state.table = payload.table;
+			state.name = payload.name;
 			state.confirmOpen = false;
 			state.successOpen = true;
 		});
