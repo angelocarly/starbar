@@ -22,6 +22,7 @@ const Menu: FC = () => {
 		dispatch(fetchCategories());
 	}, [dispatch]);
 
+
 	return <>
 		<Collapse
 			className={styles.categories}

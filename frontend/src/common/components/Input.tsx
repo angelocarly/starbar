@@ -3,12 +3,13 @@ import { Input as AntInput, Form } from "antd";
 import { Control, Controller, FieldError } from "react-hook-form";
 
 interface InputProps {
-	placeholder: string,
+    placeholder: string,
 	prefix: ReactNode,
 	type: "password" | "number" | "text",
 	control: Control<Record<string, any>>,
 	name: string,
-	error: FieldError
+	error: FieldError,
+	disabled: boolean
 }
 
 const Input: FC<Partial<InputProps>> = ({
@@ -17,7 +18,8 @@ const Input: FC<Partial<InputProps>> = ({
 	type = "text",
 	control,
 	name,
-	error
+	error,
+	disabled
 }: Partial<InputProps>) => {
 	return (
 		<Controller
@@ -33,6 +35,7 @@ const Input: FC<Partial<InputProps>> = ({
 						type={type}
 						placeholder={placeholder}
 						prefix={prefix}
+						disabled={disabled}
 					/>
 				</Form.Item>
 			)}

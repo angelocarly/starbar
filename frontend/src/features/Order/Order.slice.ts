@@ -8,31 +8,34 @@ import { sendOrder } from "./Menu/Menu.service";
 import { createSelector } from "reselect/src";
 
 type OrderSlice = {
-	categories: Category[],
-	readonly consumptions: Consumption[],
-	order: Order,
-	name: string,
-	table: string,
-	confirmOpen: boolean,
-	successOpen: boolean,
+    categories:   Category[],
+	consumptions: Consumption[],
+	order:        Order,
+	name:         string,
+	table:        string,
+	confirmOpen:  boolean,
+	successOpen:  boolean,
+	viaQR:		  boolean,
 }
 
 type Reducers = {
 	addConsumption: CaseReducer<OrderSlice, PayloadAction<{ id: number, add: boolean }>>,
 	setTable:       CaseReducer<OrderSlice, PayloadAction<string>>
+	setViaQR:       CaseReducer<OrderSlice, PayloadAction<boolean>>
 	openConfirm:    CaseReducer<OrderSlice, PayloadAction>,
 	back:           CaseReducer<OrderSlice, PayloadAction>,
 	orderAgain:     CaseReducer<OrderSlice, PayloadAction>,
 }
 
 const initialState: OrderSlice = {
-	categories: [],
+	categories:   [],
 	consumptions: [],
-	order: { orders: {} },
-	name: "",
-	table: "",
-	confirmOpen: false,
-	successOpen: false,
+	order:        { orders: {} },
+	name:         "",
+	table:        "",
+	confirmOpen:  false,
+	successOpen:  false,
+	viaQR:        false,
 };
 
 export const fetchCategories = createAsyncThunk<Category[]>(
@@ -82,6 +85,7 @@ const orderSlice = createSlice<OrderSlice, Reducers>({
 			}
 		},
 		setTable:    (state, { payload }) => { state.table = payload; },
+		setViaQR:    (state, { payload }) => { state.viaQR = payload; },
 		openConfirm: state => { state.confirmOpen = true; },
 		orderAgain:  state => {
 			state.order = { orders: [] };
@@ -115,6 +119,7 @@ export const categories       = (state: RootState): Category[] => state.order.ca
 export const consumptions     = (state: RootState): Consumption[] => state.order.consumptions;
 export const confirmOpen      = (state: RootState): boolean => state.order.confirmOpen;
 export const successOpen      = (state: RootState): boolean => state.order.successOpen;
+export const viaQR		  = (state: RootState): boolean => state.order.viaQR;
 export const totalOrderCounts = createSelector<RootState, Order, Consumption[], Record<number, number>>(
 	[order, consumptions],
 	(order, consumptions) => {
@@ -140,4 +145,11 @@ export const orders = createSelector<RootState, Order, Consumption[], OrderEntry
 	})
 );
 
-export const { addConsumption, openConfirm, orderAgain, back } = orderSlice.actions;
+export const {
+	addConsumption,
+	openConfirm,
+	orderAgain,
+	back,
+	setTable,
+	setViaQR
+} = orderSlice.actions;

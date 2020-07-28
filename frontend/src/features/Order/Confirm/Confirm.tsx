@@ -1,6 +1,13 @@
 import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { name as nameState, orders, postOrder, table as tableState, back } from "../Order.slice";
+import {
+	orders,
+	postOrder,
+	name as nameState,
+	table as tableState,
+	viaQR as viaQRState,
+	back
+} from "../Order.slice";
 import { AppDispatch } from "../../../app/store";
 import { useForm } from "react-hook-form";
 import Input from "../../../common/components/Input";
@@ -21,6 +28,7 @@ const Confirm: FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const name = useSelector(nameState);
 	const table = useSelector(tableState);
+	const viaQR = useSelector(viaQRState);
 	const { control, handleSubmit, errors } = useForm<ConfirmSchema>({
 		resolver: yupResolver(schema),
 		defaultValues: { name, table }
@@ -42,6 +50,7 @@ const Confirm: FC = () => {
 				placeholder="Tafelnummer"
 				control={control}
 				name="table"
+				disabled={viaQR}
 				error={errors.table}
 			/>
 			<Table
