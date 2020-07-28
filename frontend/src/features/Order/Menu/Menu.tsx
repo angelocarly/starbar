@@ -15,6 +15,7 @@ const Menu: FC = () => {
 		dispatch(fetchCategories());
 	}, [dispatch]);
 
+
 	return <>
 		<Collapse defaultActiveKey={1} accordion>
 			{

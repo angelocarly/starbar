@@ -4,7 +4,8 @@ import {
 	orders,
 	postOrder,
 	name as nameState,
-	table as tableState
+	table as tableState,
+	viaQR as viaQRState
 } from "../Order.slice";
 import { AppDispatch } from "../../../app/store";
 import { OrderEntry } from "../Order.models";
@@ -27,6 +28,7 @@ const Confirm: FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const name = useSelector(nameState);
 	const table = useSelector(tableState);
+	const viaQR = useSelector(viaQRState);
 	const { control, handleSubmit, errors } = useForm<ConfirmSchema>({
 		resolver: yupResolver(schema),
 		defaultValues: { name, table }
@@ -48,6 +50,7 @@ const Confirm: FC = () => {
 				placeholder="Tafelnummer"
 				control={control}
 				name="table"
+				disabled={viaQR}
 				error={errors.table}
 			/>
 			<Table<OrderEntry>
