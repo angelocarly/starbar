@@ -25,9 +25,10 @@ export class CategoryController {
 	@Authorized()
 	@Post("/categories")
 	async post(@Body() category: CreateCategoryRequest): Promise<CategoryResponse> {
+
 		return {
 			id: await this.categoryService.insert({ name: category.name }),
-			name: category.name,
+			name: category.name!,
 		};
 	}
 

@@ -1,3 +1,7 @@
-export type CreateCategoryRequest = {
-	name: string
-};
+import { IsDefined } from "class-validator";
+
+export class CreateCategoryRequest
+{
+	@IsDefined()
+	public name: string | undefined;
+}
