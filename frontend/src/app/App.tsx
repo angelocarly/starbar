@@ -5,8 +5,9 @@ import Admin from "../features/Admin/Admin";
 import styles from "./App.module.scss";
 import Order from "../features/Order/Order";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import QR from "../features/Admin/QR/QR";
+import QR from "../features/QR/QR";
 import Header from "../common/components/Header";
+import PasswordReset from "../features/PasswordReset/PasswordReset";
 
 const { Footer, Content } = Layout;
 
@@ -20,6 +21,9 @@ const App: FC = () => {
 						<Switch>
 							<Route path="/admin/qr">
 								<QR/>
+							</Route>
+							<Route path="/admin/password">
+								<PasswordReset/>
 							</Route>
 							<Route path="/admin">
 								<Admin/>
