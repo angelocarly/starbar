@@ -1,11 +1,11 @@
-import React, {FC, useEffect} from "react";
+import React, { FC, useEffect } from "react";
 import Confirm from "./Confirm/Confirm";
 import Menu from "./Menu/Menu";
-import {useDispatch, useSelector} from "react-redux";
-import {confirmOpen, setTable, successOpen as successOpenState, setViaQR} from "./Order.slice";
+import { useDispatch, useSelector } from "react-redux";
+import { confirmOpen, setTable, successOpen as successOpenState, setViaQR } from "./Order.slice";
 import Success from "./Success";
-import {useLocation} from "react-router-dom";
-import {AppDispatch} from "../../app/store";
+import { useLocation } from "react-router-dom";
+import { AppDispatch } from "../../app/store";
 
 const Order: FC = () => {
 
@@ -19,8 +19,8 @@ const Order: FC = () => {
 	const table = query.get("table");
 	useEffect(() => {
 		if( table ) {
-			dispatch(setTable(table || ""))
-			dispatch(setViaQR(true))
+			dispatch(setTable(table || ""));
+			dispatch(setViaQR(true));
 		}
 	}, [dispatch]);
 

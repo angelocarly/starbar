@@ -50,7 +50,7 @@ const Confirm: FC = () => {
 				placeholder="Tafelnummer"
 				control={control}
 				name="table"
-                disabled={viaQR}
+				disabled={viaQR}
 				error={errors.table}
 			/>
 			<Table<OrderEntry>

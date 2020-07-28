@@ -1,10 +1,10 @@
-import React, {FC} from "react";
-import {Layout} from "antd";
+import React, { FC } from "react";
+import { Layout } from "antd";
 import "antd/dist/antd.css";
 import Admin from "../features/Admin/Admin";
 import styles from "./App.module.scss";
 import Order from "../features/Order/Order";
-import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import QR from "../features/Admin/QR/QR";
 import Header from "../common/components/Header";
 
