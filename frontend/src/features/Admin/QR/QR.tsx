@@ -3,7 +3,6 @@ import { Button, Input, InputNumber, Radio, Space, Typography } from "antd";
 import styles from "./QR.module.scss";
 import { Document, Image, Page, pdf, Text, View } from "@react-pdf/renderer";
 import { saveAs } from "file-saver";
-// import {QRCode} from "qrcode";
 var QRCode = require("qrcode");
 
 const { Title } = Typography;
@@ -15,11 +14,11 @@ const QR: FC = () => {
 	const [start, setStart] = useState<number>(1);
 	const [end, setEnd] = useState<number>(50);
 
-	const generateQR = async (text: string) => {
+	const generateQR = async (text: string): Promise<string> => {
 		try {
 			return QRCode.toDataURL(text, { type: "image/png", width: 300 });
 		} catch (err) {
-			console.log(err);
+			console.error(err);
 		}
 		return "";
 	};
@@ -114,11 +113,6 @@ const QR: FC = () => {
 							onChange={val => setTable(val.target.value)}
 							value={table}
 						/>
-						<p>
-						</p>
-						{/*<PDFDownloadLink document={PdfDoc()} fileName="qr-codes.pdf">*/}
-						{/*    {({blob, url, loading, error}) => (loading ? 'Loading document...' : 'Download now!')}*/}
-						{/*</PDFDownloadLink>*/}
 						<Button onClick={() => PdfDoc([table])}>Genereer</Button>
 					</>
 						: <>
