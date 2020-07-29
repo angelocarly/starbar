@@ -5,13 +5,13 @@ import {
 	postOrder,
 	name as nameState,
 	table as tableState,
-	viaQR as viaQRState
+	viaQR as viaQRState,
+	back
 } from "../Order.slice";
 import { AppDispatch } from "../../../app/store";
-import { OrderEntry } from "../Order.models";
 import { useForm } from "react-hook-form";
 import Input from "../../../common/components/Input";
-import { Table } from "antd";
+import { Space, Table } from "antd";
 import Button from "../../../common/components/Button";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers";
@@ -53,14 +53,23 @@ const Confirm: FC = () => {
 				disabled={viaQR}
 				error={errors.table}
 			/>
-			<Table<OrderEntry>
+			<Table
+				rowKey={item => item.name}
 				columns={[
 					{ title: "Naam", dataIndex: "name" },
 					{ title: "Aantal", dataIndex: "amount" },
-					{ title: "Prijs", dataIndex: "totalPrice" },
+					{
+						title: "Prijs",
+						dataIndex: "totalPrice",
+						render: (_, data) => <Space align="center">€ {data.totalPrice}</Space>
+					},
 				]}
-				dataSource={useSelector(orders)}/>
-			<Button htmlType="submit">Bevestigen</Button>
+				dataSource={useSelector(orders)}
+			/>
+			<div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+				<Button onClick={() => dispatch(back())}>Terug</Button>
+				<Button htmlType="submit">Bevestigen</Button>
+			</div>
 		</form>
 	);
 };

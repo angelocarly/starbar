@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import { Form, Input, Modal } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../../../app/store";
+import { AppDispatch } from "../../../app/store";
 import { FormInstance } from "antd/lib/form";
-import { closeCreateCategory, createCategoryOpen } from "../../Admin.slice";
-import { createCategory } from "../../Admin.thunks";
+import { closeCreateCategory, createCategoryOpen } from "../Admin.slice";
+import { createCategory } from "../Admin.thunks";
 
 interface CreateCategoryProps {
 	form: FormInstance

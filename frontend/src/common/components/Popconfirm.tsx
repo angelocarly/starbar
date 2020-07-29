@@ -17,7 +17,10 @@ const Popconfirm: FC<PopconfirmProps> = ({
 	return (
 		<AntPopconfirm
 			title={title}
-			onConfirm={onConfirm}
+			onConfirm={event => {
+				event?.stopPropagation();
+				onConfirm();
+			}}
 			onCancel={onCancel}
 			cancelText="Nee"
 			okText="Ja"

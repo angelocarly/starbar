@@ -45,7 +45,7 @@ const Consumptions: FC<ConsumptionsProps> = ({
 		},
 		{
 			title: "Prijs",
-			render: (_, record) => <p>€ {record.price}</p>,
+			render: (_, record) => <p style={{ margin: 0 }}>€ {record.price}</p>,
 			onCell: (record: Consumption) => ({
 				record,
 				inputType: "number",
@@ -79,11 +79,12 @@ const Consumptions: FC<ConsumptionsProps> = ({
 	return (
 		<Form form={form} component={false}>
 			<Table
+				rowKey={c => c.id}
 				components={{ body: { cell: EditableField } }}
 				columns={columns}
 				dataSource={category.consumptions}
 				footer={() => <Button onClick={() => {
-					createForm.setFieldsValue({ name: "", price: 1 });
+					createForm.setFieldsValue({ name: "", price: null });
 					dispatch(openCreateConsumption(category.id));
 				}}>Nieuwe consumptie</Button>}
 				pagination={false}

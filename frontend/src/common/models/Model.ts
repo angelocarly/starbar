@@ -7,5 +7,6 @@ export type Category = {
 export type Consumption = {
 	id: number,
 	name: string,
-	price: number
+	price: number,
+	categoryId?: number
 };

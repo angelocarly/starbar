@@ -13,7 +13,8 @@ import {
 import { message } from "antd";
 import { UpdateCategoryRequest, UpdateConsumptionRequest } from "./Admin.models";
 import { RootState } from "../../app/rootReducer";
-import { createConsumptionCategoryId, selectedCategory, selectedConsumption } from "./Admin.slice";
+import { createConsumptionCategoryId, selectedCategory, selectedConsumption, clearToken } from "./Admin.slice";
+import { AppDispatch } from "../../app/store";
 
 export const fetchCategories = createAsyncThunk<Category[]>(
 	"admin/fetchcategories",
@@ -27,6 +28,15 @@ export const login = createAsyncThunk<string, string>(
 		localStorage.setItem("access_token", result.token);
 		message.success("Je bent ingelogd!");
 		return result.token;
+	}
+);
+
+export const logout = createAsyncThunk<void, void, { dispatch: AppDispatch }>(
+	"admin/login",
+	async (_, { dispatch }) => {
+		dispatch(clearToken());
+		localStorage.removeItem("access_token");
+		message.success("Je bent uitgelogd!");
 	}
 );
 
