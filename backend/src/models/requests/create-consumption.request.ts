@@ -1,16 +1,14 @@
-
-import { IsDefined, Min } from "class-validator";
+import { IsDefined, IsNotEmpty, Min } from "class-validator";
 
 export class CreateConsumptionRequest
 {
 	@IsDefined()
-	public categoryId: number | undefined;
+	public categoryId?: number;
 
-	@IsDefined()
-	public name: string | undefined;
+	@IsNotEmpty()
+	public name?: string;
 
 	@IsDefined()
     @Min(0)
-	public price: number | undefined;
-
+	public price?: number;
 }

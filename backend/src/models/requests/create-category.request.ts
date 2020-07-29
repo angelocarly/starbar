@@ -1,7 +1,7 @@
 import { IsDefined } from "class-validator";
 
-export class CreateCategoryRequest
-{
+export class CreateCategoryRequest {
+
 	@IsDefined()
-	public name: string | undefined;
+	public name?: string;
 }

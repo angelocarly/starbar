@@ -1,11 +1,11 @@
-import { IsDefined, Matches } from "class-validator";
+import { IsNotEmpty, Matches } from "class-validator";
 
 export class PasswordDto {
 
-	@IsDefined()
+	@IsNotEmpty()
 	public password: string;
 
-	@IsDefined()
+	@IsNotEmpty()
     @Matches("password")
 	public passwordConfirm: string;
 
