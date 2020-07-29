@@ -9,8 +9,8 @@ import Header from "../common/components/Header";
 import PasswordReset from "../features/PasswordReset/PasswordReset";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken, token as tokenState } from "../features/Admin/Admin.slice";
-import Categories from "../features/Admin/Categories/Categories/Categories";
-import Login from "../features/Admin/Login/Login";
+import Categories from "../features/Admin/Categories/Categories";
+import Login from "../features/Login/Login";
 import { AppDispatch } from "./store";
 
 const { Footer, Content } = Layout;

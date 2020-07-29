@@ -1,24 +1,24 @@
 import React, { useEffect } from "react";
-import { Category } from "../../../../common/models/Model";
+import { Category } from "../../../common/models/Model";
 import { Form, Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../../../app/store";
+import { AppDispatch } from "../../../app/store";
 import {
 	cancelEdit,
 	categories,
 	selectedCategoryId,
 	startEdit,
 	openCreateCategory,
-} from "../../Admin.slice";
-import EditableField from "../EditableField";
+} from "../Admin.slice";
+import EditableField from "./EditableField";
 import { ColumnProps } from "antd/es/table";
-import Consumptions from "../Consumptions/Consumptions";
-import ModifyButtons from "../ModifyButtons";
+import Consumptions from "./Consumptions/Consumptions";
+import ModifyButtons from "./ModifyButtons";
 import CreateCategory from "./CreateCategory";
-import CreateConsumption from "../Consumptions/CreateConsumption";
-import Button from "../../../../common/components/Button";
-import { CreateCategoryRequest } from "../../Admin.models";
-import { deleteCategory, fetchCategories, updateCategory } from "../../Admin.thunks";
+import CreateConsumption from "./Consumptions/CreateConsumption";
+import Button from "../../../common/components/Button";
+import { CreateCategoryRequest } from "../Admin.models";
+import { deleteCategory, fetchCategories, updateCategory } from "../Admin.thunks";
 
 const Categories = () => {
 
