@@ -1,13 +1,13 @@
 import React, { FC } from "react";
 import { UserOutlined } from "@ant-design/icons/lib";
-import Input from "../../../common/components/Input";
+import Input from "../../common/components/Input";
 import styles from "./Login.module.scss";
 import { Space, Typography } from "antd";
-import Button from "../../../common/components/Button";
+import Button from "../../common/components/Button";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../app/store";
-import { login } from "../Admin.thunks";
+import { AppDispatch } from "../../app/store";
+import { login } from "../Admin/Admin.thunks";
 
 const { Title } = Typography;
 

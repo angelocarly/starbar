@@ -2,16 +2,12 @@
   min-height: 100vh;
 }
 
-.content {
-  padding: 0 1vh;
-}
-
 .footer {
   text-align: center;
 }
 
 @media (min-width: 1000px) {
-  .container {
+  .content {
     margin: 0 100px;
   }
 }

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Form, Input, Modal } from "antd";
+import { Form, Input, InputNumber, Modal } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { closeCreateConsumption, createConsumptionOpen } from "../../Admin.slice";
 import { AppDispatch } from "../../../../app/store";
@@ -41,10 +41,14 @@ const CreateConsumption: FC<CreateConsumptionProps> = ({ form }: CreateConsumpti
 					name="price"
 					rules={[
 						{ required: true, message: "Vul een prijs in aub.!" },
-						{ type: "number", message: "Ongeldige waarde" },
+						{ min: 0, message: "Ongeldige waarde" },
 					]}
 				>
-					<Input placeholder="Price"/>
+					<InputNumber
+						formatter={value => `€ ${value}`}
+						parser={value => value ? value.replace(/€\s?|(,*)/g, "") : ""}
+						placeholder="Prijs"
+					/>
 				</Form.Item>
 			</Modal>
 		</Form>

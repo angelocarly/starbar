@@ -36,7 +36,7 @@ type Reducers = {
 	closeCreateConsumption: CaseReducer<AdminSlice, PayloadAction>,
 	openCreateCategory:     CaseReducer<AdminSlice, PayloadAction>,
 	closeCreateCategory:    CaseReducer<AdminSlice, PayloadAction>,
-	logout:                 CaseReducer<AdminSlice, PayloadAction>
+	clearToken:             CaseReducer<AdminSlice, PayloadAction>,
 	setToken:               CaseReducer<AdminSlice, PayloadAction<string>>
 };
 
@@ -55,7 +55,7 @@ const adminSlice = createSlice<AdminSlice, Reducers>({
 		closeCreateConsumption: state => { state.createConsumptionOpen = false; },
 		closeCreateCategory:    state => { state.createCategoryOpen = false; },
 		openCreateCategory:     state => { state.createCategoryOpen = true; },
-		logout:                 state => { state.token = ""; },
+		clearToken:             state => { state.token = ""; },
 		setToken:               (state, { payload }) => { state.token = payload; }
 	},
 	extraReducers: builder => {
@@ -144,6 +144,6 @@ export const {
 	openCreateConsumption,
 	closeCreateCategory,
 	openCreateCategory,
-	logout,
+	clearToken,
 	setToken
 } = adminSlice.actions;

@@ -18,15 +18,15 @@ const Consumption = ({ consumption }: ConsumptionProps) => {
 	return (
 		<List.Item>
 			<div className={styles.content}>
-				<p>{consumption.name}</p>
-				<p className={styles.price}>€ {consumption.price}</p>
-				<Space className={styles.amount}>
+				<b>{consumption.name}</b>
+				<b className={styles.price}>€ {consumption.price}</b>
+				<Space align="center" className={styles.amount}>
 					<Button
 						type="primary"
 						shape="circle"
 						onClick={() => dispatch(addConsumption({ id: consumption.id, add: true }))}
 					><MinusOutlined/></Button>
-					{useSelector(order).orders[consumption.id] || 0}
+					<b>{useSelector(order).orders[consumption.id] || 0}</b>
 					<Button
 						type="primary"
 						shape="circle"

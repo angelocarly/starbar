@@ -37,5 +37,4 @@ export class CategoryRepository implements GenericRepository<Category> {
 	delete(id: number): Promise<DeleteResult> {
 		return this.repository.delete(id);
 	}
-
 }
