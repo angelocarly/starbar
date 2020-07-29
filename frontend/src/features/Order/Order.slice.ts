@@ -41,7 +41,7 @@ export const fetchCategories = createAsyncThunk<Category[]>(
 	"order/fetchcategories",
 	async () => {
 		try {
-			return (await apiCall<Category[]>("/menu"))!;
+			return (await apiCall<Category[]>("/api/menu"))!;
 		} catch ({ message }) {
 			handleConstraintError(message);
 			throw Error(message);
