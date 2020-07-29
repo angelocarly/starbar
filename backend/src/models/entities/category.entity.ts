@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { Consumption } from "./consumption.entity";
+import { IsDefined } from "class-validator";
 
 @Entity("category")
 export class Category {
@@ -8,6 +9,7 @@ export class Category {
     public id?: number;
 
     @Column()
+    @IsDefined()
     public name?: string;
 
     @OneToMany(() => Consumption, consumption => consumption.category, {
