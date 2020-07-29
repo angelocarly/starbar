@@ -1,17 +1,29 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { Layout } from "antd";
 import "antd/dist/antd.css";
-import Admin from "../features/Admin/Admin";
 import styles from "./App.module.scss";
 import Order from "../features/Order/Order";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import QR from "../features/QR/QR";
 import Header from "../common/components/Header";
 import PasswordReset from "../features/PasswordReset/PasswordReset";
+import { useDispatch, useSelector } from "react-redux";
+import { setToken, token as tokenState } from "../features/Admin/Admin.slice";
+import Categories from "../features/Admin/Categories/Categories/Categories";
+import Login from "../features/Admin/Login/Login";
+import { AppDispatch } from "./store";
 
 const { Footer, Content } = Layout;
 
 const App: FC = () => {
+
+	const token = useSelector(tokenState);
+	const dispatch = useDispatch<AppDispatch>();
+
+	useEffect(() => {
+		dispatch(setToken(localStorage.getItem("access_token") || ""));
+	}, [dispatch]);
+
 	return (
 		<Layout className={styles.layout}>
 			<Router>
@@ -23,10 +35,10 @@ const App: FC = () => {
 								<QR/>
 							</Route>
 							<Route path="/admin/password">
-								<PasswordReset/>
+								{token ? <PasswordReset/> : <Login/>}
 							</Route>
 							<Route path="/admin">
-								<Admin/>
+								{token ? <Categories/> : <Login/>}
 							</Route>
 							<Route path="/">
 								<Order/>

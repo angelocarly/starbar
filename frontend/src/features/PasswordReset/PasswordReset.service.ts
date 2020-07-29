@@ -1,13 +1,9 @@
 import { apiCall } from "../../common/utils/fetch";
-import { handleConstraintError } from "../../common/utils/error";
+import { LoginResponse } from "../Admin/Admin.models";
 
-export const resetPassword = async (password: string): Promise<void> => {
-	try {
-		await apiCall("/change-password", {
-			method: "PUT",
-			body: { password, passwordConfirm: password }
-		});
-	} catch ({ message }) {
-		handleConstraintError(message);
-	}
+export const resetPassword = async (password: string): Promise<LoginResponse | undefined> => {
+	return (await apiCall<LoginResponse>("/change-password", {
+		method: "PUT",
+		body: { password, passwordConfirm: password }
+	}))!;
 };

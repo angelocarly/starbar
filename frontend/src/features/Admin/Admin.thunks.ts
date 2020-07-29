@@ -30,6 +30,14 @@ export const login = createAsyncThunk<string, string>(
 	}
 );
 
+export const logout = createAsyncThunk(
+	"admin/login",
+	async () => {
+		localStorage.removeItem("access_token");
+		message.success("Je bent uitgelogd!");
+	}
+);
+
 export const updateCategory = createAsyncThunk<UpdateCategoryRequest, string, { state: RootState }>(
 	"admin/updatecategory",
 	async (name, { getState }) => {

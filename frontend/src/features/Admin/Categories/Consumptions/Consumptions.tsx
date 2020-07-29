@@ -79,6 +79,7 @@ const Consumptions: FC<ConsumptionsProps> = ({
 	return (
 		<Form form={form} component={false}>
 			<Table
+				rowKey={c => c.id}
 				components={{ body: { cell: EditableField } }}
 				columns={columns}
 				dataSource={category.consumptions}

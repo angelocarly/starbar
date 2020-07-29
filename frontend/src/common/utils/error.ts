@@ -32,7 +32,7 @@ export const handleConstraintError = (
 ): void => {
 	handleError(jsonError, converter || (({ name, errors }) => ({
 		message: name,
-		description: errors && errors
+		description: errors && Array.isArray(errors) && errors
 			.reduce<string>((d, e) => d
 				.concat(Object.values(e.constraints)
 					.join()), "")
