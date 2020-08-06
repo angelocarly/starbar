@@ -69,26 +69,26 @@ export class PrinterTicketService implements TicketService {
 						id: "price",
 						header: "Prijs",
 						align: "right",
-						width: 80
+						width: 120
 					},
 					{
 						id: "sum",
 						header: "Tot.",
 						align: "right",
-						width: 80
+						width: 130
 					}
 				]);
 
 			// Add a row for each consumption
-			const body: {name: string, amount: number, price: number, sum: number}[] = [];
+			const body: {name: string, amount: number, price: string, sum: string}[] = [];
 			let sum = 0;
 			ticket.orders.forEach((o) => {
 				body.push(
 					{
 						name: o.consumption.name,
 						amount: o.amount,
-						price: o.consumption.price,
-						sum: o.consumption.price * o.amount
+						price: `€ ${o.consumption.price.toFixed(2)}`,
+						sum: `€ ${(o.consumption.price * o.amount).toFixed(2)}`
 					});
 				sum += o.consumption.price * o.amount;
 			});
@@ -98,13 +98,16 @@ export class PrinterTicketService implements TicketService {
 			a.x = 0;
 			a.save().moveTo(a.x, a.y).lineTo(900, a.y - 8).stroke();
 			a.font("Helvetica-Bold");
-			a.text(`Totaal:        € ${sum}`, {
+			a.text(`Totaal:        € ${sum.toFixed(2)}`, {
 				align: "right"
 			});
 
 			a.font("Helvetica");
 			a.text(`Tafel:    ${ticket.table}`);
 			a.text(`Naam:  ${ticket.name}`);
+
+			a.fontSize(20)
+			a.text("Dit ticket is niet BTW aftrekbaar                   " + `${new Date().toLocaleString()}`)
 
 			a.end();
 
