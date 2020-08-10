@@ -17,7 +17,7 @@ const Header: FC = () => {
 
 	return (
 		<PageHeader
-			title={<Link to="/">Excuse</Link>}
+			title={<Link to="/">Excuze</Link>}
 			extra={<Space size="middle" align="center">
 				{useLocation().pathname.startsWith("/admin") && <>
 					<Link to="/admin/qr">Genereer QR Codes</Link>

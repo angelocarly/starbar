@@ -1,0 +1,4 @@
+- Network:
+  - Ip: 
+  - Dyndns: :
+  - Port: 2202

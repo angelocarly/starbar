@@ -41,7 +41,6 @@ const CreateConsumption: FC<CreateConsumptionProps> = ({ form }: CreateConsumpti
 					name="price"
 					rules={[
 						{ required: true, message: "Vul een prijs in aub.!" },
-						{ min: 0, message: "Ongeldige waarde" },
 					]}
 				>
 					<InputNumber
