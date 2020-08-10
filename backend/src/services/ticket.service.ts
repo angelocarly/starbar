@@ -1,11 +1,11 @@
-import { Inject, Service } from "typedi";
-import { ConsumptionRepository } from "../repositories/consumption.repository";
-import { Ticket } from "../models/entities";
+import {Inject, Service} from "typedi";
+import {ConsumptionRepository} from "../repositories/consumption.repository";
+import {Ticket} from "../models/entities";
 import doc from "pdfkit";
-import { PrinterError } from "../exceptions/errors";
+import {PrinterError} from "../exceptions/errors";
+import Printer from "printer";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const voilab = require("voilab-pdf-table");
-import Printer from "printer";
 
 export interface TicketService {
 
@@ -106,12 +106,13 @@ export class PrinterTicketService implements TicketService {
 			a.text(`Tafel:    ${ticket.table}`);
 			a.text(`Naam:  ${ticket.name}`);
 
-			a.fontSize(20)
-			a.text("Dit ticket is niet BTW aftrekbaar                   " + `${new Date().toLocaleString()}`)
+			a.fontSize(23)
+			a.text("Dit ticket is niet BTW aftrekbaar.  " + `${new Date().toLocaleString()}`)
 
 			a.end();
 
-			// a.pipe(fs.createWriteStream("test.pdf"));
+			// a.pipe(
+			// 	fs.createWriteStream("test.pdf"));
 
 			Printer.printDirect({
 				printer: process.env.PRINTER_NAME,
