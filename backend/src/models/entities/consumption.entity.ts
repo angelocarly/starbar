@@ -11,7 +11,7 @@ export class Consumption {
     @Column()
     public name: string;
 
-    @Column()
+    @Column({type: 'real'})
     @Min(0)
     public price: number;
 
