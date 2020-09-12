@@ -3,7 +3,6 @@ FROM node:10
 
 # set working directory
 WORKDIR /app
-ADD . .
 
 ENV NODE_ENV=production
 
@@ -12,8 +11,7 @@ COPY package*.json ./
 COPY tsconfig.json ./
 RUN npm install --production
 
-COPY dist ./
-
+COPY . .
 RUN npx tsc
 
 EXPOSE 3080
