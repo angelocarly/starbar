@@ -10,23 +10,32 @@ on:
   pull_request:
     branches: [ development ]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+defaults:
+  run:
+    working-directory: ./frontend
+
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  fix-linting:
+    
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      # ESLint and Prettier must be in `package.json`
+      - name: Install Node.js dependencies
+        run: npm install
 
       - name: Lint Action
         uses: wearerequired/lint-action@v1.6.0
         with:
           auto_fix: true
           eslint: true
-          eslint_dir: frontend
           prettier: true
 
