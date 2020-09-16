@@ -31,7 +31,7 @@ module.exports = {
 		"linebreak-style": ["warn", "unix"],
 		"quotes": ["warn", "double"],
 		"semi": ["warn", "always"],
-		"no-unused-vars": ["warn", {"vars": "all", "caughtErrors": "all"}],
+		"no-unused-vars": ["warn", { "vars": "all", "caughtErrors": "all" }],
 		"object-curly-spacing": ["warn", "always"],
 		"eol-last": ["warn", "always"],
 		"operator-linebreak": ["warn", "before"],
