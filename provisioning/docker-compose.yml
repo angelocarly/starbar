@@ -60,7 +60,7 @@ services:
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     environment:
-      REACT_APP_API_URL: http://star.magnias.be
+      REACT_APP_API_URL: https://star.magnias.be
       VIRTUAL_HOST: star.magnias.be
       VIRTUAL_PORT: 4000
       LETSENCRYPT_HOST: star.magnias.be
