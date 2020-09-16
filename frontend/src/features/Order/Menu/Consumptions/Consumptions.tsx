@@ -4,16 +4,16 @@ import { Consumption as ConsumptionModel } from "../../../../common/models/Model
 import Consumption from "./Consumption";
 
 interface ConsumptionsProps {
-	consumptions: ConsumptionModel[];
+  consumptions: ConsumptionModel[];
 }
 
 const Consumptions = ({ consumptions }: ConsumptionsProps) => {
-	return (
-		<List
-			dataSource={consumptions}
-			renderItem={item => <Consumption key={item.id} consumption={item}/>}
-		/>
-	);
+  return (
+    <List
+      dataSource={consumptions}
+      renderItem={(item) => <Consumption key={item.id} consumption={item} />}
+    />
+  );
 };
 
 export default Consumptions;

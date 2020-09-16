@@ -16,40 +16,37 @@ import { AppDispatch } from "./store";
 const { Footer, Content } = Layout;
 
 const App: FC = () => {
+  const token = useSelector(tokenState);
+  const dispatch = useDispatch<AppDispatch>();
 
-	const token = useSelector(tokenState);
-	const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    dispatch(setToken(localStorage.getItem("access_token") || ""));
+  }, [dispatch]);
 
-	useEffect(() => {
-		dispatch(setToken(localStorage.getItem("access_token") || ""));
-	}, [dispatch]);
-
-	return (
-		<Layout className={styles.layout}>
-			<Router>
-				<div className={styles.content}>
-					<Header/>
-					<Content>
-						<Switch>
-							<Route path="/admin/qr">
-								<QR/>
-							</Route>
-							<Route path="/admin/password">
-								{token ? <PasswordReset/> : <Login/>}
-							</Route>
-							<Route path="/admin">
-								{token ? <Categories/> : <Login/>}
-							</Route>
-							<Route path="/">
-								<Order/>
-							</Route>
-						</Switch>
-					</Content>
-				</div>
-			</Router>
-			<Footer className={styles.footer}>Excuze 2020</Footer>
-		</Layout>
-	);
+  return (
+    <Layout className={styles.layout}>
+      <Router>
+        <div className={styles.content}>
+          <Header />
+          <Content>
+            <Switch>
+              <Route path="/admin/qr">
+                <QR />
+              </Route>
+              <Route path="/admin/password">
+                {token ? <PasswordReset /> : <Login />}
+              </Route>
+              <Route path="/admin">{token ? <Categories /> : <Login />}</Route>
+              <Route path="/">
+                <Order />
+              </Route>
+            </Switch>
+          </Content>
+        </div>
+      </Router>
+      <Footer className={styles.footer}>Excuze 2020</Footer>
+    </Layout>
+  );
 };
 
 export default App;

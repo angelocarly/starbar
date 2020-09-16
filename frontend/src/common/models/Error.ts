@@ -1,11 +1,11 @@
 export type HttpError = {
-	errors?: Error[],
-	httpCode: number,
-	message: string,
-	name: string
+  errors?: Error[];
+  httpCode: number;
+  message: string;
+  name: string;
 };
 
 type Error = {
-	property: string,
-	constraints: Record<string, string>
+  property: string;
+  constraints: Record<string, string>;
 };

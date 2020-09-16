@@ -1,2 +1,1 @@
-npm install
-npx tsc
+docker build -t starbar-backend .

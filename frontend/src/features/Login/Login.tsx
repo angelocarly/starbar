@@ -12,34 +12,36 @@ import { login } from "../Admin/Admin.thunks";
 const { Title } = Typography;
 
 const Login: FC = () => {
+  const { control, handleSubmit } = useForm({
+    defaultValues: { password: "" },
+  });
+  const dispatch = useDispatch<AppDispatch>();
 
-	const { control, handleSubmit } = useForm({ defaultValues: { password: "" } });
-	const dispatch = useDispatch<AppDispatch>();
-
-	return (
-		<div className={styles.login}>
-			<Space direction="vertical">
-				<Title
-					style={{ textAlign: "center" }}
-					level={4}
-				>Vul je wachtwoord in</Title>
-				<form onSubmit={handleSubmit(({ password }) => {
-					dispatch(login(password));
-				})}>
-					<Space align="baseline">
-						<Input
-							control={control}
-							type="password"
-							name="password"
-							placeholder="Wachtwoord"
-							prefix={<UserOutlined/>}
-						/>
-						<Button htmlType="submit">Log in</Button>
-					</Space>
-				</form>
-			</Space>
-		</div>
-	);
+  return (
+    <div className={styles.login}>
+      <Space direction="vertical">
+        <Title style={{ textAlign: "center" }} level={4}>
+          Vul je wachtwoord in
+        </Title>
+        <form
+          onSubmit={handleSubmit(({ password }) => {
+            dispatch(login(password));
+          })}
+        >
+          <Space align="baseline">
+            <Input
+              control={control}
+              type="password"
+              name="password"
+              placeholder="Wachtwoord"
+              prefix={<UserOutlined />}
+            />
+            <Button htmlType="submit">Log in</Button>
+          </Space>
+        </form>
+      </Space>
+    </div>
+  );
 };
 
 export default Login;

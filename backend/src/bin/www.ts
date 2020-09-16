@@ -5,18 +5,18 @@ import { typeOrmConfig } from "../config";
 import server from "../server";
 
 // Verify the print mode
-switch (process.env.PRINT_MODE) {
-case "pdf":
-	Container.set("ticket.service", new PDFTicketService());
-	break;
-case "print":
-	if ( !process.env.PRINTER_NAME ) {
-		throw new Error("Please provide PRINTER_NAME in `.env");
-	}
-	break;
-default:
-	throw new Error("Please provide PRINT_MODE in '.env'. Possible values (pdf, print)");
-}
+//switch (process.env.PRINT_MODE) {
+//case "pdf":
+	//Container.set("ticket.service", new PDFTicketService());
+	//break;
+//case "print":
+	//if ( !process.env.PRINTER_NAME ) {
+		//throw new Error("Please provide PRINTER_NAME in `.env");
+	//}
+	//break;
+//default:
+	//throw new Error("Please provide PRINT_MODE in '.env'. Possible values (pdf, print)");
+//}
 
 export default server;
 

@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+  nginx-proxy:
+    container_name: nginx-proxy
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./certs:/etc/nginx/certs
+      - /etc/nginx/vhost.d
+      - /usr/share/nginx/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./nginx/custom_proxy_settings.conf:/etc/nginx/conf.d/custom_proxy_settings.conf
+    networks:
+      - starbar
+
+  nginx-proxy-letsencrypt:
+    container_name: nginx-proxy-letsencrypt
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    volumes_from:
+      - nginx-proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      DEFAULT_EMAIL: angelo.carly@protonmail.com
+      NGINX_PROXY_CONTAINER: nginx-proxy
+
+networks:
+  starbar:
+    name: starbar

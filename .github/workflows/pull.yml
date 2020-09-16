@@ -35,7 +35,10 @@ jobs:
       - name: Lint Action
         uses: wearerequired/lint-action@v1.6.0
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           auto_fix: true
           eslint: true
+          eslint_dir: ./frontend
           prettier: true
+          prettier_dir: ./frontend
 
