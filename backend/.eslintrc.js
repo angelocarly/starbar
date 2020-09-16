@@ -30,5 +30,6 @@ module.exports = {
 		"dot-notation": ["warn"],
 		"dot-location": ["warn", "property"],
 		"eqeqeq": ["warn", "smart"],
+		"@typescript-eslint/no-non-null-assertion": "off"
 	}
 };

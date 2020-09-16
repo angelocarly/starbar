@@ -3,8 +3,8 @@ import admin from "../features/Admin/Admin.slice";
 import { combineReducers } from "@reduxjs/toolkit";
 
 const rootReducer = combineReducers({
-	order,
-	admin
+  order,
+  admin,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

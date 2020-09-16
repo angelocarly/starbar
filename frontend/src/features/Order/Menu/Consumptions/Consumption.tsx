@@ -8,34 +8,41 @@ import { addConsumption, order } from "../../Order.slice";
 import { AppDispatch } from "../../../../app/store";
 
 interface ConsumptionProps {
-	consumption: ConsumptionModel;
+  consumption: ConsumptionModel;
 }
 
 const Consumption = ({ consumption }: ConsumptionProps) => {
+  const dispatch = useDispatch<AppDispatch>();
 
-	const dispatch = useDispatch<AppDispatch>();
-
-	return (
-		<List.Item>
-			<div className={styles.content}>
-				<p>{consumption.name}</p>
-				<p className={styles.price}>€ {consumption.price}</p>
-				<Space className={styles.amount}>
-					<Button
-						type="primary"
-						shape="circle"
-						onClick={() => dispatch(addConsumption({ id: consumption.id, add: true }))}
-					><MinusOutlined/></Button>
-					{useSelector(order).orders[consumption.id] || 0}
-					<Button
-						type="primary"
-						shape="circle"
-						onClick={() => dispatch(addConsumption({ id: consumption.id, add: false }))}
-					><PlusOutlined/></Button>
-				</Space>
-			</div>
-		</List.Item>
-	);
+  return (
+    <List.Item>
+      <div className={styles.content}>
+        <b>{consumption.name}</b>
+        <b className={styles.price}>€ {consumption.price}</b>
+        <Space align="center" className={styles.amount}>
+          <Button
+            type="primary"
+            shape="circle"
+            onClick={() =>
+              dispatch(addConsumption({ id: consumption.id, add: true }))
+            }
+          >
+            <MinusOutlined />
+          </Button>
+          <b>{useSelector(order).orders[consumption.id] || 0}</b>
+          <Button
+            type="primary"
+            shape="circle"
+            onClick={() =>
+              dispatch(addConsumption({ id: consumption.id, add: false }))
+            }
+          >
+            <PlusOutlined />
+          </Button>
+        </Space>
+      </div>
+    </List.Item>
+  );
 };
 
 export default Consumption;

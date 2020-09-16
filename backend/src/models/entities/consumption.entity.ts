@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Min } from "class-validator";
 import { Category } from "./category.entity";
 
 @Entity("consumption")
@@ -10,7 +11,8 @@ export class Consumption {
     @Column()
     public name: string;
 
-    @Column()
+    @Column({type: 'real'})
+    @Min(0)
     public price: number;
 
     @ManyToOne(() => Category, category => category.consumptions, { onDelete: "CASCADE" })

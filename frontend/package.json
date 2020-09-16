@@ -21,10 +21,12 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/yup": "^0.29.3",
     "antd": "^4.4.1",
+    "eslint": "^7.9.0",
     "file-saver": "^2.0.2",
     "gulp": "^4.0.2",
     "history": "^5.0.0",
     "node-sass": "^4.14.1",
+    "prettier": "^2.1.2",
     "qrcode": "^1.4.4",
     "qrcode.react": "^1.0.0",
     "react": "^16.13.1",
@@ -62,6 +64,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000/api",
+  "proxy": "http://localhost:5000/",
   "homepage": "http://excuze.lan"
 }
