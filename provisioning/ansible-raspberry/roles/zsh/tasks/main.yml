@@ -1,0 +1,88 @@
+---
+- name: Installing Zsh
+  apt: pkg=zsh state=latest
+  register: installation
+  become: true
+
+- name: Check if .zshrc exists (root)
+  stat:
+    path: /root/.zshrc
+  register: stat_rc_result
+  become: true
+
+- name: Check if .oh-my-zsh exists (root)
+  stat:
+    path: /root/.oh-my-zsh
+  register: stat_oh_my_zsh_result
+  become: true
+
+- name: Cloning  oh-my-zsh (root)
+  git:
+    repo=https://github.com/robbyrussell/oh-my-zsh
+    dest=/root/.oh-my-zsh
+  when: not stat_oh_my_zsh_result.stat.exists
+  become: true
+
+- name: Changing default shell (root)
+  shell:
+    cmd: chsh -s /bin/zsh
+
+- name: Stowing zsh (root)
+  shell:
+    chdir: /root/dotfiles
+    cmd: stow zsh
+  when: not stat_rc_result.stat.exists
+
+- name: Stowing oh-my-zsh (root)
+  shell:
+    chdir: /root/dotfiles
+    cmd: stow oh-my-zsh
+  when: not stat_rc_result.stat.exists
+
+- name: Check if .zshrc exists (user)
+  become_user: "{{ username }}"
+  stat:
+    path: ~/.zshrc
+  register: stat_rc_result_user
+  become: true
+
+- name: Check if .oh-my-zsh exists (user)
+  become_user: "{{ username }}"
+  stat:
+    path: ~/.oh-my-zsh
+  register: stat_oh_my_zsh_result_user
+  become: true
+
+- name: Cloning  oh-my-zsh (user)
+  become_user: "{{ username }}"
+  git:
+    repo=https://github.com/robbyrussell/oh-my-zsh
+    dest=~/.oh-my-zsh
+  when: not stat_oh_my_zsh_result_user.stat.exists
+  become: true
+
+- name: Stowing zsh (user)
+  become: true
+  become_user: "{{ username }}"
+  shell:
+    chdir: ~/dotfiles
+    cmd: stow zsh
+  when: not stat_rc_result_user.stat.exists
+
+- name: Stowing oh-my-zsh (user)
+  become: true
+  become_user: "{{ username }}"
+  shell:
+    chdir: ~/dotfiles
+    cmd: stow oh-my-zsh
+  when: not stat_rc_result_user.stat.exists
+
+- name: Changing default shell (user)
+  shell:
+    cmd: chsh -s /bin/zsh {{ username }}
+
+- name: Installing fzf
+  become: true
+  apt:
+    name: fzf
+

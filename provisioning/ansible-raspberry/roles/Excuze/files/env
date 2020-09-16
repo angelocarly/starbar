@@ -1,0 +1,5 @@
+ENV=prod
+PORT=80
+BACKEND_SECRET=editme
+PRINT_MODE=print
+PRINTER_NAME=Ticket_Printer

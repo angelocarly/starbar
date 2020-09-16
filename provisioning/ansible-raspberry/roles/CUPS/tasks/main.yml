@@ -1,0 +1,42 @@
+---
+  
+- name: Installing CUPS
+  apt:
+    name: "cups"
+    state: present
+
+- name: Installing libcups2-dev
+  apt:
+    name: "libcups2-dev"
+    state: present
+
+- name: Adding user to CUPS group
+  user:
+    name: "{{ username }}"
+    groups: lpadmin
+    append: true
+
+- name: Enable and start CUPS service
+  systemd:
+    name: cups
+    state: started
+    enabled: yes
+
+- name: Installing STAR driver
+  copy: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+      - { src: 'tsp143.ppd', dest: '/usr/share/cups/model/' }
+      - { src: 'rastertostar', dest: '/usr/lib/cups/filter/' }
+      - { src: 'rastertostarlm', dest: '/usr/lib/cups/filter/' }
+      - { src: 'rastertostarm', dest: '/usr/lib/cups/filter/' }
+
+- name: Add STAR network printer to CUPS
+  become: true
+  shell:
+    cmd: lpadmin -p "{{ printer_name }}" -E -v "{{ printer_address }}" -m tsp143.ppd -o PageSize=A4
+
+- name: Enable printer
+  become: true
+  shell:
+    cmd: cupsenable "{{ printer_name }}"
+

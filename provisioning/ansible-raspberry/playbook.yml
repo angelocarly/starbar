@@ -1,0 +1,12 @@
+---
+- hosts: raspberry
+  become: true
+  roles:
+    - base
+    - CUPS
+    - dns
+    - Excuze
+    - nginx
+      # - dotfiles
+      # - zsh
+      # - neovim

@@ -1,0 +1,28 @@
+.content {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price {
+  display: flex;
+  justify-content: space-between;
+  margin: auto 4em auto auto;
+  text-align: center;
+}
+
+.amount {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.categories {
+  margin-bottom: 10px;
+}
+
+.category {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
