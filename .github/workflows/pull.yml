@@ -37,5 +37,6 @@ jobs:
         with:
           auto_fix: true
           eslint: true
+          eslint_dir: ./frontend
           prettier: true
 
