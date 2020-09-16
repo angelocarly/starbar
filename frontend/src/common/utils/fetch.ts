@@ -22,7 +22,7 @@ export async function apiCall<T = void>(uri: string, options?: Partial<Options>)
 			}, "?")
 		: "";
 
-	const result = await fetch(process.env.REACT_APP_API_URL + uri + queryParams, {
+	const result = await fetch(uri + queryParams, {
 		method: options?.method,
 		body: options?.body && JSON.stringify(options.body),
 
