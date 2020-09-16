@@ -16,7 +16,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           registry: docker.pkg.github.com
-          repository: angelocarly/Excuze/starbar-frontend
+          repository: angelocarly/excuze/starbar-frontend
           tag_with_ref: true
           path: ./frontend
         
@@ -26,6 +26,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           registry: docker.pkg.github.com
-          repository: angelocarly/Excuze/starbar-backend
+          repository: angelocarly/excuze/starbar-backend
           tag_with_ref: true
           path: ./backend
