@@ -1,6 +1,7 @@
 import { registerDecorator, ValidationArguments, ValidationOptions } from "class-validator";
 
 export const MatchesProperty = (property: string, validationOptions?: ValidationOptions) => {
+	// eslint-disable-next-line @typescript-eslint/ban-types
 	return (object: Object, propertyName: string): void => {
 		registerDecorator({
 			name: "matchesProperty",

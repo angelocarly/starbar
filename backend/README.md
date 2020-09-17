@@ -1,5 +1,5 @@
-# Excuze Backend
-Backend for the Excuze site
+# Starbar Backend
+Backend for the Starbar site
 
 ## Install
 ```
