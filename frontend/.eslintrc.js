@@ -8,6 +8,7 @@ module.exports = {
 		"eslint:recommended",
 		"plugin:react/recommended",
 		"plugin:@typescript-eslint/eslint-recommended",
+		"react-scripts",
 	],
 	globals: {
 		Atomics: "readonly",
