@@ -25,6 +25,7 @@
     "file-saver": "^2.0.2",
     "gulp": "^4.0.2",
     "history": "^5.0.0",
+    "install-peerdeps": "^2.0.3",
     "node-sass": "^4.14.1",
     "prettier": "^2.1.2",
     "qrcode": "^1.4.4",
@@ -36,9 +37,9 @@
     "react-qr-svg": "^2.2.2",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^3.4.3",
     "reselect": "^4.0.0",
-    "typescript": "^3.7.5",
+    "typescript": "^3.9.7",
     "yup": "^0.29.1"
   },
   "scripts": {
