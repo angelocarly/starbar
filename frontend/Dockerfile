@@ -5,6 +5,7 @@ COPY package.json ./
 COPY package-lock.json ./
 RUN npm ci
 COPY . ./
+ENV SKIP_PREFLIGHT_CHECK=true
 RUN npm run build --production
 
 # production environment
