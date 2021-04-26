@@ -1,5 +1,6 @@
 # Excuze
 A simple ordering site for cafetarias
+**Note: currently some functionality is disabled in order to try a cloud solution**
 
 ## Projects
 - [Backend](./backend/) - Node.js backend
