@@ -39,8 +39,8 @@ const QR: FC = () => {
 
 		const tableData = await Promise.all(tables
 			.map<Promise<{ table: string, qr: string }>>(async (t) => ({
-				table: `http://excuze.lan   Tafel: ${t}`,
-				qr: await generateQR(`http://excuze.lan?table=${t}`),
+				table: `http://excuze.duckdns.org   Tafel: ${t}`,
+				qr: await generateQR(`http://excuze.duckdns.org?table=${t}`),
 			}))
 		);
 
