@@ -26,7 +26,7 @@
     "gulp": "^4.0.2",
     "history": "^5.0.0",
     "install-peerdeps": "^2.0.3",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "prettier": "^2.1.2",
     "qrcode": "^1.4.4",
     "qrcode.react": "^1.0.0",
